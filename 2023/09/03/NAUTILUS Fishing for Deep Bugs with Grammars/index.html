@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Curator-Kim的小站</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Curator-Kim的小站"><meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Curator-Kim的小站"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="NAUTILUS: Fishing for Deep Bugs with Grammars"><meta property="og:type" content="blog"><meta property="og:title" content="Curator-Kim"><meta property="og:url" content="https://curator-kim.github.io/"><meta property="og:site_name" content="Curator-Kim"><meta property="og:description" content="NAUTILUS: Fishing for Deep Bugs with Grammars"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://curator-kim.github.io/img/icon.jpg"><meta property="article:published_time" content="2023-09-03T11:11:20.649Z"><meta property="article:modified_time" content="2023-09-03T11:11:35.254Z"><meta property="article:author" content="Curator-Kim"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/icon.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/"},"headline":"Curator-Kim的小站","image":["http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230831162242135.png","http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230831162326158.png","http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903143710744.png","http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903151331940.png","http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903151433175.png","http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903153251882.png","http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903153949191.png","http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903155321362.png","http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903163624119.png","http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903170849303.png","http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903172111350.png","http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903172351218.png","http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903173147834.png","http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903173157260.png","http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903185616823.png","http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903185840241.png","http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903190119864.png"],"datePublished":"2023-09-03T11:11:20.649Z","dateModified":"2023-09-03T11:11:35.254Z","author":{"@type":"Person","name":"Curator-Kim"},"description":"NAUTILUS: Fishing for Deep Bugs with Grammars"}</script><link rel="canonical" href="http://curator-kim.github.io/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/"><link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="referrer" content="no-referrer-when-downgrade"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="/js/globalUtils.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><link rel="stylesheet" href="/live2d/waifu.css"><script type="text/javascript" async src="/live2d/autoload.js"></script><meta name="generator" content="Hexo 5.4.0"></head><body class="is-3-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/logo.png?raw=true" alt="Curator-Kim的小站" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a><a class="navbar-item" href="/album">Album</a><a class="navbar-item" href="/friend">Friend</a><a class="navbar-item" href="/message">Message</a><a class="navbar-item" href="/self-talking">Self-talking</a><a class="navbar-item" href="/music">Music</a><a class="navbar-item" href="/media">Media</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Join Gitter" href="https://gitter.im/hexo-theme-amazing/community"><i class="fab fa-gitter"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="/js/theme-setting.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2023-09-03  <a class="commentCountImg" href="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/#comment-container"><span class="display-none-class">d41d8cd98f00b204e9800998ecf8427e</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="d41d8cd98f00b204e9800998ecf8427e">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>an hour  <i class="fas fa-pencil-alt"> </i>7.1 k</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>&nbsp;visits</span></div></div><h1 class="title is-3 is-size-4-mobile"> </h1><div class="content"><h1 id="NAUTILUS-Fishing-for-Deep-Bugs-with-Grammars"><a href="#NAUTILUS-Fishing-for-Deep-Bugs-with-Grammars" class="headerlink" title="NAUTILUS: Fishing for Deep Bugs with Grammars"></a>NAUTILUS: Fishing for Deep Bugs with Grammars</h1><span id="more"></span>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/RUB-SysSec/nautilus">https://github.com/RUB-SysSec/nautilus</a></p>
+<p>NAUTILUS: 通过结合语法使用和代码覆盖率来有效进行模糊测试的方法。这使得Interesting Inputs可以被有效利用，从而提升输入能够通过语法和语义检查的可能性。论文实现了一种概念验证(Proof of Concept)的模糊测试器，并测试了多个目标包括ChakraCore, PHP, mruby和lua。NAUTILUS发现了大量的漏洞：mruby7个，PHP3个，ChakraCore2个和Lua1个。总共授予了2600个USD和6个CVE</p>
+<h2 id="I-Introduction"><a href="#I-Introduction" class="headerlink" title="I. Introduction"></a>I. Introduction</h2><p><strong>Goals and contributions. </strong> 将基于形容的输入生成和基于反馈的模糊测试结合来探索程序深层漏洞。NAUTILUS并不需要语料库，只需要应用程序的源码和产生输入的语法。测试进程可以通过删除部分无趣的语法或假如额外的规则来进一步调整，例如从语言文档中整合函数名称和参数类型。另外，NAUTILUS运行用户通过额外脚本扩展语法，从而令NAUTILUS产生更多可选输入语言来增强产生语义合法输入的能力。</p>
+<p>NAUTILUS并不只是产生有趣的输入，模糊测试本身也会利用语法，对输入进行高级语义转换，例如，将程序中的一个表达式换成另一个表达式。通过将这些突变与覆盖率反馈相结合，NAUTILUS 可以创建一个语义有趣、种类繁多的输入语料库，并将它们重新组合，从而大幅提高找到语法和语义均有效的新输入的概率。</p>
+<p>总而言之，作了以下贡献：</p>
+<ul>
+<li>介绍并评估了NAUTILUS，它是第一款将基于语法的输入生成与反馈导向模糊处理相结合的模糊器，大大提高了对需要高结构化输入的目标进行模糊处理的效率和效果，而无需任何语料库，并且支持图灵完备脚本，从而创建对复杂、无上下文输入语言的描述</li>
+<li>描述并评估了几种基于语法的突变、最小化和生成技术。通过将覆盖率反馈与基于语法的拼接相结合，NAUTILUS 能够生成语法上正确、语义上通常也正确的程序，其性能优于传统的纯生成式模糊器，后者需要花费大量时间生成和测试语义无效的输入。</li>
+<li>发现了几个漏洞</li>
+</ul>
+<h2 id="II-Background"><a href="#II-Background" class="headerlink" title="II. Background"></a>II. Background</h2><h3 id="A-Fuzzing"><a href="#A-Fuzzing" class="headerlink" title="A. Fuzzing"></a>A. Fuzzing</h3><h3 id="B-Context-Free-Grammars"><a href="#B-Context-Free-Grammars" class="headerlink" title="B.Context-Free Grammars"></a>B.Context-Free Grammars</h3><p>Context-free Grammars (CFGs)非常适合用户形容高结构化语言，这里给出一个CFG简单的定义：直观地说，CFG 是一组形式为 “某个变量 X（非终止符号）可以被下面的字符串（终止符号）和变量数组替换 “的生成规则。此外，一个特殊的起始非终止符号还指定了应用这些规则的起始位置。CFG 所描述的输入语言是所有字符串的集合，这些字符串可以通过应用任意数量的规则得到，直到不再出现非终止符号为止。</p>
+<p>CFG正式定义：$G = (N, T, R,S)$，其中</p>
+<ul>
+<li>$R$是非终止符号的有限集。非终止符号可以被认为是语言中间状态的形容。</li>
+<li>$T$是终止符号的有限集，$N$和$T$不相交</li>
+<li>$R$是包含生成规则的有限集，形式为$A\rarr \alpha$，其中$A\in N$且$\alpha\in ^*T\cup N$</li>
+<li>$S\in N$是开始符号(非终止符号)，所有CFG生成词应从$S$开始</li>
+</ul>
+<p>由于每条规则左侧只包含一个非终止符号，因此可能的生成只取决于一个非终止符号，而无需上下文，因此这些语法被称为无上下文语法。</p>
+<p>要推导出一个字符串，必须对起始符号 S 应用匹配的生成规则，即左侧包含相应非终止符的规则。每一步都会有一个非终端被匹配该非终端的规则的右侧所替换。</p>
+<blockquote>
+<p><strong>Example II.1</strong> 考虑以下语法</p>
+<img src="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230831162242135.png" class title="image-20230831162242135">
+<img src="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230831162326158.png" class title="image-20230831162326158">
+<p>一个可能的G1生成是：$PROG\rarr STMT \rarr VAR=EXPR\rarr a=EXPR \rarr a= NUMBER \rarr a=1$</p>
+<p>最终产生的字符串即a=1</p>
+</blockquote>
+<p>CFG生成的每个字符串都可用派生树来表示。NAUTILUS 主要对这些派生树进行操作，而不是对树的字符串表示（我们称之为未解析字符串）进行操作。派生树是 NAUTILUS 的内部表示，用于进行结构突变。由于大部分语言并非上下文无关(如校验和或XML：开头和结尾需要相同的标记符)，论文扩展了CFG，允许使用额外的脚本来转换输入。</p>
+<h2 id="III-CHALLENGES"><a href="#III-CHALLENGES" class="headerlink" title="III. CHALLENGES"></a>III. CHALLENGES</h2><p>四个关键方面：</p>
+<ul>
+<li><strong>C1: 语法和语义有效的输入生成</strong></li>
+<li><strong>C2: 独立于语料库</strong>。大部分Fuzzer需要一个初始输入语料库，但要对程序中新的困难的部分获取语料库则比较困难，尤其是内部或未发布的软件，因此fuzz一个应用程序时最好不需要语料库。不过，可以利用输入规范。此外，试图将种子语料库与输入规范结合起来的技术通常需要限制其输入语言，以便能够进行解析，因此，在使用输入规范时，种子语料库的作用会降低。</li>
+<li><strong>C3:  高覆盖率</strong>。这主要涉及两个方面：(1) 通过输入处理；(2) 引导分析以探索新路径。</li>
+<li><strong>C4: 表现优秀</strong>。快速测试周期意味着每个模糊窗口要测试大量输入，这是提高模糊器有效性的关键因素之一。为确保高执行率，输入量要小，生成方法要快。</li>
+</ul>
+<p>纯语法输入推导可解决C1和C2问题，我们使用反馈驱动输入生成来解决C3问题，而引导输入推导长度以及最小化有趣输入可解决C4问题。</p>
+<h2 id="IV-Design-of-NAUTILUS"><a href="#IV-Design-of-NAUTILUS" class="headerlink" title="IV. Design of NAUTILUS"></a>IV. Design of NAUTILUS</h2><img src="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903143710744.png" class title="image-20230903143710744">
+<p>如图1所示，第一步是使用插桩对源码进行编译，从而获取运行时覆盖率反馈信息。第二步，启动fuzzer进行对用户提供的语法进行解析；第三步，产生少量(1000个)初始化输入并传递给调度程序；第四步和第五步，NAUTILUS会测试所产生的输入是否触发新路径，如果是则将其最小化并加入种子队列；第六步和第七步，基于是否仍可以探索新路径，NAUTILUS选择对已有输入进行变异或重新产生新输入；第八步和第九步，突变方法包括用新生成的树替换子树或将发现目标应用不同有趣特征的树组合在一起等技术，在突变完成后将输入添加到队列中用于后续分析运行。</p>
+<h3 id="A-Generation"><a href="#A-Generation" class="headerlink" title="A. Generation"></a>A. Generation</h3><p>生成算法应该应用到语法的不同方面，从而可以最大化覆盖率。论文的模糊器内部只使用树表示法，而不是单词的未解析字符串表示法。这允许我们对树进行操作，并自定义解析例程。论文使用语法规则从集合推导树中推导出随机树。如果一个非终端有多个规则，那么就有多种方法来选择一个规则进行进一步推导。这里评估了两种方法：naive generation和uniform generation</p>
+<p>naive generation就是随机选择一个可应用的规则，但这会导致生成大量相似的输入，因此应用了一个筛选器检查输入最近是否已被产生过。</p>
+<blockquote>
+<p><strong>Example IV.1 (Naive Generation).</strong> 在Example II.1中，从语法 G1 生成输入树时，STMT 非终止有两条规则。如果选择规则 3，生成立即终止。如果选择规则 4，则生成继续，并且可以生成多棵不同的树。如果这两条规则都以 50%的概率被选中，则生成的输入中有一半是返回 1。</p>
+</blockquote>
+<p>Uniform generation则充分考虑了语法结构带来的强偏差，能够从所有可能的树集中统一抽取树。该算法接受一个 CFG 和一个整数 n ≥ 0，并返回长度为 n 的字符串，这些字符串从给定的输入语法中统一导出。该算法根据规则能生成的不同子树的数量来选择规则：对于每个非终止 n、每个可能的长度 l、n 的每个生产规则 r，都会计算出可能的子树数量 p(n,l,r)。举例来说，一条能生成四个不同子树的规则被选中的次数是一条能生成两个子树的规则的两倍。</p>
+<h3 id="B-Minimization"><a href="#B-Minimization" class="headerlink" title="B. Minimization"></a>B. Minimization</h3><p>在找到interesting inputs后，NAUTILUS会尝试触发相同覆盖率情况下，生成更小的输入，这样能够有更短的执行时间，以及潜在变异位置的更小集合。采用两种方法来最小化输入：</p>
+<ul>
+<li><p><strong>Subtree Minimization</strong>. 目的是在触发新路径转换的同时，尽可能缩短子树。对于每个非终端，我们都会生成尽可能小的子树。然后，我们用该位置上可能的最小子树依次替换每个节点的子树，并检查新的转换是否仍由更改后的输入触发。如果过渡仍被触发，则用改变后的输入取代原来的输入，否则丢弃改变后的输入（见例 IV.2）。</p>
+<img src="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903151331940.png" class title="image-20230903151331940">
+</li>
+<li><p><strong>Recursive Minimization. </strong>该策略在子树最小化之后使用。其目的是通过识别递归并逐个替换来减少递归的数量。</p>
+<img src="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903151433175.png" class title="image-20230903151433175">
+</li>
+</ul>
+<h3 id="C-Mutation"><a href="#C-Mutation" class="headerlink" title="C. Mutation"></a>C. Mutation</h3><p>非指定情况下平均选择以下策略</p>
+<ul>
+<li><p><strong>Random Mutation. </strong>从一棵树中随机选取一个节点，并用随机生成的、根植于同一非终端的新子树替换它。子树的大小是随机选择的，子树的最大大小是一个配置参数。</p>
+</li>
+<li><p><strong>Rules Mutation. </strong>用所有其他可能的规则生成的子树顺序替换输入树的每个节点，这种突变类似于 AFL 使用的确定性阶段。</p>
+</li>
+<li><p><strong>Random Recursive Mutation. </strong> 随机选取一颗递归树并重复$2^n(1\leq n\leq 15)$次，从而生成嵌套度更高的树。</p>
+<img src="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903153251882.png" class title="image-20230903153251882">
+</li>
+<li><p><strong>Splicing Mutation. </strong>通过从一个interesting input中提取一棵子树并将其放入另一个输入中，将找到不同路径的输入组合在一起：用队列中另一棵树的 “合适 “子树替换其中一棵子树。为此，它会随机选取一个内部节点，作为要替换的子树的根节点。然后，它从队列中的一棵树中随机抽取一棵根植于相同非终端的子树来替换旧的子树。</p>
+</li>
+<li><p><strong>AFL Mutation. </strong>采用AFL中使用的变异措施，这里对字符串进行操作，所以子树在变异前需要转换为字符串。变异后可能产生不合法的树，从而找到parser的bugs。变异主要包含比特翻转、数学运算和Interesting values替换等</p>
+<p>之后，经过变异的终端字符串会被存储为一个新的自定义规则，并以相同的起源非终端添加到语法树中，取代原来的子树。自定义规则不会添加到语法中，而是与语法树一起保存在本地。例 IV.5 展示了这一过程。</p>
+</li>
+</ul>
+<img src="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903153949191.png" class title="image-20230903153949191">
+<h3 id="D-Unparsing"><a href="#D-Unparsing" class="headerlink" title="D. Unparsing"></a>D. Unparsing</h3><p>在NAUTILUS获得候选推导树后，NAUTILUS需要从中生成实际输入。将推导树转化为二进制文件的这一步通常称为解解析。对于真正的 CFG，这一过程非常简单。解解析函数是递归定义的，用于连接所有未解析的子树。然而，如前所述，现实世界中的许多输入语法并不是上下文无关的。因此，我们通过一个额外的解解析脚本来扩展规则定义，该脚本可以对所有未解析子树的结果进行任意计算。脚本支持是我们生成式方法的一大优势，因为我们无需解析输入。因此，我们可以自由地超越可判定语法，而不会有任何缺点。Skyfire [49] 或 IFuzzer [47] 等方法仅限于支持解析的语法。例 IV.6 展示了这种技术如何生成语法和语义都有效的 XML 文档。</p>
+<img src="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903155321362.png" class title="image-20230903155321362">
+<h2 id="V-Implementation"><a href="#V-Implementation" class="headerlink" title="V. Implementation"></a>V. Implementation</h2><p>采用Rust实现NAUTILUS，整体架构类似于AFL，采用mruby解释器来执行可嵌入扩展语法的脚本。与AFL类似，NAUTILUS也要求目标程序必须是插桩的。它在多个阶段对目标程序进行模糊处理。下文将详细介绍这些过程。</p>
+<h3 id="A-Target-Application-Instrumentation"><a href="#A-Target-Application-Instrumentation" class="headerlink" title="A. Target Application Instrumentation"></a>A. Target Application Instrumentation</h3><p>与AFL相同，NAUTILUS采用64KB的位图来记录覆盖率信息，通过forkserver提高运行速度</p>
+<h3 id="B-ANTLR-Parser"><a href="#B-ANTLR-Parser" class="headerlink" title="B. ANTLR Parser"></a>B. ANTLR Parser</h3><p>NAUTILUS接受的语法输入既可以是JavaScript Object Notation（JSON）（NAUTILUS使用的自然语法表示法），也可以是为ANother Tool for Language Recognition（ANTLR）[1]编写的语法，因为已有200多个适用于多种编程语言的ANTLR语法公开发布[6]。为了支持ANTLR语法，论文集成了一个ANTLR解析器组件，可将ANTLR语法转换为NAUTILUS的本地格式。该解析器可自动转换大多数语法。在某些情况下，ANTLR 语法不指定空白，因为空白在解析过程中无关紧要；但是，空白在输入生成过程中却很重要。因此，通常需要在这些语法的一些关键规则中添加空格。</p>
+<h3 id="C-Preparation-Phase"><a href="#C-Preparation-Phase" class="headerlink" title="C. Preparation Phase"></a>C. Preparation Phase</h3><p>NAUTILUS会基于语法预计算一些数据：</p>
+<ul>
+<li><script type="math/tex">min(n).</script>对于每个非终端 n，生成以 n 为起始非终端的字符串所需的最小规则数。这些数据将用于规则突变（第 IV-C 节）。</li>
+<li>$p(n,l,r)$. 对于每个非终端 n，对于每个可能的长度 l，对于 n 的每个生产规则 r，以 r 为第一规则，应用 l 个规则，可能的以 n 为根的子树的数目。Uniform Generation（第 IV-A 节）需要这些信息。</li>
+<li>$p(n,l)$. 对于每个非终端 n，对于每个可能长度 l，可能子树的数量。这表示从非终端 n 开始应用 l 条规则可以生成多少可能的子树，或者换句话说，有根 n 和 l 条边的衍生树的数量。Uniform Generation（第 IV-A 节）也需要这些信息。</li>
+</ul>
+<p>计算非终止最短长度的算法类似于Purdom所提出的，其他计算算法采用了McKenzie所提出的</p>
+<h3 id="D-Fuzzing-Phase"><a href="#D-Fuzzing-Phase" class="headerlink" title="D. Fuzzing Phase"></a>D. Fuzzing Phase</h3><img src="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903163624119.png" class title="image-20230903163624119">
+<p>图二展示了NAUTILUS在模糊测试阶段的工作流程图，在产生一些初始输入后，调度器决定哪些应该首先被测试：(i) 对已存在输入进行足够变异 (ii) 从头开始产生新输入。调度器控制着一个队列，该队列包含所有生成或变异的输入，这些输入被认为是有趣的，也就是说，它们中的每一个都会触发应用程序中至少一个基本块之间的转换，而其他输入不会触发。</p>
+<p>调度程序会按顺序处理队列中的每个项目。队列中的每个项目都有一个状态，表示从队列中取出后将如何处理。状态可以是以下值之一：</p>
+<ul>
+<li><strong>init.</strong> 当一个输入触发了新转换时，它会被保存到队列中，并标为init状态。当调度器选择一个对象是init状态时，它会被minimized，在完成最小化后，状态被设置为det</li>
+<li><strong>det.</strong> 使用Rules Mutator、Random (Recursive) Mutator和Splice Mutator对 det 中的项目进行突变（见第 IV-C 节）。当规则突变器完成对某个项目的突变后，由于不可能再进行该类型的突变，该项目将转入 detafl 状态。</li>
+<li><strong>detafl.</strong> 使用 AFL 变异器、Random (Recursive) Mutator和Splice Mutator对 det 中的项目进行变异。当 AFL 变异器处理完一个项目后，它就会进入random状态。</li>
+<li><strong>random. </strong>这是每个条目的最终状态。只有Random (Recursive) Mutator和Splice Mutator会应用到这个条目上。与AFL不同的是，我们不会在完成每个阶段后再继续下一个输入。相反，NAUTILUS 只在每个输入上花费很短的时间（通常为几秒钟），然后再继续下一个输入。因此，我们可以快速探索那些极有可能产生新覆盖范围的输入，而不会在非生产性输入上花费过多时间。这样，我们就能达到类似 AFLFast [25] 的效果。</li>
+</ul>
+<p>输入树被选中执行后，会被解解析为输入字符串。然后，使用与 AFL 类似的 fork 服务器运行目标程序，从而高效地启动目标程序。接下来可能会出现三种状态 (i) 目标程序在执行过程中崩溃，那么，导致崩溃的输入的二进制表示将被保存在一个单独的文件夹中；(ii) 输入导致目标程序采取了新的路径，那么，输入的树形表示将被添加到队列中；或者 (iii) 输入没有触发任何新的转换，输入将被丢弃。</p>
+<h2 id="VI-EVALUATION"><a href="#VI-EVALUATION" class="headerlink" title="VI. EVALUATION"></a>VI. EVALUATION</h2><p>主要考虑以下问题</p>
+<ul>
+<li><strong>RQ1  </strong>NAUTILUS能够识别真实世界应用的新bug吗</li>
+<li><strong>RQ2  </strong> NAUTILUS是否比其他最先进的fuzzer更高效</li>
+<li><strong>RQ3  </strong>语法的使用在多大程度上提升了fuzz结构化输入程序的效率</li>
+<li><strong>RQ4  </strong>使用语法时，反馈在多大程度上提升了fuzz的表现</li>
+<li><strong>RQ5  </strong>论文的复杂生成方法，与一般方法相比需要大量计算资源，提升了fuzz表现吗？</li>
+<li><strong>RQ6  </strong>每一种变异方法对找到新路径的贡献有多大？</li>
+</ul>
+<h3 id="A-Experiment-Setup"><a href="#A-Experiment-Setup" class="headerlink" title="A. Experiment Setup"></a>A. Experiment Setup</h3><p>测试了四种语义：Ruby，Lua，PHP，Javascript</p>
+<p>语法基于现有的 ANTLR 语法，并做了一系列修改来提高性能。</p>
+<h3 id="B-Vulnerablilities-Identified"><a href="#B-Vulnerablilities-Identified" class="headerlink" title="B. Vulnerablilities Identified"></a>B. Vulnerablilities Identified</h3><p>找到了一些漏洞</p>
+<img src="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903170849303.png" class title="image-20230903170849303">
+<h3 id="C-Evaluation-Against-Other-State-of-the-art-Fuzzers"><a href="#C-Evaluation-Against-Other-State-of-the-art-Fuzzers" class="headerlink" title="C. Evaluation Against Other State-of-the-art Fuzzers"></a>C. Evaluation Against Other State-of-the-art Fuzzers</h3><p>采用分支覆盖率作为评价标准，与用于反馈导向模糊的AFL和基于语法模糊的IFuzzer进行比较</p>
+<p>为了避免不同fuzzer内部记录覆盖率方法带来的差异，使用GCOV来测量分支覆盖率</p>
+<img src="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903172111350.png" class title="image-20230903172111350">
+<p>基线表示在没有与模糊器交互的情况下，由我们生成的语料库本身发现的覆盖率。NAUTILUS发现的额外覆盖率要高得多：AFL和IFuzzer在ChakraCore、mruby和PHP上发现的额外覆盖率在0到1.9个百分点之间，而NAUTILUS发现的额外覆盖率在10.0到28.1个百分点之间。对于 Lua，AFL 发现了 15.2 个额外百分点，而 NAUTILUS 发现了 27.2 个额外百分点。由于我们为 AFL 提供了良好的字典和大量的案例库供其学习，因此我们认为这一设置是一个很强的基准线，也是需要达到的一个重要标准。尽管 IFuzzer 基于良好的语法，但其性能几乎没有超过 AFL，这一事实也证明了这一点。</p>
+<p>我们按照 Arcui 等人[21]的建议进行了 Mann-Whitney U 检验，以确保统计显著性，结果见表 III。在所有情况下，我们的最差运行结果都优于所有其他工具的最佳运行结果。因此，U 检验得出的 p 值非常小，我们可以排除观察到的差异是随机机会造成的可能性。所有统计数据均使用 Python scipy [38] 和 numpy [40] 库计算。</p>
+<img src="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903172351218.png" class title="image-20230903172351218">
+<p>针对基于语法的输入生成（问题3）和反馈导向模糊（问题4）的相对优势，我们禁用了NAUTILUS中的覆盖反馈机制，并在与完整版相同的环境中运行。该实验旨在证明，在其他条件（实现和语法的性能）相同的情况下，将反馈和语法模糊相结合确实会产生显著的性能优势。我们将本实验视为评估 Peach [10] 或 Sulley [17] 等模糊器的替代物。我们无法直接评估这些工具，因为它们需要手动编写生成器而不是语法。</p>
+<p>结果见图 4 和表 II（标注为无反馈）。我们发现，在所有情况下，使用纯粹的生成语法模糊器都比 AFL 的覆盖率有显著提高。</p>
+<p>不出所料，盲语法模糊比 AFL 的突变模糊效果更好（在 mruby 的情况下，提高了一个数量级以上），即使给出大量种子也是如此。这表明，即使在 AFL 和相关工具发布之后，语法模糊仍然具有重要意义（问题 3）。然而，将反馈添加到语法模糊方法中会带来更大的改进： 在所有情况下，我们发现的新分支数量都是盲语法模糊器的两倍以上。因此，我们得出结论：在语法模糊中添加反馈是提高模糊性能的一个非常重要的步骤（问题 4）。</p>
+<p><strong>Case Study：Feedback Grammar Fuzzing. </strong>在对 mruby 进行模糊测试时，NAUTILUS 自动学习了以下有趣的代码片段： ObjectSpace.each{|a| a.method(…) } 它允许模糊器测试存在的任何对象的方法调用。这大大提高了找到方法的正确接收器的几率。只要模糊器猜测到一个正确的方法名称，该构造就会立即产生新的覆盖范围。然后，模糊器就可以逐步学习如何为这一特定调用构造有效参数。最后，如果模糊器需要特定的接收器对象，它只需在输入的某个地方创建该对象，因为任何对象都能接收方法调用。AFL 风格的模糊器无法利用这一点。即使以字典形式给出了一组有效的方法名称，它也无法为调用构造复杂的参数。盲语法模糊器无法可靠地生成这个包含有趣调用的小工具。NAUTILUS 利用这个小工具发现了两个 CVE，如果没有适当的语法，使用盲语法模糊或 AFL 式模糊都很难发现这两个 CVE。</p>
+<img src="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903173147834.png" class title="image-20230903173147834">
+<img src="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903173157260.png" class title="image-20230903173157260">
+<h3 id="D-Evaluation-of-Generation-Methods"><a href="#D-Evaluation-of-Generation-Methods" class="headerlink" title="D. Evaluation of Generation Methods"></a>D. Evaluation of Generation Methods</h3><p>分析了naive generation和uniform generation的性能差异，结果如图4所示</p>
+<p>结果非常相似。naive generation在 ChakraCore 和 mruby 上取得的结果非常相似；在 PHP 上的表现略好，而在 Lua 上的表现则差得多。这证明naive generation与简单的重复过滤器相结合后，其性能与更复杂的统一生成法非常相似，因此没有必要增加后者的复杂性。</p>
+<h3 id="E-Evaluation-of-Mutation-Methods"><a href="#E-Evaluation-of-Mutation-Methods" class="headerlink" title="E. Evaluation of Mutation Methods"></a>E. Evaluation of Mutation Methods</h3><p>给每种变异方法配了一个计数器，当触发新路径时计数器+1，但无论触发了多少新路径，计数器只会+1，图6展示了计数结果</p>
+<img src="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903185616823.png" class title="image-20230903185616823">
+<p>此外，我们还通过计算每种方法在每次运行的 24 小时内的相对贡献来评估各种方法的实用性。由于每次运行开始后新路径的数量会逐渐减少，因此我们以不同大小的分区收集数据：最初 16 分钟为 1 分钟分区，30 分钟后为 2 分钟分区，1 小时后为 3 分钟分区，3 小时后为 5 分钟分区，6 小时后为 10 分钟分区，20 分钟分区后为结束分区。结果如图 5 所示。可以看出，随着时间的推移，拼接变得越来越重要，因为基本的突变方法慢慢无法产生更多语义有效的输入。最终，拼接有趣的代码片段成为迄今为止最有效的变异技术。</p>
+<img src="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903185840241.png" class title="image-20230903185840241">
+<p>规则突变也有类似的表现。这种突变只在最小化完成后使用，因此它在模糊处理过程的后期才开始寻找新路径。生成和最小化方法在一开始会发现很多新路径，但几个小时后，拼接和随机突变占新发现路径的 50%以上。随机递归突变找到的路径少于其他突变，但它找到的路径是我们其他突变方法无法找到的：只有随机递归突变找到了 PHP 栈溢出漏洞和 mruby 的两个漏洞（CVE2018-10191 和 CVE-2018-12248）。</p>
+<h2 id="VII-Related-Work"><a href="#VII-Related-Work" class="headerlink" title="VII. Related Work"></a>VII. Related Work</h2><img src="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/image-20230903190119864.png" class title="image-20230903190119864">
+<h2 id="VII-LIMITATIONS"><a href="#VII-LIMITATIONS" class="headerlink" title="VII. LIMITATIONS"></a>VII. LIMITATIONS</h2><h2 id="IX-FUTURE-WORK"><a href="#IX-FUTURE-WORK" class="headerlink" title="IX. FUTURE WORK"></a>IX. FUTURE WORK</h2><p>将基于插桩的后端与AFL-QEMU模式的后端进行切换，从而可以对二进制程序目标进行模糊测试</p>
+<p>在使用重要符号扩展语法时，我们手动将字符串工具的输出添加到语法中。这一步骤很容易实现自动化，从而进一步减少所需的人工工作量。</p>
+<p>此外，从程序本身自动推断语法的技术，如 Höschel 等人提出的工具[37]或 Bastani 等人提出的工具[23]，或使用机器学习技术[33]，也可以大大减少对语法的依赖。</p>
+<p>虽然我们的可脚本语法能够生成任何可判定语言，但一些常见的语言特征需要复杂的脚本。例如，文件偏移很难实现，因为在执行脚本时，给定子串的确切偏移通常是未知的。因此，开始规则的脚本需要手动计算所有偏移量。增加对标签的支持可能会简化二进制文件格式语法的编写过程。</p>
+<p>开发其他的生成方法，能够优于naive generation</p>
+<h2 id="X-CONCLUSION"><a href="#X-CONCLUSION" class="headerlink" title="X. CONCLUSION"></a>X. CONCLUSION</h2><p>说明语法使用和输入反馈结合的有效性！</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p><a href="http://curator-kim.github.io/2023/09/03/NAUTILUS Fishing for Deep Bugs with Grammars/">http://curator-kim.github.io/2023/09/03/NAUTILUS Fishing for Deep Bugs with Grammars/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><a href="http://Curator-Kim.github.io"><p>Curator-Kim</p></a></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2023-09-03</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2023-09-03</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="recommend-area"><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># Related Post</span><br><span>  1.<a class="is-size-6" href="/2023/09/13/Universal%20Fuzzing%20via%20Large%20Language%20Models/" target="_blank"> </a><br></span><span>  2.<a class="is-size-6" href="/2023/08/26/%E9%99%87%E5%89%91%E6%9D%AF%202023%20Writeup/" target="_blank"> </a><br></span><span>  3.<a class="is-size-6" href="/2023/08/25/ICS%20Protocol%20Fuzzing%20Coverage%20Guided%20Packet%20Crack%20and%20Generation/" target="_blank"> </a><br></span><span>  4.<a class="is-size-6" href="/2023/08/21/Skyfire%20Data-Driven%20Seed%20Generation%20for%20Fuzzing/" target="_blank"> </a><br></span><span>  5.<a class="is-size-6" href="/2023/08/14/Fuzzing%20Hack,%20Art%20and%20Science/" target="_blank"> </a><br></span><span>  6.<a class="is-size-6" href="/2023/08/03/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86-%E4%B8%80/" target="_blank">加密与解密(一)</a><br></span><span>  7.<a class="is-size-6" href="/2023/08/03/A%20Survey%20of%20Symbolic%20Execution%20Techniques/" target="_blank"> </a><br></span><span>  8.<a class="is-size-6" href="/2023/07/04/CrackMe%E7%B3%BB%E5%88%97/" target="_blank"> </a><br></span></div></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/css/share.min.css"><div class="social-share"></div><script src="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">Like this article? Support the author with</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>Alipay</span><span class="qrcode"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/alipay.png?raw=true" alt="Alipay"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>Wechat</span><span class="qrcode"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/wechat.png?raw=true" alt="Wechat"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2023/09/13/Universal%20Fuzzing%20via%20Large%20Language%20Models/"><i class="level-item fas fa-chevron-left"></i><span class="level-item"> </span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2023/08/26/%E9%99%87%E5%89%91%E6%9D%AF%202023%20Writeup/"><span class="level-item"> </span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--><div class="card"><div class="card-content"><div class="title is-5">Comments</div><div id="comment-container"></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/gitalk/1.6.0/gitalk.css"><script> $.getScript('/js/gitalk.min.js', function () { 
+            var gitalk = new Gitalk({
+            language:'zh-CN',
+            id: 'd41d8cd98f00b204e9800998ecf8427e',
+            repo: 'blog_comment',
+            owner: 'Curator-Kim',
+            clientID: '46a9f3481b46ea0129d8',
+            clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+            admin: ["Curator-Kim"],
+            createIssueManually: true,
+            distractionFreeMode: false,
+            perPage: 10,
+            pagerDirection: 'last',
+            proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
+            
+            enableHotKey: true,
+            isLocked: false
+        })
+        gitalk.render('comment-container')});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><!--!--><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/22a41709ffc26f62191d72a87ffbb342d46bfce3/img/icon.jpg?raw=true" alt="Curator-Kim"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Curator-Kim</p><p class="is-size-6 is-block">寻几处好景破星光</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>火星</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">47</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">16</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/curator-kim"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="/804242129@qq.com"><i class="fa fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div><div><hr><p id="hitokoto">:D 一言句子获取中...</p><script type="text/javascript" defer>function getYiyan(){
+                                $.getJSON("https://v1.hitokoto.cn/", function (data) {
+                                if(data){
+                                    $('#hitokoto').html("");
+                                    $('#hitokoto').append("<strong style='color: #3273dc;'>"+data.hitokoto+"</strong>"+
+                                    "<p>"+"From《"+data.from+"》</p><p>Provider-"+data.creator+"</p>");
+                                }});}
+                                $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});</script></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><!--!--><div class="card widget"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-09-13T14:39:39.205Z">2023-09-13</time></p><p class="title"><a href="/2023/09/13/Universal%20Fuzzing%20via%20Large%20Language%20Models/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-09-03T11:11:20.649Z">2023-09-03</time></p><p class="title"><a href="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-08-26T01:59:23.349Z">2023-08-26</time></p><p class="title"><a href="/2023/08/26/%E9%99%87%E5%89%91%E6%9D%AF%202023%20Writeup/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-08-25T10:11:28.037Z">2023-08-25</time></p><p class="title"><a href="/2023/08/25/ICS%20Protocol%20Fuzzing%20Coverage%20Guided%20Packet%20Crack%20and%20Generation/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-08-21T13:58:59.801Z">2023-08-21</time></p><p class="title"><a href="/2023/08/21/Skyfire%20Data-Driven%20Seed%20Generation%20for%20Fuzzing/"> </a></p></div></article></div></div><!--!--><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2023/09/"><span class="level-start"><span class="level-item">September 2023</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2023/08/"><span class="level-start"><span class="level-item">August 2023</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2023/07/"><span class="level-start"><span class="level-item">July 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2023/06/"><span class="level-start"><span class="level-item">June 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2023/04/"><span class="level-start"><span class="level-item">April 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><a class="level is-mobile is-marginless" href="/archives/"><span class="level-start"><span class="level-item">查看全部&gt;&gt;</span></span></a></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/CTF/"><span class="tag">CTF</span><span class="tag is-grey-lightest">15</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"><span class="tag">汇编语言</span><span class="tag is-grey-lightest">12</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Crypto/"><span class="tag">Crypto</span><span class="tag is-grey-lightest">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ctf/"><span class="tag">ctf</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pwn/"><span class="tag">pwn</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CopperSmith/"><span class="tag">CopperSmith</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/DES/"><span class="tag">DES</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/HWS/"><span class="tag">HWS</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/NTRU/"><span class="tag">NTRU</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/RE/"><span class="tag">RE</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Reverse/"><span class="tag">Reverse</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/angr/"><span class="tag">angr</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/"><span class="tag">加密与解密</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99/"><span class="tag">参考资料</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"><span class="tag">论文阅读</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/"><span class="tag">预备知识</span><span class="tag is-grey-lightest">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><!--!--><div class="column-right-shadow is-hidden-widescreen"></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/logo.png?raw=true" alt="Curator-Kim的小站" height="28"></a><p class="size-small"><span>&copy; 2023 Curator-Kim</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> &amp; <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span>© <a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备88888888号-8（测试）</a><br></span><span>© 版权说明：[本网站所有内容均收集于互联网或自己创作,<br />&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="/message" target="_blank">留言</a>，立即处理]<br /></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "❤️Site from <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> has existed <strong>" + dnum + "</strong> d <strong>" + hnum + "</strong> h <strong>" + mnum + "</strong> m <strong>" + snum + "</strong> s！❤️";
+        }var now = new Date();setInterval("createTime('2022/1/21 00:00:00')", 250,"");</script><br></span><div class="size-small"><span>❤️Thx <strong><span id="busuanzi_value_site_uv">99+</span></strong> users <strong><span id="busuanzi_value_site_pv">99+</span></strong> visited！❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a></p></div><div class="sideMusic"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="/js/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script><meting-js style="width: auto;height: 2000px;" server="netease" type="playlist" id="137510737" theme="#2980b9" loop="all" autoplay="false" order="list" storageName="aplayer-setting" lrctype="0" list-max-height="400px" fixed="true"></meting-js></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><script src="/js/main.js" defer></script><script>$.getScript('/js/comment-issue-data.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','Curator-Kim','blog_comment',false);})</script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
+
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
+
+        function loadMathJax() { //加载mathjax
+            $.getScript("//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", function () {
+                MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\(', '\)']] } });
+                var math = document.getElementsByClassName("entry-content")[0];
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);
+            });
+        };
+
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
+        
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(false){
+                $.getScript('/js/comment-issue-data.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','Curator-Kim','blog_comment',false);});
+            }
+            if(false){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script></body></html>
