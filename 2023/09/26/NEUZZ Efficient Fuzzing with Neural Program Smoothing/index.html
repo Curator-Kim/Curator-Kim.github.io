@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Curator-Kim的小站</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Curator-Kim的小站"><meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Curator-Kim的小站"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="NEUZZ: Efficient Fuzzing with Neural Program Smoothinghttp:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;dongdongshe&amp;#x2F;neuzz Abstract: 使用梯度引导技术替代进化算法。梯度引导技术并不能直接用于模糊处理，因为现实世界中的程序行为包含许多不连续性，而基于梯度的方法往往会在这些地方卡住。文中提出一种程序平滑技术来解决这个问题，通过代理神经网"><meta property="og:type" content="blog"><meta property="og:title" content="Curator-Kim"><meta property="og:url" content="https://curator-kim.github.io/"><meta property="og:site_name" content="Curator-Kim"><meta property="og:description" content="NEUZZ: Efficient Fuzzing with Neural Program Smoothinghttp:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;dongdongshe&amp;#x2F;neuzz Abstract: 使用梯度引导技术替代进化算法。梯度引导技术并不能直接用于模糊处理，因为现实世界中的程序行为包含许多不连续性，而基于梯度的方法往往会在这些地方卡住。文中提出一种程序平滑技术来解决这个问题，通过代理神经网"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://curator-kim.github.io/img/icon.jpg"><meta property="article:published_time" content="2023-09-26T01:06:57.809Z"><meta property="article:modified_time" content="2023-09-26T01:07:12.480Z"><meta property="article:author" content="Curator-Kim"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/icon.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/"},"headline":"Curator-Kim的小站","image":["http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230924155459248.png","http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230924160915124.png","http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230924163034977.png","http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230924164503447.png","http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230924171259094.png","http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230924174602995.png","http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925163954488.png","http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925172251561.png","http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925200503699.png","http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925200532545.png","http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925202102813.png","http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925203515508.png","http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925203559613.png","http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925211246969.png","http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925211725789.png","http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925212600976.png"],"datePublished":"2023-09-26T01:06:57.809Z","dateModified":"2023-09-26T01:07:12.480Z","author":{"@type":"Person","name":"Curator-Kim"},"description":"NEUZZ: Efficient Fuzzing with Neural Program Smoothinghttp:&#x2F;&#x2F;github.com&#x2F;dongdongshe&#x2F;neuzz Abstract: 使用梯度引导技术替代进化算法。梯度引导技术并不能直接用于模糊处理，因为现实世界中的程序行为包含许多不连续性，而基于梯度的方法往往会在这些地方卡住。文中提出一种程序平滑技术来解决这个问题，通过代理神经网"}</script><link rel="canonical" href="http://curator-kim.github.io/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/"><link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="referrer" content="no-referrer-when-downgrade"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="/js/globalUtils.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><link rel="stylesheet" href="/live2d/waifu.css"><script type="text/javascript" async src="/live2d/autoload.js"></script><meta name="generator" content="Hexo 5.4.0"></head><body class="is-3-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/logo.png?raw=true" alt="Curator-Kim的小站" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a><a class="navbar-item" href="/album">Album</a><a class="navbar-item" href="/friend">Friend</a><a class="navbar-item" href="/message">Message</a><a class="navbar-item" href="/self-talking">Self-talking</a><a class="navbar-item" href="/music">Music</a><a class="navbar-item" href="/media">Media</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Join Gitter" href="https://gitter.im/hexo-theme-amazing/community"><i class="fab fa-gitter"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="/js/theme-setting.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2023-09-26  <a class="commentCountImg" href="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/#comment-container"><span class="display-none-class">d41d8cd98f00b204e9800998ecf8427e</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="d41d8cd98f00b204e9800998ecf8427e">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>an hour  <i class="fas fa-pencil-alt"> </i>7.7 k</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>&nbsp;visits</span></div></div><h1 class="title is-3 is-size-4-mobile"> </h1><div class="content"><h1 id="NEUZZ-Efficient-Fuzzing-with-Neural-Program-Smoothing"><a href="#NEUZZ-Efficient-Fuzzing-with-Neural-Program-Smoothing" class="headerlink" title="NEUZZ: Efficient Fuzzing with Neural Program Smoothing"></a>NEUZZ: Efficient Fuzzing with Neural Program Smoothing</h1><p><a target="_blank" rel="noopener" href="http://github.com/dongdongshe/neuzz">http://github.com/dongdongshe/neuzz</a></p>
+<p><strong>Abstract:</strong> 使用梯度引导技术替代进化算法。梯度引导技术并不能直接用于模糊处理，因为现实世界中的程序行为包含许多不连续性，而基于梯度的方法往往会在这些地方卡住。文中提出一种程序平滑技术来解决这个问题，通过<strong>代理神经网络</strong>模型学习复杂的真实世界程序分支行为的平滑近似值。将这种神经网络模型与梯度引导输入生成方案一起使用，可以显著提高模糊测试的效率。</p>
+<span id="more"></span>
+<p>评估结果：NEUZZ 在 10 个实际程序中发现了 31 个其他模糊器未能发现的未知漏洞（包括两个 CVE），在 24 小时的运行中，边缘覆盖率是所有灰盒模糊器的 3 倍。</p>
+<h2 id="I-Introduction"><a href="#I-Introduction" class="headerlink" title="I. Introduction"></a>I. Introduction</h2><p>梯度引导优化算法不能直接应用于真实世界程序的模糊测试，因为这些程序往往包含大量不连续行为（梯度无法准确计算的情况），这是因为不同程序分支的行为大不相同。这个问题可以通过创建一个平滑（即可微）的替代函数来克服，该函数可以近似目标程序在程序输入方面的分支行为。遗憾的是，现有的程序平滑技术严重依赖于符号分析，而符号分析由于路径爆炸、环境建模不完整、符号内存建模开销大等基本限制，无法扩展到大型程序，因此会产生令人望而却步的性能开销 。</p>
+<p>在本文中，使用前馈神经网络 (NN) 引入了一种新颖、高效和可扩展的程序平滑技术，该技术可以逐步学习复杂的真实世界程序分支行为的平滑近似值，即预测特定给定输入所执行的目标程序的控制流边缘。论文进一步提出了一种梯度引导搜索策略，该策略可以计算并利用平滑近似（即 NN 模型）的梯度来确定目标突变位置，从而最大限度地提高目标程序中检测到的错误数量。</p>
+<p>论文演示了如何通过对错误预测的程序行为进行增量再训练来完善 NN 模型。前馈 NN 非常适合我们的任务，因为 (i) 正如通用近似定理 所暗示的那样，NN 具有近似复杂非线性函数的能力；(ii) NN 支持梯度/高阶导数 [38] 的高效精确计算。</p>
+<p>文章的主要贡献：</p>
+<ul>
+<li>第一个确定程序平滑对于基于梯度引导技术的模糊处理的重要性。</li>
+<li>第一个介绍了高效可扩展的程序平滑技术，使用了代理神经网络来有效模拟程序分支行为。进一步提出了一种增量学习技术，以随着更多的训练数据变得可用而迭代地细化代理模型。</li>
+<li>证明了代理神经网络模型的梯度可以用于有效地生成程序输入，从而最大限度地增加目标程序中发现的错误数量。</li>
+<li>设计、实现并评估了NEUZZ，并证明它在真实程序和错误数据集上明显优于 10 种最先进的模糊器。</li>
+</ul>
+<h2 id="II-Optimization-Basics"><a href="#II-Optimization-Basics" class="headerlink" title="II. Optimization Basics"></a>II. Optimization Basics</h2><p><strong>优化问题</strong>组成：参数向量$x$，要最小化或最大化的目标函数$F(x)$，一组约束函数$C_i(x)$，其中每个函数必须满足一定的等式或不等式。优化的目标即找到参数向量$x$的具体值，使$F(x)$最大化/最小化，同时满足所有约束函数$C_i(x)$。</p>
+<img src="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230924155459248.png" class title="image-20230924155459248">
+<p><strong>函数平滑&amp;最优化.</strong></p>
+<p>任何优化算法的关键组成部分都是它从一个 x 值移动到下一个 x 值的策略，大多数利用目标函数 F 的值、约束函数 Ci 以及梯度/高阶导数来实现（如果有）。</p>
+<p>不同优化算法收敛到最优解的能力和效率在很大程度上取决于目标函数$F$和约束函数$C_i$的性质。直观的说，目标/约束函数越平滑，优化算法越容易计算梯度或高阶导数，更容易实现优化</p>
+<p>在模糊测试领域中，特别关注无约束优化问题，梯度引导方法在解决高维结构优化问题时的性能明显优于进化策略，这是因为梯度引导技术能有效利用梯度/高阶导数，高效收敛到最优解，如图一所示</p>
+<img src="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230924160915124.png" class title="image-20230924160915124">
+<p><strong>凸性/梯度引导优化</strong></p>
+<p>对于一类常见的函数—凸函数，梯度引导技术具有很高的效率，并且总能收敛到全局最优解[86]。</p>
+<script type="math/tex; mode=display">
+f(tx + (1 − t)y) ≤ tf(x) + (1 − t)f(y), ∀t ∈ [0, 1].</script><p>（与我所学的凸函数定义相反？）</p>
+<p>然而在非凸函数中，梯度引导方法可能会陷入局部最优解的困境，这个可以通过随机选择新起点重新开始梯度引导方法解决</p>
+<p><strong>无约束最优化的Fuzz</strong></p>
+<p>模糊测试可被表示为无约束的最优化问题，其目标是在测试输入数量固定的情况下，使测试程序中发现的错误/漏洞数量最大化。因此，目标函数可被视为$F_p(x)$，当目标函数p与输入x一起执行时，如果输入x触发了错误/漏洞，则返回1。然而该目标函数过于离散，无法有效优化。</p>
+<p>因此大多数greybox fuzzer转而尝试最大化代码覆盖率。此时目标函数可用$F’_p(x)$表示，$F’$表示输入x时程序P中所覆盖的新的控制流边缘的数量。$F’$比$F$更容易优化，因为出现新控制流边缘的数量往往远远高于引发漏洞/安全漏洞的输入。</p>
+<h2 id="III-OVERVIEW-OF-OUR-APPROACH"><a href="#III-OVERVIEW-OF-OUR-APPROACH" class="headerlink" title="III. OVERVIEW OF OUR APPROACH"></a>III. OVERVIEW OF OUR APPROACH</h2><p>如下展示了方法的概图</p>
+<img src="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230924163034977.png" class title="image-20230924163034977">
+<p><strong>神经程序平滑</strong></p>
+<p>要准确计算梯度或高阶导数（梯度引导优化所必需），就必须平滑逼近程序的不连续分支行为，否则梯度引导会在不连续点卡住。</p>
+<p>平滑过程的目标是创建一个平滑函数，在不引入大误差的情况下模仿程序的分支行为（即与原始程序行为的偏差最小）。论文使用了前馈神经网络(NN)进行拟合，通用近似定理表明，NN非常适合近似任意复杂（可能是非线性和非凸）的程序行为。此外，NN 的设计还支持高效梯度计算。</p>
+<p>如图二所示，使用现有测试输入或现有进化模糊器生成的测试输入语料库来训练 NN</p>
+<p><strong>梯度引导优化</strong></p>
+<p>平滑的 NN 模型经过训练后，可用于有效计算梯度和高阶导数，从而更快地收敛到最优解。</p>
+<p><strong>增量学习.</strong></p>
+<p>运行fuzzer（如AFL）来收集一组测试输入和相应的边缘覆盖信息，从而训练 NN。</p>
+<p>由于用于训练 NN 模型的初始训练数据可能只涵盖程序空间的一小部分，在模糊测试过程中观察到新的程序行为时，通过增量训练进一步完善模型。</p>
+<p>增量学习的主要挑战：如果只在新数据上训练 NN，它可能会完全忘记从旧数据中学到的规则。论文通过设计一种新的基于覆盖率的过滤方案来避免这一问题，该方案可创建新旧数据的浓缩摘要，从而使 NN 能够在新旧数据上高效地接受训练。</p>
+<p><strong>A 激励性示例</strong></p>
+<p>图三展示了一个激励性示例，来有效说明论文的方法背后的原理</p>
+<img src="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230924164503447.png" class title="image-20230924164503447">
+<p>图中展示了简单的C代码片段，计算输入的非线性函数(pow(3,a+b))，根据计算结果范围返回不同的值，并且假设当输出范围在(1,2)，则执行错误代码块</p>
+<p>假设AFL成功探索第2行和第9行的分支，但未能探索第 5 行的分支。这里的关键挑战是找到能够触发第 5 行分支的 a 和 b 值。进化模糊器在处理此类代码时往往会遇到困难，因为通过随机突变找到解决方案的几率非常低。</p>
+<p>图3(a)展示了代码所代表的原始函数，从$a+b=0$到$a+b-\epsilon=0(\epsilon \rarr0)$，函数表面有一个急剧的跳变。</p>
+<p>基于进化算法的fuzzer采取随机变异，并没有考虑到函数曲面的形状。相比之下，论文的NN平滑和梯度引导是为了利用梯度测量的函数表面形状而设计的，如图3(b)(c)所示，NN 模型可以平滑地近似程序行为。然后通过梯度引导优化找到a和b的理想值，并逐步完善模型，直到找到可以解决目标错误的理想分支。</p>
+<h2 id="IV-METHODOLOGY"><a href="#IV-METHODOLOGY" class="headerlink" title="IV. METHODOLOGY"></a>IV. METHODOLOGY</h2><p>描述方案的详细细节：</p>
+<h3 id="A-Program-smoothing"><a href="#A-Program-smoothing" class="headerlink" title="A. Program smoothing"></a>A. Program smoothing</h3><p>一般来说，不连续函数$ f$ 的平滑化可以看作是 $f$ 与平滑掩函数 $g$ 之间的卷积运算，从而产生一个新的平滑输出函数，如下图所示。常用的平滑掩码包括不同的高斯函数和 Sigmoid 函数。</p>
+<img src="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230924171259094.png" class title="image-20230924171259094">
+<p>然而，在许多实际问题中，非连续函数 f 可能没有闭式表示，因此无法分析计算上述积分。在这种情况下可以计算离散卷积$f’(x)=\sum_af(a)g(x-a)$。这种方法也常用在图像平滑中，使用固定大小的二维卷积核来执行这种运算。然而，在我们的设置中，f 是一个计算机程序，因此无法分析计算相应的卷积。</p>
+<blockquote>
+<p>程序平滑技术可分为两大类：黑盒平滑和白盒平滑。黑盒方法是从 f 的输入空间中选取离散样本，并利用这些样本数值计算卷积。与此相反，白盒方法研究程序语句/指令，并尝试使用符号分析和抽象解释来总结其效果 [21]，[20]。黑盒方法可能会带来较大的近似误差，而白盒方法则会产生过高的性能开销，因此在实际程序中并不可行。</p>
+</blockquote>
+<p>为了避免这些问题，论文采用了NNs以灰盒形式来平滑近似程序行为</p>
+<h3 id="B-Neural-program-smoothing"><a href="#B-Neural-program-smoothing" class="headerlink" title="B. Neural program smoothing"></a>B. Neural program smoothing</h3><p>使用代理神经网络模型来学习目标程序的平滑近似值，并根据观察到的程序行为进行迭代改进。代理神经网络可以平滑地概括观察到的程序行为，同时还能准确地模拟潜在的非线性和非凸行为。如图 3 所示，神经网络经过训练后，可用于有效计算梯度和高层导数，以指导模糊输入生成过程。</p>
+<p><strong>为什么使用NN？</strong></p>
+<p>使用 NN 学习平滑程序近似的优势如下：</p>
+<ul>
+<li>网络能准确模拟复杂的非线性程序行为，并能高效地进行训练。之前基于模型的优化工作使用的是简单的线性和二次模型。然而，这些模型并不适合对具有高度非线性和非凸行为的真实世界软件进行建模；</li>
+<li>NN 支持梯度和高阶导数的高效计算。因此，梯度引导算法可以在模糊处理过程中计算和使用这些信息，而无需任何额外的开销；</li>
+<li>网络可根据程序在类似输入下的行为，对未知输入进行泛化和学习，以预测程序的行为。因此，根据程序对少量输入样本的行为，网络有可能学习到整个程序的平滑近似值。</li>
+</ul>
+<p><strong>NN训练</strong></p>
+<p>在本文中，专门使用神经网络对目标程序的分支行为进行建模（即预测给定程序输入所执行的控制流边缘）。</p>
+<blockquote>
+<p>使用神经网络对分支行为建模的挑战之一是需要接受不同大小的输入。与现实世界的程序不同，前馈神经网络通常接受固定大小的输入。因此，我们设置了一个最大输入大小阈值，并在训练过程中用空字节填充任何较小的输入。需要注意的是，支持更大的输入并不是主要问题，因为现代 NN 可以轻松扩展到数百万个参数。因此，对于较大的程序，如果需要，我们可以简单地增加阈值大小。不过，我们根据经验发现，相对适中的阈值能产生最好的结果，而更大的输入并不会显著提高建模精度。</p>
+</blockquote>
+<p>令$f:\{0x00,0x01,…,0xff\}^m\rarr \{0,1\}^n$表示NN将程序输入作为长度为m的字节序列，输出为大小为n的位图。令$θ$表示$f$的可训练权重参数。给定一组训练样本$(X,Y)$，其中$X$表示输入字节集合，$Y$表示对应的边覆盖bitmap。参数函数$f(x,\theta)$的训练任务为获取一组参数$\hat \theta$，使得$\hat \theta=\arg min_\theta\sum_{x\in X,y\in Y}L(y,f(x,\theta))$，其中$L(y,f(x,\theta))$为损失函数，即NN的输出和真实$y\in Y$之间的差距，具体来说，即预测位图与真实覆盖位图之间的二元交叉熵。</p>
+<p>具体计算方法：令$y_i$和$f_i(x,\theta)$分别表示真实位图和预测位图的第$i$个比特，则二元交叉熵如下计算</p>
+<img src="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230924174602995.png" class title="image-20230924174602995">
+<p>采用AFL测试过程中生成的语料来训练模型。</p>
+<p><strong>训练数据预处理</strong></p>
+<p>训练数据的边缘覆盖率往往有偏差，因为它只包含程序中所有边缘中一小部分的标签。例如，某些边缘可能总是与训练数据中的所有输入一起使用。这种标签集之间的相关性在机器学习中被称为多重共线性（multicollinearity），通常会阻碍模型收敛到较小的损失值[34]。为了避免这种情况，我们采用机器学习中常见的降维方法，将训练数据中总是同时出现的边合并为一条边。此外，我们只考虑在训练数据中至少被激活过一次的边。这些步骤大大减少了标签数量，从平均约 65 536 个减少到约 4 000 个。需要注意的是，我们在增量学习的每次迭代中都会重新运行数据预处理步骤，因此一些合并的标签可能会被拆分，因为在模糊过程中发现新的边缘数据后，它们的相关性可能会降低。</p>
+<p>（简要来说，第一是做了标签合并，第二只考虑被激活过至少一次的边，大大减少了标签数量）</p>
+<p>（回想之前做的数据处理，可以参考他们的方法）</p>
+<p>（但到现在还是不太明白，为什么这样训练就可以smooth program）</p>
+<p>（或许可以这样理解：训练好的神经网络模拟好了程序内的行为，即输入对应的输出有相应的代码块执行，体现为边覆盖情况，而神经网络是由大量的可微神经元组成，使得原本不平滑的程序行为替换为了平滑的神经元(带点抽象这里)，这即是smooth）</p>
+<h3 id="C-Gradient-guided-optimization"><a href="#C-Gradient-guided-optimization" class="headerlink" title="C. Gradient-guided optimization"></a>C. Gradient-guided optimization</h3><p>论文设计了一个简单的梯度引导搜索方案，该方案对微小的预测误差具有鲁棒性。</p>
+<p>首先提供论文中梯度的正式定义：它表示每个输入字节的变化程度对 NN 最后一层神经元输出的影响（表示程序中边缘覆盖范围的变化）f 。在这里，每个输出神经元对应一个特定的边缘，并计算一个介于 0 和 1 之间的值，总结给定输入字节对特定边缘的影响。</p>
+<p>直观地说，基于梯度的引导的目标是找到能将最终层神经元对应不同边缘的输出从 0 变为 1 的输入。</p>
+<p>如IV-B节所定义，给定参数NN $y=f(\theta,x)$，让 $y_i$ 表示$ f$ 最后一层第 $i$ 个神经元的输出，也可以写成 $f_i(θ，x)$，$f_i(θ，x)$对应输入x的梯度$G=\nabla_xf_i(\theta,x)=\frac{\partial y_i}{\partial x}$，请注意，$f$ 与 $θ $的梯度可以很容易地计算出来，因为 NN 的训练过程需要反复计算这个值来更新 $θ$。因此，只要将计算$ θ$ 的梯度替换为计算$ x$ 的梯度，就可以很容易地计算出$ G$。</p>
+<p><strong>Gradient-guided optimization</strong></p>
+<img src="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925163954488.png" class title="image-20230925163954488">
+<p>算法 1 显示了梯度引导输入生成过程的概要。其主要思路是识别梯度值最高的输入字节并对其进行变异，因为这些字节对 NN 的重要性更高，因此更有可能导致程序行为发生重大变化（如翻转分支）。</p>
+<p>从种子开始迭代生成新的测试输入。如算法 1 所示，在每次迭代中，首先利用梯度的绝对值来确定输入字节，这些字节将导致与未取边缘相对应的输出神经元发生最大变化。接下来，检查每个字节的梯度符号，以决定突变的方向（例如，增加或减少其值），从而最大化/最小化目标函数。从概念上讲，对梯度符号的使用类似于对抗输入生成方法。我们还将每个字节的突变限制在其合法范围（0-255）内。第 6 行和第 10 行表示使用 clip 函数来实现这种约束。</p>
+<h3 id="D-Refinement-with-incremental-learning"><a href="#D-Refinement-with-incremental-learning" class="headerlink" title="D. Refinement with incremental learning"></a>D. Refinement with incremental learning</h3><p>梯度引导输入生成过程的效率在很大程度上取决于代理 NN 对目标程序分支行为建模的准确程度。为了达到更高的精度，使用增量学习技术，在触发新边缘时通过学习新数据来不断更新 NN 模型。</p>
+<p>NN优化的主要挑战是防止 NN 模型在对新数据进行训练时突然遗忘之前从旧数据中学到的信息。最简单的解决办法是将新数据与旧数据混合，重新训练NN。然而随着数据集的增大，这种重新训练会变得越来越困难。之前主要采取两种方法解决</p>
+<ul>
+<li>使用分布式模型、正则化或从多个模型中创建一个集合，为新模型和旧模型保留不同的表征，以尽量减少遗忘。</li>
+<li>保留旧数据的摘要，并在新数据和摘要旧数据的基础上重新训练模型，因此比完全重新训练更有效。</li>
+</ul>
+<p>在本文中，使用基于边缘覆盖率的过滤方法，只保留触发新分支的旧数据进行再训练。当有新的数据可用时，将它们与过滤后的旧训练数据放在一起，重新训练 NN。这种方法能有效防止训练数据样本的数量随着再训练迭代次数的增加而急剧增加。论文的方案能够支持多达 50 次的重训练迭代，同时还能将训练时间控制在几分钟以内。</p>
+<h2 id="V-IMPLEMENTATION"><a href="#V-IMPLEMENTATION" class="headerlink" title="V. IMPLEMENTATION"></a>V. IMPLEMENTATION</h2><p><strong>NN architecture</strong></p>
+<p>Keras2.1.3 Tensorflow1.4.1</p>
+<p>NN模型使用了3个全连接层，隐藏层使用ReLU作为激活函数，Sigmoid作为输出层的激活函数，预测一个控制流边是否被覆盖</p>
+<p>NN模型训练50个Epochs，达到平均95%的准确率</p>
+<p><strong>Training Data Collection</strong></p>
+<p>对每个被测程序，运行AFL一小时来收集NN的训练数据，平均能收集到2k左右，训练集和测试集按5：1进行分割，使用10KB作为阈值文件大小</p>
+<p><strong>Mutation and Retraining</strong></p>
+<p>如图 2 所示，NEUZZ 以迭代方式运行，生成 100 万个突变，并逐步重新训练 NN 模型。我们首先使用算法 1 中描述的突变算法生成 100 万个突变。我们将参数 i 设为 10，从而为种子输入生成 5,120 个突变输入。接下来，我们随机选择 100 个输出神经元，代表目标程序中 100 条未探索的边，并从两个种子中生成 10,240 个突变输入。最后，我们使用 AFL 的 fork 服务器技术[54]，用 100 万个变异输入执行目标程序，并使用任何覆盖新边的输入进行增量再训练。</p>
+<p><strong>Model Parameter Selection</strong></p>
+<p>论文根据经验探索了在四个程序（readelf、libjpeg、libxml 和 mupdf）上确保最大边缘覆盖率的最佳参数。结果汇总于表 I。</p>
+<img src="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925172251561.png" class title="image-20230925172251561">
+<p>首先，我们评估每个初始种子需要变异多少个关键字节（算法 1 第 1 行中的参数 ki）。如第四章 C 节所述，我们选择 k = 2，并展示了三次迭代（算法 1 第 1 行中的 i = 7、10、11）所达到的覆盖率，每次迭代的突变数为 100 万。如表 $Ia$ 所示，对于所有四个程序来说，较小的突变（每次突变改变的字节数较少）可能会带来更高的代码覆盖率。在所有四个程序中，最大值 i = 11 的代码覆盖率最小。造成这一结果的原因可能是算法 1 中的第 4 行和第 8 行—在单个种子上浪费了过多的突变次数（100 万次突变预算），而没有尝试其他种子。不过，四个程序的最佳突变字节数各不相同。对于 readelf 和 libxml，i 的最佳值是 10，而 libjpeg 和 mupdf 的最佳值是 7。由于 i = 7 和 i = 10 之间实现的代码覆盖率差别不大，因此我们在其余实验中选择 i = 10。</p>
+<p>接下来，我们通过改变层数和每个隐藏层中神经元的数量来评估 NN 模型中超参数的选择。特别是，我们比较了分别有 1 和 3 个隐藏层、每层有 4096 和 8192 个神经元的 NN 架构。对于每个目标程序，我们使用相同的训练数据来训练四个不同的 NN 模型，并产生 100 万个突变来测试所实现的边缘覆盖率。对于所有四个程序，我们发现具有 1 个隐藏层的模型比具有 3 个隐藏层的模型表现更好。我们认为，这是因为 1 个隐藏层的模型足够复杂，可以模拟目标程序的分支行为，而较大的模型（即 3 个隐藏层）则相对较难训练，而且容易过拟合。</p>
+<h2 id="VI-EVALUATION"><a href="#VI-EVALUATION" class="headerlink" title="VI. EVALUATION"></a>VI. EVALUATION</h2><ul>
+<li>RQ1: NEUZZ能够比其他fuzzer找到更多bug吗</li>
+<li>RQ2: NEUZZ能够达到更高的代码覆盖率吗</li>
+<li>RQ3: NEUZZ是否表现得比已有的基于RNN的fuzzer更好</li>
+<li>RQ4: 不同的模型选择是如何影响NEUZZ的表现的？</li>
+</ul>
+<h3 id="A-Study-Subjects"><a href="#A-Study-Subjects" class="headerlink" title="A. Study Subjects"></a>A. Study Subjects</h3><p><img src="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925200503699.png" alt="image-20230925200503699" style="zoom:67%;"></p>
+<p>在3类不同数据集上评估NEUZZ，比较代码覆盖率和漏洞发现数量</p>
+<p>(i)10类真实世界程序</p>
+<p>(ii) LAVA-M</p>
+<p>(iii)DARPA CGC dataset</p>
+<h3 id="B-Experiment-Setup"><a href="#B-Experiment-Setup" class="headerlink" title="B. Experiment Setup"></a>B. Experiment Setup</h3><p>包括以下两个步骤</p>
+<ol>
+<li>运行 AFL 一小时，生成初始种子语料库。</li>
+<li>使用相同的初始种子语料库，以固定的时间预算运行每个模糊器，并比较它们实现的边缘覆盖率和发现的错误数量。</li>
+</ol>
+<p>10 个真实世界程序、LAVA-M 数据集和 CGC 数据集的时间预算分别为 24 小时、5 小时和 6 小时。</p>
+<p>对于进化模糊器，种子语料库用于初始化模糊过程。对于基于学习的模糊器（即 NEUZZ 和基于 RNN 的模糊器），则使用相同的种子语料库生成训练数据集。至于由 Klee 和 AFL 组成的混合工具 KleeFL，我们额外运行 Klee 一小时以生成额外的种子，然后将其添加到原始种子语料库中，用于随后 24 小时的模糊处理。</p>
+<p>请注意，我们只报告每个模糊器的变异输入所覆盖的额外代码，而不包括来自初始种子语料库的覆盖信息。</p>
+<p>在问题 3 中，我们评估并比较了 NEUZZ 与基于 RNN 的模糊器的性能。基于 RNN 的模糊器的训练时间可能比 NEUZZ 长 20 倍。不过，为了重点关注这两种突变算法的功效，我们对固定突变量的边缘覆盖率进行了评估，以排除这些不同训练时间的影响。我们还对这两种模型的训练时间成本进行了独立评估比较。在问题 4 中，我们还评估了固定突变数量下的边缘覆盖率，以排除不同模型中不同训练时间成本的影响。</p>
+<h3 id="C-Results"><a href="#C-Results" class="headerlink" title="C. Results"></a>C. Results</h3><p><strong>RQ1:NEUZZ能够比其他fuzzer找到更多bug吗 </strong></p>
+<p>Real World Softwares</p>
+<img src="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925200532545.png" class title="image-20230925200532545">
+<p>LAVA-M数据集</p>
+<img src="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925202102813.png" class title="image-20230925202102813">
+<p>注意：LAVA通过设置Magic numebr来注入并触发漏洞，这类条件对于覆盖引导的fuzzer是一项艰巨的任务。</p>
+<p>作者定制了LLVM pass来检查Magic number，并利用 NN 的梯度来引导输入生成过程，以找到满足Magic number的输入</p>
+<p>与其他模糊器相比，NEUZZ 有两大优势。首先，NEUZZ 将搜索空间分成多个可管理的步骤： NEUZZ 在 AFL 生成的数据上训练底层 NN，使用计算出的梯度到达第一个临界字节，并在找到的临界区域周围执行局部搜索。其次，与 VUzzer 利用目标二进制文件中硬编码的Magic numebr来构建程序输入不同，NEUZZ 基于梯度的搜索策略不依赖于任何硬编码的神奇数字。因此，它能发现程序 md5sum 中的所有漏洞，而 md5sum 会在魔数检查之前对输入字节进行一些计算，从而导致 VUzzer 失败。</p>
+<p>CGC Datasets</p>
+<blockquote>
+<p>DARPA CGC 数据集是网络比赛中用到的漏洞程序，这些程序是以执行各种任务的网络服务的形式实现的，旨在反映现实世界中存在已知漏洞的应用程序。程序中的每一个漏洞都通过对输入进行大量的正确性检查来防范。</p>
+</blockquote>
+<img src="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925203515508.png" class title="image-20230925203515508">
+<p><strong>RQ2: NEUZZ能够获取更高的代码覆盖率吗</strong></p>
+<img src="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925203559613.png" class title="image-20230925203559613">
+<p>夸张性地领先其他fuzzer数倍的代码覆盖率</p>
+<img src="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925211246969.png" class title="image-20230925211246969">
+<p><strong>RQ3: Can NEUZZ perform better than existing RNN-based fuzzers?</strong></p>
+<p>基于RNN的Fuzzer学习过去的突变模式，来指导未来的变异，具体可能是为 AFL 建立一个过滤器，只允许关键字节的突变通过，否决所有其他非关键字节的突变。</p>
+<p>论文将NEUZZ与这类Fuzzer进行了比较：</p>
+<img src="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925211725789.png" class title="image-20230925211725789">
+<p>与基于RNN的模糊器相比，NEUZZ的关键优势在于，NEUZZ使用基于神经网络的梯度引导搜索来获得关键位置，而RNN模糊器试图以端到端的方式对任务进行建模。论文的模型可以区分RNN模型可能遗漏的关键字节的不同影响因素。对于突变生成，NEUZZ对由相应的贡献因素确定的关键字节进行穷举搜索，而基于RNN的模糊器仍然依赖于AFL的均匀随机突变。</p>
+<p><strong>RQ4: 不同的模型选择如何影响NEUZZ的表现？</strong></p>
+<p>在本节中，探究一个隐藏层的不同模型设置（即线性模型、无细化的 NN 模型和增量细化的 NN 模型）并进行消融实验</p>
+<img src="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/image-20230925212600976.png" class title="image-20230925212600976"></div><div class="article-licensing box"><div class="licensing-title"><p><a href="http://curator-kim.github.io/2023/09/26/NEUZZ Efficient Fuzzing with Neural Program Smoothing/">http://curator-kim.github.io/2023/09/26/NEUZZ Efficient Fuzzing with Neural Program Smoothing/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><a href="http://Curator-Kim.github.io"><p>Curator-Kim</p></a></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2023-09-26</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2023-09-26</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="recommend-area"><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># Related Post</span><br><span>  1.<a class="is-size-6" href="/2023/10/10/Large%20language%20model%20are%20Zero-Shot%20Fuzzers%20Fuzzing%20Deep-Learning%20Libraries%20via%20Large%20Language%20Models/" target="_blank"> </a><br></span><span>  2.<a class="is-size-6" href="/2023/10/02/A%20deep%20convolution%20generative%20adversarial%20networks%20based%20fuzzing%20framework%20for%20industry%20control%20protocols/" target="_blank"> </a><br></span><span>  3.<a class="is-size-6" href="/2023/09/13/Universal%20Fuzzing%20via%20Large%20Language%20Models/" target="_blank"> </a><br></span><span>  4.<a class="is-size-6" href="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/" target="_blank"> </a><br></span><span>  5.<a class="is-size-6" href="/2023/08/26/%E9%99%87%E5%89%91%E6%9D%AF%202023%20Writeup/" target="_blank"> </a><br></span><span>  6.<a class="is-size-6" href="/2023/08/25/ICS%20Protocol%20Fuzzing%20Coverage%20Guided%20Packet%20Crack%20and%20Generation/" target="_blank"> </a><br></span><span>  7.<a class="is-size-6" href="/2023/08/21/Skyfire%20Data-Driven%20Seed%20Generation%20for%20Fuzzing/" target="_blank"> </a><br></span><span>  8.<a class="is-size-6" href="/2023/08/14/Fuzzing%20Hack,%20Art%20and%20Science/" target="_blank"> </a><br></span></div></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/css/share.min.css"><div class="social-share"></div><script src="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">Like this article? Support the author with</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>Alipay</span><span class="qrcode"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/alipay.png?raw=true" alt="Alipay"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>Wechat</span><span class="qrcode"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/wechat.png?raw=true" alt="Wechat"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2023/10/02/A%20deep%20convolution%20generative%20adversarial%20networks%20based%20fuzzing%20framework%20for%20industry%20control%20protocols/"><i class="level-item fas fa-chevron-left"></i><span class="level-item"> </span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2023/09/13/Universal%20Fuzzing%20via%20Large%20Language%20Models/"><span class="level-item"> </span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--><div class="card"><div class="card-content"><div class="title is-5">Comments</div><div id="comment-container"></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/gitalk/1.6.0/gitalk.css"><script> $.getScript('/js/gitalk.min.js', function () { 
+            var gitalk = new Gitalk({
+            language:'zh-CN',
+            id: 'd41d8cd98f00b204e9800998ecf8427e',
+            repo: 'blog_comment',
+            owner: 'Curator-Kim',
+            clientID: '46a9f3481b46ea0129d8',
+            clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+            admin: ["Curator-Kim"],
+            createIssueManually: true,
+            distractionFreeMode: false,
+            perPage: 10,
+            pagerDirection: 'last',
+            proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
+            
+            enableHotKey: true,
+            isLocked: false
+        })
+        gitalk.render('comment-container')});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><!--!--><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/22a41709ffc26f62191d72a87ffbb342d46bfce3/img/icon.jpg?raw=true" alt="Curator-Kim"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Curator-Kim</p><p class="is-size-6 is-block">寻几处好景破星光</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>火星</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">50</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">16</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/curator-kim"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="/804242129@qq.com"><i class="fa fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div><div><hr><p id="hitokoto">:D 一言句子获取中...</p><script type="text/javascript" defer>function getYiyan(){
+                                $.getJSON("https://v1.hitokoto.cn/", function (data) {
+                                if(data){
+                                    $('#hitokoto').html("");
+                                    $('#hitokoto').append("<strong style='color: #3273dc;'>"+data.hitokoto+"</strong>"+
+                                    "<p>"+"From《"+data.from+"》</p><p>Provider-"+data.creator+"</p>");
+                                }});}
+                                $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});</script></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><!--!--><div class="card widget"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-10-10T11:53:02.684Z">2023-10-10</time></p><p class="title"><a href="/2023/10/10/Large%20language%20model%20are%20Zero-Shot%20Fuzzers%20Fuzzing%20Deep-Learning%20Libraries%20via%20Large%20Language%20Models/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-10-02T01:51:32.930Z">2023-10-02</time></p><p class="title"><a href="/2023/10/02/A%20deep%20convolution%20generative%20adversarial%20networks%20based%20fuzzing%20framework%20for%20industry%20control%20protocols/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-09-26T01:06:57.809Z">2023-09-26</time></p><p class="title"><a href="/2023/09/26/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-09-13T14:39:39.205Z">2023-09-13</time></p><p class="title"><a href="/2023/09/13/Universal%20Fuzzing%20via%20Large%20Language%20Models/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-09-03T11:11:20.649Z">2023-09-03</time></p><p class="title"><a href="/2023/09/03/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/"> </a></p></div></article></div></div><!--!--><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2023/10/"><span class="level-start"><span class="level-item">October 2023</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2023/09/"><span class="level-start"><span class="level-item">September 2023</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2023/08/"><span class="level-start"><span class="level-item">August 2023</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2023/07/"><span class="level-start"><span class="level-item">July 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2023/06/"><span class="level-start"><span class="level-item">June 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><a class="level is-mobile is-marginless" href="/archives/"><span class="level-start"><span class="level-item">查看全部&gt;&gt;</span></span></a></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/CTF/"><span class="tag">CTF</span><span class="tag is-grey-lightest">15</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"><span class="tag">汇编语言</span><span class="tag is-grey-lightest">12</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Crypto/"><span class="tag">Crypto</span><span class="tag is-grey-lightest">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ctf/"><span class="tag">ctf</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pwn/"><span class="tag">pwn</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CopperSmith/"><span class="tag">CopperSmith</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/DES/"><span class="tag">DES</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/HWS/"><span class="tag">HWS</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/NTRU/"><span class="tag">NTRU</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/RE/"><span class="tag">RE</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Reverse/"><span class="tag">Reverse</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/angr/"><span class="tag">angr</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/"><span class="tag">加密与解密</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99/"><span class="tag">参考资料</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"><span class="tag">论文阅读</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/"><span class="tag">预备知识</span><span class="tag is-grey-lightest">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><!--!--><div class="column-right-shadow is-hidden-widescreen"></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/logo.png?raw=true" alt="Curator-Kim的小站" height="28"></a><p class="size-small"><span>&copy; 2023 Curator-Kim</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> &amp; <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span>© <a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备88888888号-8（测试）</a><br></span><span>© 版权说明：[本网站所有内容均收集于互联网或自己创作,<br />&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="/message" target="_blank">留言</a>，立即处理]<br /></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "❤️Site from <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> has existed <strong>" + dnum + "</strong> d <strong>" + hnum + "</strong> h <strong>" + mnum + "</strong> m <strong>" + snum + "</strong> s！❤️";
+        }var now = new Date();setInterval("createTime('2022/1/21 00:00:00')", 250,"");</script><br></span><div class="size-small"><span>❤️Thx <strong><span id="busuanzi_value_site_uv">99+</span></strong> users <strong><span id="busuanzi_value_site_pv">99+</span></strong> visited！❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a></p></div><div class="sideMusic"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="/js/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script><meting-js style="width: auto;height: 2000px;" server="netease" type="playlist" id="137510737" theme="#2980b9" loop="all" autoplay="false" order="list" storageName="aplayer-setting" lrctype="0" list-max-height="400px" fixed="true"></meting-js></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><script src="/js/main.js" defer></script><script>$.getScript('/js/comment-issue-data.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','Curator-Kim','blog_comment',false);})</script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
+
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
+
+        function loadMathJax() { //加载mathjax
+            $.getScript("//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", function () {
+                MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\(', '\)']] } });
+                var math = document.getElementsByClassName("entry-content")[0];
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);
+            });
+        };
+
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
+        
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(false){
+                $.getScript('/js/comment-issue-data.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','Curator-Kim','blog_comment',false);});
+            }
+            if(false){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script></body></html>
