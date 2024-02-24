@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Curator-Kim的小站</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Curator-Kim的小站"><meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Curator-Kim的小站"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="Path sensitive fuzzing for Native Application1 Introduction代码覆盖率对于覆盖引导的模糊器至关重要 由于高额的开销使得跟踪路径覆盖不可行 1.1 覆盖不精确如何影响漏洞发现 覆盖不精确可能会导致测试器没有能够区分两条不同的路径。如果一个测试用例探索到了一条新路径，但他与之前已探索过的路径碰撞了，测试器则会认为这条新路径不那么重要 覆盖不精确"><meta property="og:type" content="blog"><meta property="og:title" content="Curator-Kim"><meta property="og:url" content="https://curator-kim.github.io/"><meta property="og:site_name" content="Curator-Kim"><meta property="og:description" content="Path sensitive fuzzing for Native Application1 Introduction代码覆盖率对于覆盖引导的模糊器至关重要 由于高额的开销使得跟踪路径覆盖不可行 1.1 覆盖不精确如何影响漏洞发现 覆盖不精确可能会导致测试器没有能够区分两条不同的路径。如果一个测试用例探索到了一条新路径，但他与之前已探索过的路径碰撞了，测试器则会认为这条新路径不那么重要 覆盖不精确"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://curator-kim.github.io/img/icon.jpg"><meta property="article:published_time" content="2024-01-21T13:32:59.259Z"><meta property="article:modified_time" content="2023-02-03T02:47:44.000Z"><meta property="article:author" content="Curator-Kim"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/icon.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/"},"headline":"Curator-Kim的小站","image":["http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230105215701827.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230109003758238.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230109011226897.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230109141811234.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230109170043442.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230109164706446.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230109174441209.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230111155430656.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230114235220339.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115001249624.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115001441249.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115003225973.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115111048707.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115111053655.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115113021198.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115113031418.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115113323782.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115131457549.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115131628350.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116011026204.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116101955472.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116111058626.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116111859677.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116112617826.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116120827813.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116120921586.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116121522641.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116121738173.png","http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116121747478.png"],"datePublished":"2024-01-21T13:32:59.259Z","dateModified":"2023-02-03T02:47:44.000Z","author":{"@type":"Person","name":"Curator-Kim"},"description":"Path sensitive fuzzing for Native Application1 Introduction代码覆盖率对于覆盖引导的模糊器至关重要 由于高额的开销使得跟踪路径覆盖不可行 1.1 覆盖不精确如何影响漏洞发现 覆盖不精确可能会导致测试器没有能够区分两条不同的路径。如果一个测试用例探索到了一条新路径，但他与之前已探索过的路径碰撞了，测试器则会认为这条新路径不那么重要 覆盖不精确"}</script><link rel="canonical" href="http://curator-kim.github.io/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/"><link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="referrer" content="no-referrer-when-downgrade"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="/js/globalUtils.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><link rel="stylesheet" href="/live2d/waifu.css"><script type="text/javascript" async src="/live2d/autoload.js"></script><meta name="generator" content="Hexo 5.4.0"></head><body class="is-3-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/logo.png?raw=true" alt="Curator-Kim的小站" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a><a class="navbar-item" href="/album">Album</a><a class="navbar-item" href="/friend">Friend</a><a class="navbar-item" href="/message">Message</a><a class="navbar-item" href="/self-talking">Self-talking</a><a class="navbar-item" href="/music">Music</a><a class="navbar-item" href="/media">Media</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Join Gitter" href="https://gitter.im/hexo-theme-amazing/community"><i class="fab fa-gitter"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="/js/theme-setting.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2024-01-21  <a class="commentCountImg" href="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/#comment-container"><span class="display-none-class">d41d8cd98f00b204e9800998ecf8427e</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="d41d8cd98f00b204e9800998ecf8427e">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>36 m  <i class="fas fa-pencil-alt"> </i>5.3 k</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>&nbsp;visits</span></div></div><h1 class="title is-3 is-size-4-mobile"> </h1><div class="content"><h1 id="Path-sensitive-fuzzing-for-Native-Application"><a href="#Path-sensitive-fuzzing-for-Native-Application" class="headerlink" title="Path sensitive fuzzing for Native Application"></a>Path sensitive fuzzing for Native Application</h1><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h2><p>代码覆盖率对于覆盖引导的模糊器至关重要</p>
+<p>由于高额的开销使得跟踪路径覆盖不可行</p>
+<h3 id="1-1-覆盖不精确如何影响漏洞发现"><a href="#1-1-覆盖不精确如何影响漏洞发现" class="headerlink" title="1.1 覆盖不精确如何影响漏洞发现"></a>1.1 覆盖不精确如何影响漏洞发现</h3><ol>
+<li>覆盖不精确可能会导致测试器没有能够区分两条不同的路径。如果一个测试用例探索到了一条新路径，但他与之前已探索过的路径碰撞了，测试器则会认为这条新路径不那么重要</li>
+<li>覆盖不精确会影响测试策略。它影响力测试器选择最优的种子进行测试</li>
+</ol>
+<h3 id="1-2-如何提高覆盖精确度并引导测试器"><a href="#1-2-如何提高覆盖精确度并引导测试器" class="headerlink" title="1.2 如何提高覆盖精确度并引导测试器"></a>1.2 如何提高覆盖精确度并引导测试器</h3><p>跟踪边缘和块覆盖是可能的</p>
+<p>AFL的覆盖跟踪有着更低的时间开销</p>
+<p>由于哈希冲突问题，AFL的边缘覆盖是不完美的。对该问题的解决措施是扩大AFL用于存储覆盖的比特图的大小</p>
+<p>CollAFL解决了AFL的哈希碰撞问题并提高了覆盖精确度，还提出了三个新的测试策略，来驱动测试器发现未探索的道路，并提高发现漏洞的效率</p>
+<p>CollAFL通过确认每条路径有一个特定的Hash，所以AFL能区分每一条路径</p>
+<h3 id="1-3-如何将建议的解决方案应用于二进制应用程序？"><a href="#1-3-如何将建议的解决方案应用于二进制应用程序？" class="headerlink" title="1.3 如何将建议的解决方案应用于二进制应用程序？"></a>1.3 如何将建议的解决方案应用于二进制应用程序？</h3><p>使用静态二进制检查(static binary instrumentation(SBI))来将解决方案应用到二进制程序中。对于每一个二进制程序，fuzzer会反汇编该程序，恢复其控制流图，并使用建议的覆盖跟踪方案对应用程序进行检测</p>
+<h3 id="1-4-覆盖敏感的测试器表现如何"><a href="#1-4-覆盖敏感的测试器表现如何" class="headerlink" title="1.4 覆盖敏感的测试器表现如何"></a>1.4 覆盖敏感的测试器表现如何</h3><img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230105215701827.png" class title="image-20230105215701827">
+<p>测试结果</p>
+<ul>
+<li>在真实应用中哈希碰撞问题很普遍，75%边界会与其他产生冲突</li>
+<li>论文中所提出的碰撞减轻方案可以解决所有已知边界的哈希碰撞，并能够帮助测试器探索9.9%多的代码，250%多独特的冲突和140%多的安全漏洞</li>
+<li>在碰撞减轻方案和未接触分支指向种子选择的联合作用下，探索多了20%的代码，320%多的冲突，260%多的安全漏洞</li>
+</ul>
+<p>总结：</p>
+<ul>
+<li>哈希碰撞问题严重影响了AFL的效率，覆盖不精确的问题降低了覆盖引导的fuzzer的效率</li>
+<li>设计了一套算法来解决AFL中的哈希碰撞问题，低开销情况下提高了边覆盖精确度</li>
+<li>提出了三个覆盖敏感的种子选择策略。经验表明基于精确的边覆盖信息来权衡种子选择能提高fuzzer的表现</li>
+<li>提供了CollAFL的两个变种，能够在提供或不提供源码的情况下测试程序</li>
+</ul>
+<h2 id="2-Background-And-Related-Work"><a href="#2-Background-And-Related-Work" class="headerlink" title="2 Background And Related Work"></a>2 Background And Related Work</h2><h3 id="2-1Fuzzing"><a href="#2-1Fuzzing" class="headerlink" title="2.1Fuzzing"></a>2.1Fuzzing</h3><h3 id="2-2Coverage-Guided-Fuzzing"><a href="#2-2Coverage-Guided-Fuzzing" class="headerlink" title="2.2Coverage Guided Fuzzing"></a>2.2Coverage Guided Fuzzing</h3><p>进化算法</p>
+<p>最先进的覆盖导向fuzzer：AFL、libFuzzer、VUzzer</p>
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230109003758238.png" class title="image-20230109003758238">
+<h3 id="2-3-Coverage-Tracking"><a href="#2-3-Coverage-Tracking" class="headerlink" title="2.3 Coverage Tracking"></a>2.3 Coverage Tracking</h3><p>覆盖导向的fuzzers跟踪不同层次的代码覆盖。</p>
+<p>LibFuzzer和honggfuzz利用Clang编译器提供的SanitizerOverage检测方法来跟踪块覆盖</p>
+<p>AFL使用静态/动态分析来跟踪边覆盖</p>
+<p>Angora记录调用上下文并跟踪上下文敏感的边缘覆盖</p>
+<p>块覆盖是最不敏感的<br>上下文敏感的边缘覆盖是最敏感的</p>
+<p>给定边缘覆盖率，很容易去推导块覆盖率。然而几乎不可能从块覆盖率去推导边覆盖率</p>
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230109011226897.png" class title="image-20230109011226897">
+<p>图中无关键路径，P1和P2走了完全不同的路径，块覆盖一致而路径覆盖不一致</p>
+<p>尽管上下文敏感的边缘覆盖可以帮助识别更多的路径，但带来了许多负面的效果</p>
+<ul>
+<li>由于不同的调用上下文，不同路径的相同边会分配不同的哈希，使边和位图之间的映射不确定。因此fuzzer很难获得每个边的全局覆盖状态，因此具有较低的控制流灵敏度。为了解决这个问题，Angora分配了额外的共享内存来记录边映射。</li>
+<li>提供上下文敏感边缘覆盖的解决方案将为队列引入许多无用的路径，因此将浪费计算资源并削弱新边缘的发现</li>
+</ul>
+<h4 id="2-3-1哈希碰撞问题"><a href="#2-3-1哈希碰撞问题" class="headerlink" title="2.3.1哈希碰撞问题"></a>2.3.1哈希碰撞问题</h4><p>AFL使用位图（默认大小64KB）来跟踪应用的边覆盖。每一个位图的字节代表了特定边的统计数据。每个边的Hash作为位图的键值。因此可能会有哈希碰撞的问题，即两个两条边共享一个哈希值，使得fuzzer不能区分这些边，导致覆盖的不精确</p>
+<p>AFL为目标程序的基本块分配随机键值，例如边A-&gt;B，AFL以如下方式计算器Hash</p>
+<script type="math/tex; mode=display">
+cur\oplus(prev>>1)</script><p>其中prev和cur是基本块A和B的键值。由于生日攻击，哈希碰撞的比例非常高</p>
+<p>实验表明，由于哈希碰撞，在真实应用测试中高达75%的边对于AFL是不可见的</p>
+<h3 id="2-4-种子选择策略"><a href="#2-4-种子选择策略" class="headerlink" title="2.4 种子选择策略"></a>2.4 种子选择策略</h3><p>AFL倾向于更小和执行速度更快的种子</p>
+<p>VUzzer倾向于能探索更深路径的种子</p>
+<p>AFLfast倾向于探索频率较低的和更少被选择的种子</p>
+<p>考虑到代码覆盖信息并不精确，这会使得fuzzer在筛选种子时不能做出最优选择。例如冷热路径的选择</p>
+<h3 id="2-5-论文的关注点"><a href="#2-5-论文的关注点" class="headerlink" title="2.5 论文的关注点"></a>2.5 论文的关注点</h3><p>提出了CollAFL，覆盖敏感的fuzz解决方案。它提高了代码覆盖跟踪的精度，并利用精确覆盖的信息来指引fuzzer。而且，我们评估了将此解决方案应用于闭源应用程序的可行性</p>
+<h2 id="3-Imporve-Coverage-Accuracy"><a href="#3-Imporve-Coverage-Accuracy" class="headerlink" title="3 Imporve Coverage Accuracy"></a>3 Imporve Coverage Accuracy</h2><h3 id="3-1-覆盖粒度"><a href="#3-1-覆盖粒度" class="headerlink" title="3.1 覆盖粒度"></a>3.1 覆盖粒度</h3><p>三种覆盖粒度：块覆盖、边覆盖、路径覆盖</p>
+<p>典型的块覆盖方案会跟踪测试中每个块的击中次数。然而它不跟踪块的顺序，导致了覆盖信息的损失</p>
+<p>典型的边覆盖跟踪每条边的击中次数，然而它同样不跟踪边的次序，同样导致了信息的损失。</p>
+<p>路径覆盖方案会跟踪边的顺序，提供最完整的代码覆盖信息。然而代码路径非常长，且数量庞大，时间与空间开销难以承受，实际上不可行。一种优化方法是上下文敏感的边覆盖，能够跟踪部分函数调用顺序。这种方法有较高的性能开销和低效率。</p>
+<p>边覆盖方案达到了性能的平衡。然而存在哈希碰撞的问题。CollAFL采用边覆盖跟踪策略解决了这一问题。</p>
+<h3 id="3-2-哈希冲突的简单解决方案"><a href="#3-2-哈希冲突的简单解决方案" class="headerlink" title="3.2 哈希冲突的简单解决方案"></a>3.2 哈希冲突的简单解决方案</h3><p>直接解决方案是扩大哈希空间，即AFL中的位图大小，然而当前默认的位图大小(64KB)已经是一种性能上的折中</p>
+<p>这种方法会带来性能上的大量损失。要减少5%的哈希碰撞，需要将位图大小从4KB扩大到4MB，导致60%执行速度上的损失。</p>
+<h3 id="3-3-CollAFL的解决方案"><a href="#3-3-CollAFL的解决方案" class="headerlink" title="3.3 CollAFL的解决方案"></a>3.3 CollAFL的解决方案</h3><p>使用了一种新的哈希计算方式：</p>
+<script type="math/tex; mode=display">
+Fmul(cur,prev)=(cur>>x)\oplus(prev>>y)+z</script><p><x,y,z>是要确定的参数，对于不同的边可以不一样</x,y,z></p>
+<p>如下图所示，对于每个末尾块，可以选择一系列参数</p>
+<p>使用贪心算法逐个搜索每个块的参数</p>
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230109141811234.png" class title="image-20230109141811234">
+<p>这里还有些不明白）</p>
+<h4 id="3-3-1-具有单一先例的块的哈希算法"><a href="#3-3-1-具有单一先例的块的哈希算法" class="headerlink" title="3.3.1 具有单一先例的块的哈希算法"></a>3.3.1 具有单一先例的块的哈希算法</h4><p>如果一个块只有一个先例，那么我们可以直接在末尾块给这条边分配一个哈希，而不是使用前面的计算公式进行计算。</p>
+<p>因此，对于只有一个先例块A的块B，我们不需要寻找参数<x,y,z>，而可以使用下列的哈希算法</x,y,z></p>
+<script type="math/tex; mode=display">
+Fsingle(cur,prev):c</script><p>哈希值c硬编码于块B中。</p>
+<p>实验表明，大部分应用超过60%的基础块只有一个先例块</p>
+<h4 id="3-3-2具有多个先例的块的哈希算法"><a href="#3-3-2具有多个先例的块的哈希算法" class="headerlink" title="3.3.2具有多个先例的块的哈希算法"></a>3.3.2具有多个先例的块的哈希算法</h4><p>对于一个不可解的块B，我们引入另一个哈希算法来计算边A-&gt;B</p>
+<script type="math/tex; mode=display">
+Fhash(cur,prev):hash_table_lookup(cur,prev)</script><p>它构建了一个离线的Hash表，包含有所有以不可解的块为结尾的边的哈希。在运行时，他会查询这个预计算好的哈希表，使用他们的开始和结束块作为键来获取这些边的哈希。</p>
+<p>Fhash是比Fmul和Fsingle慢很多的，因此要尽量限制不可解块的数量</p>
+<p>至今还不明白的一个点：什么是solvable blocks，什么是unsolvable blocks）</p>
+<p>使用贪心算法求解这些块的参数，将可解决的块标记为solvable blocks，其他即unsolvable</p>
+<h4 id="3-3-3-整体优化方案"><a href="#3-3-3-整体优化方案" class="headerlink" title="3.3.3 整体优化方案"></a>3.3.3 整体优化方案</h4><img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230109170043442.png" class title="image-20230109170043442">
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230109164706446.png" class title="image-20230109164706446">
+<p>预处理程序。依靠静态分析工具，我们首先得到基本块和目标程序的先例信息。如第一行所示，首先可以获取程序的基本块BBS(basic blocks)，并根据这个块是否有多个先例把它分为两组SingleBBs和MultiBBS。在第二行，他给程序中每个块分配了随机密钥。分配信息存储于Keys中。</p>
+<p>确定块算法。如第四行所示，我们首先尝试使用CalcFmul为有多个先例的块寻找适当的参数，并获取可解块集Solv和不可解块集Unsol以及可解块的参数Params和边的哈希Hashes。在第五行，我们使用CalcFash为不可解块Unsol构建了哈希图HashMap，并获取了未被任何边所使用的哈希集合FressHashes</p>
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230109174441209.png" class title="image-20230109174441209">
+<p>算法2展示了CalcFmul的工作流，即，如何搜寻含多个先例的块的参数。</p>
+<p>（不懂：为什么不在生成哈希的时候就保存参数，而是全部生成完再一个个保存参数？）</p>
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230111155430656.png" class title="image-20230111155430656">
+<p>算法3展示了如何给不可解块构建哈希表。给每条以不可解块结尾的边选择随机未使用过的哈希，并存储在哈希表HashMap中。</p>
+<h3 id="3-4表现分析"><a href="#3-4表现分析" class="headerlink" title="3.4表现分析"></a>3.4表现分析</h3><p>开销方面：</p>
+<script type="math/tex; mode=display">
+cost(Fhash)>cost(Fmul)>cost(Fsingle)\approx0</script><p>使用次数</p>
+<script type="math/tex; mode=display">
+num(Fsingle)>num(Fmul)>num(Fhash)\approx0</script><p>总的来说：CollAFL使用的哈希计算带来的总体性能成本很小</p>
+<h3 id="3-5-实现细节"><a href="#3-5-实现细节" class="headerlink" title="3.5 实现细节"></a>3.5 实现细节</h3><h4 id="3-5-1-CollAFL-for-Applications-With-Source-Code"><a href="#3-5-1-CollAFL-for-Applications-With-Source-Code" class="headerlink" title="3.5.1 CollAFL for Applications With Source Code"></a>3.5.1 CollAFL for Applications With Source Code</h4><p>CollAFL扩展了AFL的llvm模式，并写了Clang链路时间优化传递来</p>
+<ol>
+<li>获取所需的基本块和边信息</li>
+<li>给每个块分配密钥</li>
+<li>根据每个基本块的类型解析哈希计算算法</li>
+<li>用哈希计算和覆盖跟踪代码检测每个块</li>
+</ol>
+<p>在第一步，使用CLang默认实施获取后例和先例信息，例如。通过API llvm::TerminatorInst::getSuccessor.然而，离线解决间接控制转移的目标是一个公开的挑战，这会影响我们所需的先例信息的准确性。例如，它可能错误地将一些基本块分类为单个（或没有）先例块。</p>
+<p>因此采取两步来改良。第一，将不被任何人直接调用的函数的入口块标记为多先例块。另外，将间接调用指令展开为一组直接调用和一个间接调用指令，类似于去虚拟化技术。因此能够连接基本块在一起，减少单先例的块，能够更多地使用Fmul而不是Fsingle来去计算块的哈希，减少碰撞的可能性。</p>
+<p>(不懂：为啥要减少单先例的块，单先例的算法开销不是更小吗？)</p>
+<h4 id="3-5-2-CollAFL-Bin-for-Binary-Applications"><a href="#3-5-2-CollAFL-Bin-for-Binary-Applications" class="headerlink" title="3.5.2 CollAFL-Bin for Binary Applications"></a>3.5.2 CollAFL-Bin for Binary Applications</h4><p>选择使用静态二进制检测来应用到边碰撞减少策略。</p>
+<p>CollAFL-bin的综合检测过程如下：第一，使用API openBinary来加载二进制程序，并调用API getImage来获取程序镜像。然后通过API getModules获取所有模块，通过API getProcedures识别初始执行模块并获取所有函数。第二，遍历每个函数的所有基本块后获得CFG。有了CFG，就如有源码的CollAFL执行，即在没有冲突的情况下搜索相关的哈希id，并为每个基本块搜索各自的实施模式。最后，为三种实施模式创建调用函数。</p>
+<p>静态分析中还有许多问题，间接跳转指令导致的不准确的控制流图….</p>
+<p>识别潜在简介跳转和简介调用的目标，并分配保留的空闲HashID给这些潜在边。另外，给这些非返回函数修复了潜在返回边</p>
+<p>解决二进制重写的问题，添加标签层</p>
+<h2 id="4-Prioritize-Seed-Selection"><a href="#4-Prioritize-Seed-Selection" class="headerlink" title="4 Prioritize Seed Selection"></a>4 Prioritize Seed Selection</h2><p>直接驱动fuzzer到未探索的道路</p>
+<ul>
+<li>如果一条道路上上有很多未探索的邻近分支，那么这条道路的变异很可能能探索这些未探索的分支</li>
+<li>如果一条道路上上有很多未探索的邻近后代，那么这条道路的变异很可能能探索这些未探索的后代</li>
+</ul>
+<p>提升漏洞发现的效率</p>
+<ul>
+<li>如果一条道路上有许多内存存储操作，很有可能能够触发潜在的内存破坏漏洞，变异策略同样。</li>
+</ul>
+<p>基于这些策略，提出以下种子选择策略</p>
+<h3 id="4-1-Untouched-Neighbour-Branch-Guided-Policy"><a href="#4-1-Untouched-Neighbour-Branch-Guided-Policy" class="headerlink" title="4.1 Untouched-Neighbour-Branch Guided Policy"></a>4.1 Untouched-Neighbour-Branch Guided Policy</h3><p>能够探索更多为探索过的邻近分支的种子将会被赋予更高的优先级。将该策略称为CollAFL-br</p>
+<p>将未探索的邻近边的数量成为测试例T的权重，函数IsUntouched返回1当且仅当边<bb;bb_i>没有被之前任何测试例覆盖</bb;bb_i></p>
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230114235220339.png" class title="image-20230114235220339">
+<p>随着测试的进行，测试集也会发生变化，因此一个测试例的权重是动态的</p>
+<h3 id="4-2-Untouched-Neighbour-Descendant-Guided-Policy"><a href="#4-2-Untouched-Neighbour-Descendant-Guided-Policy" class="headerlink" title="4.2 Untouched-Neighbour-Descendant Guided Policy"></a>4.2 Untouched-Neighbour-Descendant Guided Policy</h3><p>具有更多未探索的邻近后代会更有更高优先级，这种策略会具有更高优先级。这种策略称为CollAFL-desc</p>
+<p>将未探索的邻近后代数量称为测试例T的权重</p>
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115001249624.png" class title="image-20230115001249624">
+<p>IsUntouched与前面相同，NumDesc返回从函数基本块开始的子路径，其正式定义如下：</p>
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115001441249.png" class title="image-20230115001441249">
+<p>基本块的子路径是确定的，可用静态分析计算</p>
+<h3 id="4-3-Memory-Access-Guided-Policy"><a href="#4-3-Memory-Access-Guided-Policy" class="headerlink" title="4.3 Memory-Access Guided Policy"></a>4.3 Memory-Access Guided Policy</h3><p>记为CollAFL-mem，有更多内存读取操作的种子会具有更高优先级</p>
+<p>将内存操作数量记为测试例T的权重：</p>
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115003225973.png" class title="image-20230115003225973">
+<p>函数NumMemInstr返回基本块内的内存操作数</p>
+<h3 id="4-4-Implementation-Details"><a href="#4-4-Implementation-Details" class="headerlink" title="4.4 Implementation Details"></a>4.4 Implementation Details</h3><p>在运行时，首先检查测试用例的覆盖位图，并得到这个测试用例所覆盖的所有边和命中数。由于每个边都有不同的哈希值，我们可以从每个边的哈希值解码出它的开始和结束块。然后，对于每个块，我们将根据整体覆盖位图，得到其未触及的邻居分支的列表。加上已收集到的子路径和内存访问操作数，可以相应计算出三种策略的权重。</p>
+<h2 id="5-Evaluation"><a href="#5-Evaluation" class="headerlink" title="5 Evaluation"></a>5 Evaluation</h2><img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115111048707.png" class title="image-20230115111048707">
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115111053655.png" class title="image-20230115111053655">
+<h3 id="5-1-Impact-of-Hash-Collision"><a href="#5-1-Impact-of-Hash-Collision" class="headerlink" title="5.1 Impact of Hash Collision"></a>5.1 Impact of Hash Collision</h3><h4 id="5-1-1-Prevalence-of-Hash-Collision"><a href="#5-1-1-Prevalence-of-Hash-Collision" class="headerlink" title="5.1.1 Prevalence of Hash Collision"></a>5.1.1 Prevalence of Hash Collision</h4><p>如表一所示，边碰撞比例非常高，与边的数量成正比。</p>
+<p>原因在于，位图大小为64KB(65.5K bytes)，因此最多有65.5K条边存储于其中，这意味着无论使用什么哈希算法，194.5K(260K-65.5K)条边必须与其它边产生碰撞。</p>
+<h4 id="5-1-2-Effectiveness-of-the-Trivial-Mitigation"><a href="#5-1-2-Effectiveness-of-the-Trivial-Mitigation" class="headerlink" title="5.1.2 Effectiveness of the Trivial Mitigation"></a>5.1.2 Effectiveness of the Trivial Mitigation</h4><p>这里主要指扩大位图的措施，能够减少碰撞，但降低了执行速度</p>
+<p>测试软件越大，减少碰撞的效果越好</p>
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115113021198.png" class title="image-20230115113021198">
+<p>随着位图变大，执行速度下降</p>
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115113031418.png" class title="image-20230115113031418">
+<p>（一种想法：根据软件大小动态调节位图大小？）</p>
+<h4 id="5-1-3-Effectiveness-of-CollAFL’s-Mitigation"><a href="#5-1-3-Effectiveness-of-CollAFL’s-Mitigation" class="headerlink" title="5.1.3 Effectiveness of CollAFL’s Mitigation"></a>5.1.3 Effectiveness of CollAFL’s Mitigation</h4><img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115113323782.png" class title="image-20230115113323782">
+<p>使用三种算法Fsingle，Fmul和Fhash来减少碰撞</p>
+<p>表3展示了碰撞缓解的数据，平均而言，CollAFL比AFL少执行了2.93%的指令</p>
+<p>CollAFL会适当地增大位图的大小(大于边的数量)，正如表三中所示，libtorrent在位图大小为64KB时，其碰撞率会升到74.84%</p>
+<h3 id="5-2-Code-Coverage"><a href="#5-2-Code-Coverage" class="headerlink" title="5.2 Code Coverage"></a>5.2 Code Coverage</h3><h4 id="5-2-1-Total-Coverage-Improvement"><a href="#5-2-1-Total-Coverage-Improvement" class="headerlink" title="5.2.1 Total Coverage Improvement"></a>5.2.1 Total Coverage Improvement</h4><img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115131457549.png" class title="image-20230115131457549">
+<p>表四展示了不同fuzzers在200小时内探索11个应用的路径总数。与AFL相比，CollAFL(应用默认种子选择策略)平均能找到9.9%更多的路径,应用mem,desc,br策略平均能多找15.7%,17.23%,20.78%的路径；与AFLfast相比，采用默认策略可以多找8.45的路径。</p>
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230115131628350.png" class title="image-20230115131628350">
+<h4 id="5-2-2-Coverage-Growth-Over-Time"><a href="#5-2-2-Coverage-Growth-Over-Time" class="headerlink" title="5.2.2 Coverage Growth Over Time"></a>5.2.2 Coverage Growth Over Time</h4><p>附录的图7展示了200小时内的代码覆盖率增长情况。从增长趋势可以看出</p>
+<ol>
+<li>CollAFL和CollAFL-fast代码覆盖率增长的比AFL和AFL-fast快，说明碰撞缓解措施是有效的</li>
+<li>CollAFL-br增长的比其他都快</li>
+<li>AFLfast在路径发现方面并不总是比AFL表现好，一开始能够发现更多的路径，但后来被AFL追上了。说明用较长时间而非24小时来评估fuzzer的性能是值得的</li>
+</ol>
+<h3 id="5-3-Unique-Crashes"><a href="#5-3-Unique-Crashes" class="headerlink" title="5.3 Unique Crashes"></a>5.3 Unique Crashes</h3><p>比较了CollAFL、AFL、AFLfast发现不同冲突的效率</p>
+<h4 id="5-3-1-Total-Crashes-Improvement"><a href="#5-3-1-Total-Crashes-Improvement" class="headerlink" title="5.3.1 Total Crashes Improvement"></a>5.3.1 Total Crashes Improvement</h4><img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116011026204.png" class title="image-20230116011026204">
+<p>上图展示了不同fuzzer在200小时内发现的11个应用的不同冲突，其中100%为基础线(平均效率)</p>
+<h4 id="5-3-2-Crashes-Growth-Over-Time"><a href="#5-3-2-Crashes-Growth-Over-Time" class="headerlink" title="5.3.2 Crashes Growth Over Time"></a>5.3.2 Crashes Growth Over Time</h4><p>CollAFL-br,CollAFL-desc和CollAFL-mem在发现冲突方面展现了强劲的增长势头</p>
+<h3 id="5-4-Vulnerablities"><a href="#5-4-Vulnerablities" class="headerlink" title="5.4 Vulnerablities"></a>5.4 Vulnerablities</h3><img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116101955472.png" class title="image-20230116101955472">
+<p>如表六所示，在200小时的检测中，发现了超过7500个独特的冲突，并确认了157个漏洞</p>
+<p><em>冲突分类分析</em>。首先，利用开源工具afl-collect来消除重复的冲突。(它主要使用GDB插件exploitable)来计算每个崩溃backtrace的哈希值，根据哈希值来去除重复的崩溃。然后使用AddressSanitizer重新变异目标程序，使用去重后的冲突样本进行测试，AddressSanitizer随后可以报告这些崩溃的根本原因，并进一步去重。最后进行手动分析，确认了157个独特的漏洞。</p>
+<p>值得注意的是，由于性能开销，我们只利用了AddressSanitizer来分类漏洞，并没有将它用在CollAFL，因此CollAFL有较好的执行速度，但却可能错失潜在的不会引起崩溃的漏洞。</p>
+<h3 id="5-5-Randomness-Evaluation"><a href="#5-5-Randomness-Evaluation" class="headerlink" title="5.5 Randomness Evaluation"></a>5.5 Randomness Evaluation</h3><h4 id="5-5-1-Experiment-Setup"><a href="#5-5-1-Experiment-Setup" class="headerlink" title="5.5.1 Experiment Setup"></a>5.5.1 Experiment Setup</h4><p>设置了20次小型实验，每次在60小时内测试12个程序，总共测试了8个fuzzer</p>
+<h4 id="5-5-2-Deviation-in-Path-Discovery-and-Crash-Findings"><a href="#5-5-2-Deviation-in-Path-Discovery-and-Crash-Findings" class="headerlink" title="5.5.2 Deviation in Path Discovery and Crash Findings"></a>5.5.2 Deviation in Path Discovery and Crash Findings</h4><img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116111058626.png" class title="image-20230116111058626">
+<p>RSD(relative standard deviation)</p>
+<h4 id="5-5-3-Deviation-in-Vulnerability-Finding"><a href="#5-5-3-Deviation-in-Vulnerability-Finding" class="headerlink" title="5.5.3 Deviation in Vulnerability Finding"></a>5.5.3 Deviation in Vulnerability Finding</h4><p>漏洞发现的随机性&gt;冲突发现的随机性&gt;路径发现的随机性</p>
+<p>检测方法：计算多少次实验可以找到一个特定的漏洞，以及这些实验用来找到这个漏洞的时间。表8为统计结果</p>
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116111859677.png" class title="image-20230116111859677">
+<h3 id="5-6-Comparision-Between-Fuzzers"><a href="#5-6-Comparision-Between-Fuzzers" class="headerlink" title="5.6 Comparision Between Fuzzers"></a>5.6 Comparision Between Fuzzers</h3><h4 id="5-6-1-Fuzzer-Settings"><a href="#5-6-1-Fuzzer-Settings" class="headerlink" title="5.6.1 Fuzzer Settings"></a>5.6.1 Fuzzer Settings</h4><h4 id="5-6-2-Vulnerability-Discovery"><a href="#5-6-2-Vulnerability-Discovery" class="headerlink" title="5.6.2 Vulnerability Discovery"></a>5.6.2 Vulnerability Discovery</h4><img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116112617826.png" class title="image-20230116112617826">
+<p>表9展示了fuzzer在20次实验中平均发现的漏洞数</p>
+<h3 id="5-7-Evaluation-Results-On-Binary-Applications"><a href="#5-7-Evaluation-Results-On-Binary-Applications" class="headerlink" title="5.7 Evaluation Results On Binary Applications"></a>5.7 Evaluation Results On Binary Applications</h3><p>比较AFLdyinst和CollAFL-bin的表现。只使用二进制程序作为测试目标</p>
+<h4 id="5-7-1-Code-Coverage"><a href="#5-7-1-Code-Coverage" class="headerlink" title="5.7.1 Code Coverage"></a>5.7.1 Code Coverage</h4><p>计算每个fuzzer运行10次，每次100小时所发现的平均路径和边。CollAFL-bin平均可以多覆盖7.9%的路径，2.7%的边，CollAFL-bin(br)可以多覆盖15%的路径和5.7%的边</p>
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116120827813.png" class title="image-20230116120827813">
+<h4 id="5-7-2-Bug-finding"><a href="#5-7-2-Bug-finding" class="headerlink" title="5.7.2 Bug finding"></a>5.7.2 Bug finding</h4><img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116120921586.png" class title="image-20230116120921586">
+<p>统计了每个fuzzer检测的冲突和漏洞总数。</p>
+<h4 id="5-7-3-Negative-Impact-by-Imprecise-Binary-Analysis"><a href="#5-7-3-Negative-Impact-by-Imprecise-Binary-Analysis" class="headerlink" title="5.7.3 Negative Impact by Imprecise Binary Analysis"></a>5.7.3 Negative Impact by Imprecise Binary Analysis</h4><p>由于不精确的静态二进制分析，二进制版本CollAFL-bin表现得比源码版本CollAFL差。</p>
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116121522641.png" class title="image-20230116121522641">
+<h2 id="6-Conclusion"><a href="#6-Conclusion" class="headerlink" title="6 Conclusion"></a>6 Conclusion</h2><img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116121738173.png" class title="image-20230116121738173">
+<img src="/2024/01/21/Path%20sensitive%20fuzzing%20for%20Native%20Application/image-20230116121747478.png" class title="image-20230116121747478"></div><div class="article-licensing box"><div class="licensing-title"><p><a href="http://curator-kim.github.io/2024/01/21/Path sensitive fuzzing for Native Application/">http://curator-kim.github.io/2024/01/21/Path sensitive fuzzing for Native Application/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><a href="http://Curator-Kim.github.io"><p>Curator-Kim</p></a></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2024-01-21</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2023-02-03</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="recommend-area"><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># Related Post</span><br><span>  1.<a class="is-size-6" href="/2024/02/21/010editor%20%E7%A0%B4%E8%A7%A3%E8%AE%B0%E5%BD%95/" target="_blank"> </a><br></span><span>  2.<a class="is-size-6" href="/2024/02/07/L3HCTF%202024/" target="_blank"> </a><br></span><span>  3.<a class="is-size-6" href="/2024/01/21/%E9%99%87%E5%89%91%E6%9D%AF%202023%20Writeup/" target="_blank"> </a><br></span><span>  4.<a class="is-size-6" href="/2024/01/21/%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF%E7%BB%BC%E8%BF%B0/" target="_blank"> </a><br></span><span>  5.<a class="is-size-6" href="/2024/01/21/Universal%20Fuzzing%20via%20Large%20Language%20Models/" target="_blank"> </a><br></span><span>  6.<a class="is-size-6" href="/2024/01/21/Skyfire%20Data-Driven%20Seed%20Generation%20for%20Fuzzing/" target="_blank"> </a><br></span><span>  7.<a class="is-size-6" href="/2024/01/21/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/" target="_blank"> </a><br></span><span>  8.<a class="is-size-6" href="/2024/01/21/NAUTILUS%20Fishing%20for%20Deep%20Bugs%20with%20Grammars/" target="_blank"> </a><br></span></div></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/css/share.min.css"><div class="social-share"></div><script src="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">Like this article? Support the author with</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>Alipay</span><span class="qrcode"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/alipay.png?raw=true" alt="Alipay"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>Wechat</span><span class="qrcode"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/wechat.png?raw=true" alt="Wechat"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2024/01/21/Skyfire%20Data-Driven%20Seed%20Generation%20for%20Fuzzing/"><i class="level-item fas fa-chevron-left"></i><span class="level-item"> </span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/01/21/NEUZZ%20Efficient%20Fuzzing%20with%20Neural%20Program%20Smoothing/"><span class="level-item"> </span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--><div class="card"><div class="card-content"><div class="title is-5">Comments</div><div id="comment-container"></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/gitalk/1.6.0/gitalk.css"><script> $.getScript('/js/gitalk.min.js', function () { 
+            var gitalk = new Gitalk({
+            language:'zh-CN',
+            id: 'd41d8cd98f00b204e9800998ecf8427e',
+            repo: 'blog_comment',
+            owner: 'Curator-Kim',
+            clientID: '46a9f3481b46ea0129d8',
+            clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+            admin: ["Curator-Kim"],
+            createIssueManually: true,
+            distractionFreeMode: false,
+            perPage: 10,
+            pagerDirection: 'last',
+            proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
+            
+            enableHotKey: true,
+            isLocked: false
+        })
+        gitalk.render('comment-container')});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><!--!--><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/22a41709ffc26f62191d72a87ffbb342d46bfce3/img/icon.jpg?raw=true" alt="Curator-Kim"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Curator-Kim</p><p class="is-size-6 is-block">寻几处好景破星光</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>火星</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">53</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">16</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/curator-kim"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="/804242129@qq.com"><i class="fa fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div><div><hr><p id="hitokoto">:D 一言句子获取中...</p><script type="text/javascript" defer>function getYiyan(){
+                                $.getJSON("https://v1.hitokoto.cn/", function (data) {
+                                if(data){
+                                    $('#hitokoto').html("");
+                                    $('#hitokoto').append("<strong style='color: #3273dc;'>"+data.hitokoto+"</strong>"+
+                                    "<p>"+"From《"+data.from+"》</p><p>Provider-"+data.creator+"</p>");
+                                }});}
+                                $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});</script></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><!--!--><div class="card widget"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-21T11:54:21.947Z">2024-02-21</time></p><p class="title"><a href="/2024/02/21/010editor%20%E7%A0%B4%E8%A7%A3%E8%AE%B0%E5%BD%95/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-07T11:25:11.851Z">2024-02-07</time></p><p class="title"><a href="/2024/02/07/L3HCTF%202024/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-01-21T13:32:59.304Z">2024-01-21</time></p><p class="title"><a href="/2024/01/21/%E9%99%87%E5%89%91%E6%9D%AF%202023%20Writeup/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-01-21T13:32:59.278Z">2024-01-21</time></p><p class="title"><a href="/2024/01/21/%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF%E7%BB%BC%E8%BF%B0/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-01-21T13:32:59.265Z">2024-01-21</time></p><p class="title"><a href="/2024/01/21/Universal%20Fuzzing%20via%20Large%20Language%20Models/"> </a></p></div></article></div></div><!--!--><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2024/02/"><span class="level-start"><span class="level-item">February 2024</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2024/01/"><span class="level-start"><span class="level-item">January 2024</span></span><span class="level-end"><span class="level-item tag">13</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2023/08/"><span class="level-start"><span class="level-item">August 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2023/07/"><span class="level-start"><span class="level-item">July 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2023/06/"><span class="level-start"><span class="level-item">June 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><a class="level is-mobile is-marginless" href="/archives/"><span class="level-start"><span class="level-item">查看全部&gt;&gt;</span></span></a></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/CTF/"><span class="tag">CTF</span><span class="tag is-grey-lightest">15</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"><span class="tag">汇编语言</span><span class="tag is-grey-lightest">12</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Crypto/"><span class="tag">Crypto</span><span class="tag is-grey-lightest">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ctf/"><span class="tag">ctf</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pwn/"><span class="tag">pwn</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CopperSmith/"><span class="tag">CopperSmith</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/DES/"><span class="tag">DES</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/HWS/"><span class="tag">HWS</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/NTRU/"><span class="tag">NTRU</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/RE/"><span class="tag">RE</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Reverse/"><span class="tag">Reverse</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/angr/"><span class="tag">angr</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/"><span class="tag">加密与解密</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99/"><span class="tag">参考资料</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"><span class="tag">论文阅读</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/"><span class="tag">预备知识</span><span class="tag is-grey-lightest">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><!--!--><div class="column-right-shadow is-hidden-widescreen"></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/logo.png?raw=true" alt="Curator-Kim的小站" height="28"></a><p class="size-small"><span>&copy; 2024 Curator-Kim</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> &amp; <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span>© <a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备88888888号-8（测试）</a><br></span><span>© 版权说明：[本网站所有内容均收集于互联网或自己创作,<br />&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="/message" target="_blank">留言</a>，立即处理]<br /></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "❤️Site from <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> has existed <strong>" + dnum + "</strong> d <strong>" + hnum + "</strong> h <strong>" + mnum + "</strong> m <strong>" + snum + "</strong> s！❤️";
+        }var now = new Date();setInterval("createTime('2022/1/21 00:00:00')", 250,"");</script><br></span><div class="size-small"><span>❤️Thx <strong><span id="busuanzi_value_site_uv">99+</span></strong> users <strong><span id="busuanzi_value_site_pv">99+</span></strong> visited！❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a></p></div><div class="sideMusic"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="/js/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script><meting-js style="width: auto;height: 2000px;" server="netease" type="playlist" id="137510737" theme="#2980b9" loop="all" autoplay="false" order="list" storageName="aplayer-setting" lrctype="0" list-max-height="400px" fixed="true"></meting-js></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><script src="/js/main.js" defer></script><script>$.getScript('/js/comment-issue-data.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','Curator-Kim','blog_comment',false);})</script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
+
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
+
+        function loadMathJax() { //加载mathjax
+            $.getScript("//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", function () {
+                MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\(', '\)']] } });
+                var math = document.getElementsByClassName("entry-content")[0];
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);
+            });
+        };
+
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
+        
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(false){
+                $.getScript('/js/comment-issue-data.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','Curator-Kim','blog_comment',false);});
+            }
+            if(false){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script></body></html>
