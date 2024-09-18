@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Curator-Kim的小站</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Curator-Kim的小站"><meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Curator-Kim的小站"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="SoK: Security of Programmable Logic Controllers综合研究了PLC安全，深入分析了PLC的攻击和防御手段，并从中总结过去17年来的安全趋势"><meta property="og:type" content="blog"><meta property="og:title" content="Curator-Kim"><meta property="og:url" content="https://curator-kim.github.io/"><meta property="og:site_name" content="Curator-Kim"><meta property="og:description" content="SoK: Security of Programmable Logic Controllers综合研究了PLC安全，深入分析了PLC的攻击和防御手段，并从中总结过去17年来的安全趋势"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://curator-kim.github.io/img/icon.jpg"><meta property="article:published_time" content="2024-09-18T06:59:04.582Z"><meta property="article:modified_time" content="2024-09-18T07:01:53.473Z"><meta property="article:author" content="Curator-Kim"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/icon.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://curator-kim.github.io/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/"},"headline":"Curator-Kim的小站","image":["http://curator-kim.github.io/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812104508254.png","http://curator-kim.github.io/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812111502271.png","http://curator-kim.github.io/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812113113259.png","http://curator-kim.github.io/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812113732995.png","http://curator-kim.github.io/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812175557779.png","http://curator-kim.github.io/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812115447438.png","http://curator-kim.github.io/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812174756321.png","http://curator-kim.github.io/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812174846573.png","http://curator-kim.github.io/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812194853033.png","http://curator-kim.github.io/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812194909049.png","http://curator-kim.github.io/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812194920881.png","http://curator-kim.github.io/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812200201657.png","http://curator-kim.github.io/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812200209777.png"],"datePublished":"2024-09-18T06:59:04.582Z","dateModified":"2024-09-18T07:01:53.473Z","author":{"@type":"Person","name":"Curator-Kim"},"description":"SoK: Security of Programmable Logic Controllers综合研究了PLC安全，深入分析了PLC的攻击和防御手段，并从中总结过去17年来的安全趋势"}</script><link rel="canonical" href="http://curator-kim.github.io/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/"><link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="referrer" content="no-referrer-when-downgrade"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="/js/globalUtils.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><link rel="stylesheet" href="/live2d/waifu.css"><script type="text/javascript" async src="/live2d/autoload.js"></script><meta name="generator" content="Hexo 5.4.0"></head><body class="is-3-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/logo.png?raw=true" alt="Curator-Kim的小站" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a><a class="navbar-item" href="/album">Album</a><a class="navbar-item" href="/friend">Friend</a><a class="navbar-item" href="/message">Message</a><a class="navbar-item" href="/self-talking">Self-talking</a><a class="navbar-item" href="/music">Music</a><a class="navbar-item" href="/media">Media</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Join Gitter" href="https://gitter.im/hexo-theme-amazing/community"><i class="fab fa-gitter"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="/js/theme-setting.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2024-09-18  <a class="commentCountImg" href="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/#comment-container"><span class="display-none-class">d41d8cd98f00b204e9800998ecf8427e</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="d41d8cd98f00b204e9800998ecf8427e">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>an hour  <i class="fas fa-pencil-alt"> </i>9.2 k</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>&nbsp;visits</span></div></div><h1 class="title is-3 is-size-4-mobile"> </h1><div class="content"><h1 id="SoK-Security-of-Programmable-Logic-Controllers"><a href="#SoK-Security-of-Programmable-Logic-Controllers" class="headerlink" title="SoK: Security of Programmable Logic Controllers"></a>SoK: Security of Programmable Logic Controllers</h1><p>综合研究了PLC安全，深入分析了PLC的攻击和防御手段，并从中总结过去17年来的安全趋势</p>
+<span id="more"></span>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h2><p>PLC 是一种相当独特的系统，主要有两个特点： 首先，PLC 是连接网络世界和物理世界的桥梁；因此，对其进行的任何攻击都会对现实世界产生直接影响。其次，它们具有不同于传统计算机体系结构的不透明、异构体系结构，由多个固件组成，这使得它们难以确保安全</p>
+<p>随着计算机网络在 IT 领域变得更加可靠和可用，以太网通信被引入 PLC。这种网络连接性不断增强。例如，西门子 S7-1500 PLC 包括多达 4 个以太网端口，而传统的 S7-300 则需要扩展模块才能支持以太网连接。与此同时，网络的可访问性使远程攻击者可以对 PLC 实施传统的网络攻击。</p>
+<p>如今，随着工业 4.0 和 IIoT [160]的出现，PLC 正在经历另一次模式转变，带来了更多功能，如云集成、网络服务和虚拟化。CODESYS 和 OpenPLC 等新公司也已进入市场，对 PLC 行业长期以来使用专有硬件和专有软件产品的做法提出了挑战。这些变化为研究界提出了许多有关 PLC 安全性的开放性问题。</p>
+<p>然而，对于 PLC 的安全性现状以及未来应（或不应）采取的方向，业界仍然缺乏最新的总体认识。</p>
+<p>论文整合了来自多个零散来源（科学和灰色文献）的知识，包括文献中许多现有的攻击和防御方法，对 PLC 的安全性进行了全面分析。此外，还引入了一种新的威胁模型以及分类和评估标准，用于总结和构建现有的 PLC 安全知识。</p>
+<p>总而言之，做出了以下贡献</p>
+<ul>
+<li><p>对 133 篇文献进行了系统整理，其中包括 119 种攻击方法和 70 种防御方法（一篇文献可能包含一种或多种攻击或防御方法）。</p>
+</li>
+<li><p>与 MITRE ATT&amp;CK® 合作，提出了一个全面的分类法 ，将科学文献与现有的针对 ICS Matrix 的 ATT&amp;CK 整合在一起。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/efrenlopezm/ics2matrix">https://github.com/efrenlopezm/ics2matrix</a></p>
+</li>
+<li><p>指出了 PLC 安全研究方面的重要差距，并讨论了未来的研究方向和建议。</p>
+</li>
+<li><p>提供了三种公共工具，以促进和推动对这一主题的研究与合作。</p>
+<ul>
+<li>作者的完整系统化数据集，其他研究人员可利用该数据集复制结果并进行自己的分析。<a target="_blank" rel="noopener" href="https://github.com/efrenlopezm/plc-sok-dataset">https://github.com/efrenlopezm/plc-sok-dataset</a></li>
+<li>PLC 安全工件库，作为社区更新工件的集中数据库。<a target="_blank" rel="noopener" href="https://github.com/efrenlopezm/plcsecurityartifacts">https://github.com/efrenlopezm/plcsecurityartifacts</a></li>
+<li>参考图谱，使研究人员能够进一步分析本 SoK 中的综述文献。<a target="_blank" rel="noopener" href="https://www.researchrabbitapp.com/collection/public/E6XRY0186G">https://www.researchrabbitapp.com/collection/public/E6XRY0186G</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Background"><a href="#2-Background" class="headerlink" title="2 Background"></a>2 Background</h2><h3 id="2-1-PLC-System-Environment"><a href="#2-1-PLC-System-Environment" class="headerlink" title="2.1 PLC System Environment"></a>2.1 PLC System Environment</h3><p>PLC 的工业环境基本保持不变，通常包括以下内容：</p>
+<ul>
+<li>执行器。在物理世界中移动或操作设备的硬件组件。执行器的例子包括阀门、电机和压电执行器。</li>
+<li>传感器 一种能产生模拟或数字电信号的设备，代表某一过程的物理特性。例如温度或磁场传感器。</li>
+<li>工程站。通用计算机，用于编写供 PLC 执行的控制逻辑或梯形逻辑代码。它通常与 PLC 相连，以便上传编译好的控制逻辑程序。</li>
+<li>人机界面 (HMI)。用于与 PLC 交互的硬件或软件，例如带按钮和指示灯的物理控制面板或软件显示屏。</li>
+</ul>
+<h3 id="2-2-PLC-Basic-Components"><a href="#2-2-PLC-Basic-Components" class="headerlink" title="2.2 PLC Basic Components"></a>2.2 PLC Basic Components</h3><img src="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812104508254.png" class title="image-20240812104508254">
+<p>如图一所示，PLC有以下基础组件可能被攻击：</p>
+<ul>
+<li>控制逻辑。控制逻辑程序包含 PLC 与环境交互时执行的结构。IEC 61131-3 标准规定了一套统一的 PLC 编程语言的语法和语义。控制程序用这些支持的语言之一编写，如结构化文本，然后编译成机器代码或字节码。例如，西门子 PLC 运行由 SIMATIC S7 管理器软件编译的专有 MC7 字节码。</li>
+<li>运行环境。运行环境可执行过程控制代码 [59] 并与 I/O 模块交互。运行环境可以是专有的，如施耐德，也可以是开源的，如 OpenPLC 运行环境 [17]。</li>
+<li>操作系统。大多数 PLC 都有实时操作系统（RTOS）。实时操作系统是满足严格的处理时间要求并支持实时应用的操作系统。供应商在其平台中支持各种 RTOS。例如，西门子支持 Nucleus 实时操作系统和 VxWorks 。</li>
+<li>固件。固件是 PLC 硬件和软件之间的桥梁。简单的 PLC 可能会以裸机形式（不含操作系统）运行应用程序，而现代 PLC 则在 RTOS 下使用固件。固件可通过 SD 卡或网络连接升级。</li>
+<li>中央处理器。中央处理器解释输入信号并执行内存中保存的逻辑指令。CPU 机箱上有插槽，可连接其他组件，如网络模块。它还可能包括 USB 端口和 SD 卡插槽。</li>
+<li>内存单元。它存储 CPU 将执行的程序和输入数据。存储单元可包括不同类型的存储块，本文的扩展版将对此作进一步讨论 </li>
+<li>网络模块。现代 PLC 可以有一个或多个端口与监控网络（监控过程的普通计算机）或现场总线（执行器和传感器）进行通信。</li>
+<li>物理输入/输出模块。这些模块包括带有金属引脚的输入模块，用于接收来自传感器的信息（通过电压或电流模拟信号）。输出模块向伺服电机等执行器发送模拟数据。</li>
+<li>PLC Scan Cycle 。它是 PLC 读取传感器输入、执行当前控制逻辑程序并向执行器更新输出的周期。它以毫秒为单位，应保持恒定。如果其时间增加，PLC 就会执行看门狗定时器，将 PLC 送入故障模式 [6,21]。</li>
+</ul>
+<h3 id="2-3-PLC-Communication-Protocols"><a href="#2-3-PLC-Communication-Protocols" class="headerlink" title="2.3 PLC Communication Protocols"></a>2.3 PLC Communication Protocols</h3><p>其中许多协议在设计时并未包含强大的安全功能，导致漏洞激增，使运行这些协议的 PLC 容易受到攻击 [31, 189]。实际中常用的协议包括但不限于以下几种：</p>
+<ul>
+<li>Fieldbus. PLC 使用Fieldbus协议与传感器和执行器进行通信。这些通信历来是通过串行接口或模拟信号完成的。样本标准包括 Profibus、CAN 总线、Modbus 和 DeviceNet。这些标准在功能和实施方面都有所不同，因此兼容性有限 [57,96]。</li>
+<li>监控网络协议。PLC 通过各种专有和标准化协议与其他控制器或传统计算机进行通信。这些协议在工业环境中使用 IEEE 802.3 以太网标准。例如，EtherNet/IP 协议结合了 IEEE 802.3 和 TCP/IP Suite [54]。有些协议专为在局域网内运行而设计（不使用 IP 地址，只使用 MAC 地址），如 GOOSE 协议；有些协议则使用 TCP/IP 协议，可在局域网和广域网内使用，如 Modbus TCP 协议。</li>
+<li>工业 4.0 协议。这些协议包括对云连接、设备间兼容性和安全功能的支持。例如 MQTT（消息队列遥测传输）[122] 和 OPC-UA（开放平台通信-统一架构）[176]。目前，一些 PLC 型号支持工业 4.0 协议 [41]，而老式 PLC 则可以通过改装来支持这些协议 [80]。</li>
+</ul>
+<h3 id="2-4-SoftPLCs"><a href="#2-4-SoftPLCs" class="headerlink" title="2.4 SoftPLCs"></a>2.4 SoftPLCs</h3><p>一般来说，SoftPLC 是一种软件运行环境，可执行 PLC 程序，例如遵循 IEC 61131-3 标准的程序 [171]。运行时具有可移植性，可兼容从微控制器到云服务器等多种硬件 [129]。两个主要的 SoftPLC 项目是 CODESYS [44] 和 Open PLC [129]。CODESYS 支持来自 500 多家制造商的约一千种不同设备类型 [43]。OpenPLC 于 2014 年首次提出[20]，包括运行时和编辑器，兼容包括 Windows 和 Linux 在内的 18 种平台[129]。OpenPLC 与 CODESYS 最大的区别之一在于，OpenPLC 的运行时是开源的 [17]，而 CODESYS 的运行时则不同。在本文的其余部分，我们将把传统 PLC 称为 HardPLC，以区别于 SoftPLC。</p>
+<h2 id="3-Research-Questions-and-Methodology"><a href="#3-Research-Questions-and-Methodology" class="headerlink" title="3 Research Questions and Methodology"></a>3 Research Questions and Methodology</h2><h3 id="3-1-Overview-of-Research-Questions"><a href="#3-1-Overview-of-Research-Questions" class="headerlink" title="3.1 Overview of Research Questions"></a>3.1 Overview of Research Questions</h3><ol>
+<li><p>问题 1：针对 PLC 的攻击方法有哪些？</p>
+<p>论文旨在对过去 17 年中文献中介绍的针对 PLC 的攻击方法进行分类和分析。</p>
+<ul>
+<li><p>问题 1.1： PLC 的哪些组件成为攻击目标？</p>
+<p>我们的目标是确定 PLC 的哪些内部组件（例如第 2.2 节中描述的中央处理器）成为攻击目标，从而找出文献中最受关注的组件等模式。</p>
+</li>
+<li><p>问题 1.2：部署攻击有多难？</p>
+<p>我们还旨在确定攻击者成功实施针对 PLC 的攻击所需的努力程度。在第 4 节中，我们将详细阐述威胁模型和分类标准，包括潜在的攻击载体以及攻击者部署攻击所需的访问级别（如互联网访问）。</p>
+</li>
+<li><p>问题 1.3：部署攻击会产生什么影响？</p>
+<p>最后，我们希望确定针对 PLC 的攻击一旦成功部署可能产生的影响。这包括所造成的破坏程度，例如对控制逻辑程序的修改，如第 2.1 节所示。</p>
+</li>
+</ul>
+</li>
+<li><p>问题 2：保护 PLC 的防御方法有哪些？</p>
+<p>总结过去17年对PLC的防护措施</p>
+<ul>
+<li><p>问题 2.1： PLC 的哪些组件受到保护？</p>
+<p>我们希望确定第 2.2 节中介绍的哪些组件是防御的重点，以了解哪些组件受到的关注较少，因此可能仍未受到保护。</p>
+</li>
+<li><p>问题 2.2：为 PLC 部署防御机制有多难？</p>
+<p>我们还研究了为 PLC 部署防御机制所需的工作量。如第 4.5 节所示，这包括管理员和/或操作员修改和调整特定 PLC/ICS 环境的组织工作以及性能开销。</p>
+</li>
+<li><p>问题 2.3： 是否有足够的防御措施来应对所报告的针对 PLC 的攻击？</p>
+<p>最后，我们有兴趣了解文献中是否存在足够的防御措施来抵御我们在这项工作中发现的攻击。这样，我们就能找出研究空白，并讨论未来的工作方向，正如我们在第 6 节和第 7 节中所描述的那样。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-2-Knowledge-Systematization-Methodology"><a href="#3-2-Knowledge-Systematization-Methodology" class="headerlink" title="3.2 Knowledge Systematization Methodology"></a>3.2 Knowledge Systematization Methodology</h3><p>本节主要讲述研究方法：采用了图 2 所示的系统化方法。首先，我们进行系统的文献综述。其次，根据文献综述中获得的数据，进行数据分析和建模。最后，我们对数据进行评估。</p>
+<img src="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812111502271.png" class title="image-20240812111502271">
+<ol>
+<li>系统性文献综述。我们查阅科学文献和灰色文献，收集 PLC 攻击和防御方法。我们还根据指定的纳入标准确定了 SoK 的最终范围。</li>
+</ol>
+<p>科学文献综述。我们认为科学文献是指以科学方法为基础、利用证据得出结论的文献。它使用以前的文献来发展理论和假设，同时注意引用所使用的作者和工具。对于科学文献综述，我们采取了以下步骤： 1) 搜索查询。我们使用了基于 “plc”、”ics “和 “security “等关键词的搜索查询。完整的关键词列表见附录 A。我们使用这些查询来搜索 Google Scholar 和 ACM Digital Library 等文献资源。完整的参考资源列表见附录 A。3) 应用纳入标准。在收集了所有这些论文后，我们只有在这些论文符合以下三个标准时才将其纳入。A) 论文中必须包含 “PLC “或 “可编程逻辑控制器”。B) 提出了攻击或防御方法。C) 至少包含一个 PLC 的攻击或防御实验评估。4) 应用滚雪球技术。我们对所有符合上述标准的论文采用滚雪球技术 [187]，以找到在初始搜索中未被注意到的论文。</p>
+<blockquote>
+<p>滚雪球技术：在已有的文献基础上，通过追踪参考文献或被引用的文献，进一步发现更多相关的文献。滚雪球技术有两种常见的应用方式：前向滚雪球（Forward Snowballing）和后向滚雪球（Backward Snowballing）。</p>
+</blockquote>
+<p>作者搜索文献所用的关键词：</p>
+<img src="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812113113259.png" class title="image-20240812113113259">
+<p>灰色文献综述。我们认为灰色文献是指发行量有限的文献（即未被纳入学术出版图书馆的文献）。它包括未发表的报告、政策文件、白皮书和技术报告[45]。在进行灰色文献综述时，我们采用了与科学文献综述相同的步骤，但在步骤 2）（查阅文献资源）中，我们改为搜索附录 A 中列出的灰色文献资源。</p>
+<img src="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812113732995.png" class title="image-20240812113732995">
+<p>最后的 SoK 范围。通过科学和灰色文献综述，我们收集到 133 篇论文，其中最早的是 2007 年的，最晚的是 2023 年的。尽管我们搜索了 2007 年之前的论文，但没有发现任何符合我们标准的论文。据我们所知，在我们详尽的研究基础上，2007 年之前没有任何关于设计 PLC 的新攻击或防御的研究。图 3 显示了符合我们选择标准的科学论文和灰色论文的最终数量，这些论文按发表年份分列，表明 PLC 安全研究的总体数量逐年增加，并在 2020 年达到顶峰。</p>
+<p>数据分析和建模。在这一阶段，我们首先阅读和分析每篇论文，提取与安全相关的重要信息，如攻击载体、PLC 型号和制造商以及 PLC 目标组件。其次，我们将每种攻击和防御方法与其对应的 MITRE 技术、子技术或缓解类别进行匹配。MITRE 框架将在第 4.1 节中进一步讨论。第三，我们将这些信息记录在电子表格中。数据分析和建模的结果是确定了图 4 所示威胁模型初稿的构件，以及第 4 章中讨论的分类标准，如访问级别和 PLC 目标组件。</p>
+<p>模型评估。在这一阶段，我们将对数据、威胁模型和在第 2 阶段中制定的标准进行评估，以得出 SoK 贡献。我们利用这些结果来总结我们的发现，并确定第 6 节中讨论的研究差距。最后，我们将对结果进行评估，以生成第 4.1 节中讨论的 ICS 威胁分类法。</p>
+<h2 id="4-Classification-and-Evaluation-Criteria"><a href="#4-Classification-and-Evaluation-Criteria" class="headerlink" title="4 Classification and Evaluation Criteria"></a>4 Classification and Evaluation Criteria</h2><p>进行分类和评估的标准。</p>
+<h3 id="4-1-ICSThreat-Taxonomy"><a href="#4-1-ICSThreat-Taxonomy" class="headerlink" title="4.1 ICSThreat Taxonomy"></a>4.1 ICSThreat Taxonomy</h3><p>扩展了 MITRE ATT&amp;CK for ICS 矩阵[112]和混合 ATT&amp;CK 矩阵[9]，创建了 ICS2 矩阵，这是针对 PLC 和 ICS 威胁的分类法。</p>
+<p>该分类法包括描述敌方目标 “是什么 “的敌方战术和描述敌方 “如何 “完成目标的攻击技术。此外，它还包括防止技术成功实施的缓解措施。</p>
+<h3 id="4-2-Attack-Classification"><a href="#4-2-Attack-Classification" class="headerlink" title="4.2 Attack Classification"></a>4.2 Attack Classification</h3><p>根据以下标准进行分类</p>
+<ul>
+<li><p>目标 PLC 组件。每种攻击方法都根据作为主要目标的 PLC 基本组件进行了分类。</p>
+</li>
+<li><p>攻击类别。根据我们的 ICS2 矩阵，每种攻击方法都被分为一个技术类别。通过技术类别，我们可以确定哪些防御措施可以（或不可以）应对这些攻击。</p>
+</li>
+<li><p>攻击向量。在对 PLC 发起攻击时，对手可能会有一个或多个载体或路径来投放有效载荷。我们所考虑的攻击向量的完整列表见本文的扩展版本 [105]。大多数情况下，攻击向量是网络协议（如 S7comm）实施中的漏洞。不过，也有其他攻击向量，如将 SD 卡插入 PLC 机箱，例如 Garcia 等人的研究 [65]</p>
+<img src="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812175557779.png" class title="image-20240812175557779">
+</li>
+</ul>
+<h3 id="4-3-Attack-Complexity"><a href="#4-3-Attack-Complexity" class="headerlink" title="4.3 Attack Complexity"></a>4.3 Attack Complexity</h3><p>接下来显示的标准旨在了解、限定和量化攻击者对目标 PLC 实施攻击的复杂程度。</p>
+<ul>
+<li>环境知识。该标准评估发起攻击需要多少有关 PLC 所在网络物理系统环境的知识，例如第 2.1 节中讨论的系统拓扑结构。攻击可能不需要任何知识 ()，例如，针对 PLC 网络模块的 DoS 攻击只需要一个 IP 地址，不需要任何环境知识。部分知识（ ）可能只需要基本信息，例如物理过程的高级描述。例如，CaFDI 需要有限的变电站配置本地信息。最后，广泛知识 (○)需要有关网络物理环境的深入信息。例如，SABOT 要求对手将其对系统行为的理解编码成规范。</li>
+<li>可用源代码。该标准评估攻击源代码是否公开</li>
+<li>访问级别。我们还考虑了攻击者实施建议攻击所需的访问级别。我们的威胁模型如图 4 所示，分为四个不同的访问级别 (AL)，从 AL0 到 AL3。攻击者可能会尝试在 ICS 环境中移动，以便到达 PLC 并交付其漏洞有效载荷。总之，我们的威胁模型可以帮助我们回答两个主要问题： 1) 需要什么访问级别才能尝试攻击？2) 对手有哪些攻击面？<ul>
+<li>AL0：通过互联网访问 PLC (0)。攻击者可以通过互联网兼容协议（如 S7comm）访问 PLC。这通常是一个专用网络，远程 SCADA 计算机通过 DNP3 等工业协议连接到 PLC。如果 PLC 公开暴露在互联网上，也可能遭到攻击。起初，这似乎是一个可笑的想法： 为什么会有人在互联网上公开提供 PLC？然而，Shodan 的初步搜索结果表明，截至 2023 年 9 月，可公开访问的 PLC（不包括 Shodan 识别的荣誉 eypots）数量超过 6500 个。</li>
+<li>AL1：访问监控局域网 ( 1 )。该级别要求攻击者能够访问工业流程的局域网网络。如果攻击者入侵了工作站计算机、数据记录器或类似的操作计算机，就可以实现这一目标。某些工业协议只能在以太网上运行，且不可路由（如 GOOSE），因此攻击者必须在同一局域网内攻击 PLC 上易受攻击的 GOOSE 堆栈。</li>
+<li>AL2： 访问 PLC 现场总线网络 ( 2 )。如第 2.3 节所述，现场总线是 PLC 与附近现场设备（如执行器和传感器）之间的低层通信。攻击者可以利用现场总线代码执行中的漏洞入侵任何这些设备。由于现场总线通信在实践中很少经过验证，因此攻击者还可以在此网络中发起 “中间对手 “攻击。</li>
+<li>AL3：物理访问 PLC ( 3 )。最后，这一级别假定对手绕过了目标的环境和物理保护措施（如上锁的门）。对攻击者来说，物理访问 PLC 可能是最困难的情况，但恶意入侵者或心怀不满的员工仍然可以做到这一点。拥有物理访问权限的攻击者可以使用 JTAG 接口。</li>
+</ul>
+</li>
+</ul>
+<img src="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812115447438.png" class title="image-20240812115447438">
+<h3 id="4-4-Attack-Impact"><a href="#4-4-Attack-Impact" class="headerlink" title="4.4 Attack Impact"></a>4.4 Attack Impact</h3><p>以下标准旨在了解和量化成功实施攻击的潜在影响</p>
+<ul>
+<li><strong>潜在损害</strong>。该标准评估对综合布线系统物理运行造成的直接损害。<ul>
+<li>如果攻击并不改变流程的运行，而是旨在收集信息或获取未经授权的访问，例如密码嗅探攻击，则损害是有限的。</li>
+<li>如果攻击可以部分或完全停止工业流程，如 DoS 攻击，则潜在损害很大。</li>
+<li>如果攻击能够暗中控制物理过程，如逻辑炸弹或固件修改攻击，攻击者可对系统发出任意控制指令（类似于本文扩展版中讨论的 Stuxnet ），则潜在的破坏将十分严重。</li>
+</ul>
+</li>
+<li><strong>HardPLC 目标</strong>。攻击可能影响单个 PLC 型号，如西门子 SIMATIC S7-300，也可能影响同一制造商的多个 PLC 型号，如罗克韦尔的 Allen-Bradley 1100 和 1400 型号。此外，攻击还可能影响两个或两个以上制造商的多个 PLC 型号，例如西门子的 SIMATIC S7-1500 和 Modicon 的 M221。对多种设备都有效的攻击表明问题的严重性，而只针对单一设备的攻击可能会被遏制。</li>
+<li><strong>软 PLC 目标</strong>。最后，该标准说明是否使用了软 PLC 来评估所提议的攻击。评估攻击时可能使用了 CODESYS (C)、OpenPLC (O)，或者根本没有使用软 PLC (-)（即攻击只针对硬 PLC）。</li>
+</ul>
+<h3 id="4-5-Defense-Classification"><a href="#4-5-Defense-Classification" class="headerlink" title="4.5 Defense Classification"></a>4.5 Defense Classification</h3><ul>
+<li><strong>防御类别</strong>。根据 ICS2 矩阵，每种防御方法都被归入一个缓解类别。我们可以根据缓解类别确定可以（或不可以）反击的攻击类型。</li>
+<li><strong>防御向量</strong>。防御向量是用于阻止攻击有效载荷传递的路径。本文扩展版中的 PLC 威胁模型定义了可用的防御向量。大多数情况下，攻击向量和防御向量是一致的。不过，它们也有可能不同。例如，Rajput 等人将 JTAG 接口作为防御向量[139]。</li>
+</ul>
+<h3 id="4-6-Defense-Deployability"><a href="#4-6-Defense-Deployability" class="headerlink" title="4.6 Defense Deployability"></a>4.6 Defense Deployability</h3><p>以下标准评估了部署一种防御方法来保护 PLC 的难度。</p>
+<ul>
+<li><strong>PLC 间接费用</strong>.该标准量化了防御方法对 PLC 本身造成的开销，可能为零（1）、可忽略不计（2）或相当大（3）。</li>
+<li><strong>基础设施间接成本</strong>。这一标准量化了为实施防御方法而建立所需基础设施的成本。这可能不涉及任何改变 ( 1 )，也可能涉及基础设施的改变，如设置新的 VLAN 或额外的硬件组件，如线对线 ( 2 )。最后，防御可能同时涉及基础设施变更和硬件组件 ( 3 )。</li>
+<li><strong>维护</strong>。该标准量化了特定防御方法所需的部署后维护水平。防御方法可能不需要维护（1）、零星维护（2）或持续维护（3）。</li>
+<li><strong>源代码可用性</strong>。该标准评估防御源代码是否可公开获取 </li>
+</ul>
+<h3 id="4-7-Defense-Robustness"><a href="#4-7-Defense-Robustness" class="headerlink" title="4.7 Defense Robustness"></a>4.7 Defense Robustness</h3><p>描述了防御如何减轻攻击。</p>
+<p><strong>防御阶段。</strong>防御可分为安全流程的三个不同阶段。</p>
+<ul>
+<li>预防防御（PR）的目的是在已知漏洞被利用之前降低事故发生的可能性。</li>
+<li>检测防御（DE）旨在识别当前或最近的攻击并发出警报。</li>
+<li>恢复防御（RE）旨在减少攻击成功实施后的损失。</li>
+</ul>
+<p><strong>有效性。</strong>防御方法的有效性取决于其准确性。准确度值取自研究论文本身。如果论文没有报告或说明准确性，则标记为 N/S（未说明）。我们之所以选择准确度，是因为它是所有防御方法论文中报告最多的指标。我们认识到这一指标并不适用于所有防御方法，但它是目前文献中报告最多的量化指标。我们将在第 7 节中进一步讨论这个问题。</p>
+<p><strong>HardPLC 范围</strong>。该标准评估受防御保护的不同 PLC 型号的数量。防御可保护单个 PLC 型号 (○␣)，如西门子 SIMATIC S7-300，也可保护同一制造商的多个 PLC 型号 ( )，如罗克韦尔的 Allen-Bradley 1100 和 1400 型号。此外，抗辩还可以保护两个或两个以上制造商的多个 PLC 型号（○），例如西门子的 SIMATIC S7-1500 和 Modicon 的 M221。</p>
+<p><strong>软PLC范围</strong>。此标准表示是否使用了任何软 PLC 来评估防御，包括 CODESYS (C)、Open PLC (O) 或根本没有使用软 PLC (-)</p>
+<h1 id="5-Overview-of-Attacks"><a href="#5-Overview-of-Attacks" class="headerlink" title="5 Overview of Attacks"></a>5 Overview of Attacks</h1><p>最核心的两个表</p>
+<img src="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812174756321.png" class title="Table1:ASummaryofPLCAttackandDefenseMethods(Network,OSandRuntimeComponents). D&#x3D;DNP3,G&#x3D;GOOSE,S7&#x3D;S7COMM,I&#x3D;IEC104,UA&#x3D;OPC-UA,P&#x3D;Profinet,E&#x3D;EtherNet&#x2F;IP,M&#x3D;ModbusTCP,F&#x3D;FINS,S&#x3D;Syslog,B&#x3D;Beckhoff,BP&#x3D;Backpane,R&#x3D;SoCRegister, RT&#x3D;Runtime,O&#x3D;OpenPLC,C&#x3D;CODESYS&#x2F;CODESYSuploadprotocol,N&#x3D;NotSpecified,DE&#x3D;Detection,PR&#x3D;Prevention,RE&#x3D;Recovery">
+<img src="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812174846573.png" class title="image-20240812174846573">
+<p><strong>针对 PLC 通信模块的攻击。</strong></p>
+<ul>
+<li>Urbina 等人提出了 PLC 与现场设备 (AL2) 之间的 AitM 攻击。该论文中一个有趣的观点是，现场网络往往采用环形拓扑结构，而不是交换式以太网的典型星形拓扑结构；因此，AitM 攻击不需要使用 ARP（地址解析协议）欺骗或类似技术将自己置于两个设备之间。它只需在两台受攻击设备之间注入攻击。然后，AitM 攻击者就可以向 PLC 发送错误的传感器读数，或向执行器发送错误的控制命令。</li>
+<li>Wardaketal. [184]介绍了一种网络攻击，主要是在图 4 中工作站和 PLC（AL1）之间的网络接口上进行密码嗅探。工作站和 PLC 之间的一些连接没有加密（或验证）。因此，密码可以被窃听，然后用于访问 JTAG 接口（图 4 中的 AL3）中受保护的 PLC 操作（如启动和停止 PLC 命令）。</li>
+</ul>
+<p><strong>针对控制逻辑的攻击。</strong></p>
+<p>修改 PLC 控制逻辑的两个最重要挑战是：</p>
+<ul>
+<li>如何在不被检测到的情况下感染 PLC；</li>
+<li>如何从工程工作站隐藏感染。</li>
+</ul>
+<p>针对挑战 1，Yoo 和 Ahmed提出了两种绕过网络入侵检测系统 (IDS) 的控制逻辑感染攻击。在第一种攻击中，他们通过在数据块中注入控制代码，然后修改执行指针以执行数据块中的代码，从而绕过了查找控制逻辑（编译代码）传输的 IDS。第二种攻击利用碎片和噪声进一步混淆这些传输到 PLC 的控制逻辑。</p>
+<p>Kalle 等人[89]针对这两项挑战（感染和隐蔽性）。他们在代码检测中考虑了一个不同的问题，即假设他们有一个想要修改的二进制文件。然后，他们开发了一个反编译器，将低级控制逻辑转换为高级指令列表，以帮助他们注入恶意代码，然后再将其重新编译为可上传到易受攻击的 PLC 的二进制文件。他们还开发了一个与工程工作站接口的虚拟 PLC（通过 AiTM 攻击）；然后，这个虚拟 PLC 将先前捕获的原始未感染控制逻辑的网络流量发送回工作站。</p>
+<p><strong>针对 PLC CPU 的攻击</strong>。PLC 通常有三种 CPU 运行模式： “停止”、”运行 “和 “编程”。针对 PLC 中央处理器的攻击主要是通过 STOP 命令禁用中央处理器（AL3 或 AL2）。Biham 等人[31] 通过破坏易受攻击的密钥交换协议，创建了一个可远程启动或停止这些较新 PLC 的恶意工程站。</p>
+<p>密码可以保护中央处理器的操作模式，但通过密码仍可进行远程攻击。高端 PLC 采用物理方法保护 CPU 模式，例如使用物理开关或物理钥匙。</p>
+<p><strong>针对 PLC 固件的攻击</strong>。固件修改是任何平台中最强大的攻击之一，因为攻击者可以控制对 PLC 输入和输出模块的访问，而不被发现。Basnight 等人开创了 PLC 固件逆向工程方法，并将如何开发修改固件作为概念验证。</p>
+<p>在我们的研究中，被引用最多的固件攻击论文是 Harvey。作者通过 PLC 处理器的 JTAG 接口，从 PLC 供应商网站的更新包和 PLC 内存中提取固件映像。然后，他们确定了可以修改 PLC 输入和输出的子程序。为了上传固件，他们利用漏洞保护远程固件更新功能（图 4 中的 AL0、AL1 或 AL2）或直接通过 JTAG 接口（图 4 中的 AL3）。</p>
+<p><strong>针对 PLC 输入/输出的攻击。</strong>针对 PLC 输入和输出的两篇论文被引用最多，其重点是如何利用输入或输出物理信号作为交换信息的隐蔽通道。例如，PHYCO提出了一种方法，让两个被入侵的 PLC 可以相互对话，即使它们之间存在防火墙。其中一个 PLC 可以发送输出以增加发电量，而另一个 PLC 则可以读取增加的发电量作为信息位。敌手还可以利用 PLC I/O 外泄数据。Krishnamurthy 等人举例说明了向电机发送控制指令的 PLC 如何泄露化工厂的状态信息。</p>
+<p><strong>针对 PLC 运行时的攻击。</strong>Abbasi 等人通过引入引脚控制攻击，提供了一个运行时攻击的示例。这种攻击涉及对 PLC 内的 SoC 配置进行攻击，目的是破坏 PLC 运行时与硬件外设之间的通信。通过实施这种攻击，敌手切断了运行时软件与物理世界之间的连接，使他们能够操纵实际物理过程中的控制数据。</p>
+<p>运行时攻击也可以针对系统的可用性；例如，Gjendemsjø 等人提出了一种 XML 炸弹攻击，通过修改 XML 文件导致 PLC 运行时崩溃。</p>
+<p><strong>针对 PLC 操作系统的攻击。</strong>专注于攻击 PLC 操作系统的论文并不多。Abbasi 等人对 PLC 的攻击面进行了全面研究，他们触及了 PLC 安全性的一个有趣方面：西门子 Adonis 实时操作系统的脆弱性。虽然他们主要关注西门子 PLC 引导加载器的安全性，但也探讨了 Adonis 实时操作系统固有的安全性弱点。</p>
+<p><strong>针对 PLC 内存的攻击。</strong>一些网络或控制逻辑攻击通过修改内存块或获取内存转储，将 PLC 内存作为其感染链的一部分。最常见的攻击方式是开发存储在内存中的蠕虫。</p>
+<h1 id="6-ResearchGaps"><a href="#6-ResearchGaps" class="headerlink" title="6 ResearchGaps"></a>6 ResearchGaps</h1><img src="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812194853033.png" class title="image-20240812194853033">
+<img src="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812194909049.png" class title="image-20240812194909049">
+<img src="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812194920881.png" class title="image-20240812194920881">
+<p><strong>重要 PLC 品牌的安全性尚未得到探讨。</strong>我们发现，一些在实践中广泛使用的重要 PLC 平台的安全性被忽视了。如图 5 所示，三菱、欧姆龙、ABB 和通用电气等重要 PLC 制造商的市场份额比例大大高于其研究份额，例如，明确将其用于攻击/防御评估目的的论文数量。例如，尽管三菱 PLC 占全球市场的 14%，但在我们的综述中却只占 0% 的研究份额（在我们的灰色文献调查中只出现过一次 [38]）。</p>
+<p>这意味着世界上可能有成千上万的 PLC 还没有被探索过或没有充分了解其安全性。因此，我们建议今后开展专门针对这些设备的工作，探索本工作中所讨论的现有攻击和防御的有效性，并引入为这些设备量身定制的更新的安全方法。</p>
+<p><strong>恢复阶段缺乏防御。</strong>我们发现，大多数防御方法都是针对第 4.7 节中讨论的预防 (PR) 和检测 (DE) 阶段设计的，在 70 种防御方法中分别占 47% (33/70) 和 47% (33/70)，而恢复 (RE) 阶段仅占 6% (4/70)。这意味着在攻击成功的情况下，恢复 PLC 并使其恢复运行的选择非常有限。</p>
+<p><strong>大多数攻击和防御都是在一小部分 PLC 上进行评估的。</strong>我们的研究结果表明，在我们的文献综述中，最常见的前 5 种 PLC 模型（如图 6 所示）占所有研究的 40%。这可能导致对 PLC 安全性的狭隘理解，将市场上的其他 PLC 模型排除在外。此外，我们发现 80% (95/119) 的攻击方法和 81% (57/70) 的防御方法都是使用单一 HardPLC 模型进行评估的。这意味着大多数攻击和防御方法只适用于一种 HardPLC 模型，因此不清楚防御方法是否适用于其他 PLC 模型和制造商。因此，我们建议未来的研究应包括对多种 PLC 的评估。</p>
+<p><strong>重要战术几乎没有研究。</strong>我们的 ICS2 矩阵包括 14 种战术。但是，如图 8 所示，大多数攻击方法都集中在破坏流程控制、抑制响应功能、渗透、收集和持久性上。另一方面，指挥和控制、横向移动、规避、凭证访问和内部访问等重要战术尚未被研究。以前的研究之所以没有探讨这些战术，原因之一可能是它们太具体或太个性化。例如，”命令与控制 “策略包括 “常用端口 “和 “标准应用层协议 “等依赖于特定网络协议和端口的技术。这种对网络端口的特定关注可能会限制对这一战术的研究范围。</p>
+<img src="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812200201657.png" class title="image-20240812200201657">
+<img src="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/image-20240812200209777.png" class title="image-20240812200209777">
+<p><strong>最新防御措施的弱点</strong>。根据表 1 和表 2 所示的结果，我们确定了 PLC 防御系统的三大弱点：</p>
+<ol>
+<li><p>无法检测到勒索软件。尽管研究人员已经证明，针对 PLC 的勒索软件攻击是可能的，并且有多个记录在案的勒索软件攻击事件。然而并没有研究关注如何侦测和阻止PLC勒索。</p>
+<p>未来应该有更多的研究介绍新的勒索检测和防御措施，例如沙箱检测和静动态检测等。</p>
+</li>
+<li><p>没有基于Web的恶意检测。研究显示攻击者可能通过PLC的web接口劫持PLC。然而并没有研究如何检测和阻止这种恶意攻击</p>
+</li>
+<li><p>没有隐蔽信道的检测方法。这是在ICS^2矩阵中的一项新的攻击技术，包括PHYCO等方法</p>
+</li>
+</ol>
+</div><div class="article-licensing box"><div class="licensing-title"><p><a href="http://curator-kim.github.io/2024/09/18/SoK Security of Programmable Logic Controllers/">http://curator-kim.github.io/2024/09/18/SoK Security of Programmable Logic Controllers/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><a href="http://Curator-Kim.github.io"><p>Curator-Kim</p></a></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2024-09-18</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2024-09-18</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="recommend-area"><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># Related Post</span><br><span>  1.<a class="is-size-6" href="/2024/09/18/awesome-chatgpt-prompts/" target="_blank"> </a><br></span><span>  2.<a class="is-size-6" href="/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/" target="_blank"> </a><br></span><span>  3.<a class="is-size-6" href="/2024/02/21/010editor%20%E7%A0%B4%E8%A7%A3%E8%AE%B0%E5%BD%95/" target="_blank"> </a><br></span><span>  4.<a class="is-size-6" href="/2024/02/07/L3HCTF%202024/" target="_blank"> </a><br></span><span>  5.<a class="is-size-6" href="/2024/01/21/%E9%99%87%E5%89%91%E6%9D%AF%202023%20Writeup/" target="_blank"> </a><br></span><span>  6.<a class="is-size-6" href="/2024/01/21/%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF%E7%BB%BC%E8%BF%B0/" target="_blank"> </a><br></span><span>  7.<a class="is-size-6" href="/2024/01/21/Universal%20Fuzzing%20via%20Large%20Language%20Models/" target="_blank"> </a><br></span><span>  8.<a class="is-size-6" href="/2024/01/21/Skyfire%20Data-Driven%20Seed%20Generation%20for%20Fuzzing/" target="_blank"> </a><br></span></div></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/css/share.min.css"><div class="social-share"></div><script src="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">Like this article? Support the author with</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>Alipay</span><span class="qrcode"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/alipay.png?raw=true" alt="Alipay"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>Wechat</span><span class="qrcode"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/wechat.png?raw=true" alt="Wechat"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2024/09/18/awesome-chatgpt-prompts/"><i class="level-item fas fa-chevron-left"></i><span class="level-item"> </span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/"><span class="level-item"> </span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--><div class="card"><div class="card-content"><div class="title is-5">Comments</div><div id="comment-container"></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/gitalk/1.6.0/gitalk.css"><script> $.getScript('/js/gitalk.min.js', function () { 
+            var gitalk = new Gitalk({
+            language:'zh-CN',
+            id: 'd41d8cd98f00b204e9800998ecf8427e',
+            repo: 'blog_comment',
+            owner: 'Curator-Kim',
+            clientID: '46a9f3481b46ea0129d8',
+            clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+            admin: ["Curator-Kim"],
+            createIssueManually: true,
+            distractionFreeMode: false,
+            perPage: 10,
+            pagerDirection: 'last',
+            proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
+            
+            enableHotKey: true,
+            isLocked: false
+        })
+        gitalk.render('comment-container')});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><!--!--><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/22a41709ffc26f62191d72a87ffbb342d46bfce3/img/icon.jpg?raw=true" alt="Curator-Kim"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Curator-Kim</p><p class="is-size-6 is-block">寻几处好景破星光</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>火星</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">57</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">15</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/curator-kim"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="/804242129@qq.com"><i class="fa fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div><div><hr><p id="hitokoto">:D 一言句子获取中...</p><script type="text/javascript" defer>function getYiyan(){
+                                $.getJSON("https://v1.hitokoto.cn/", function (data) {
+                                if(data){
+                                    $('#hitokoto').html("");
+                                    $('#hitokoto').append("<strong style='color: #3273dc;'>"+data.hitokoto+"</strong>"+
+                                    "<p>"+"From《"+data.from+"》</p><p>Provider-"+data.creator+"</p>");
+                                }});}
+                                $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});</script></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><!--!--><div class="card widget"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-18T07:01:03.174Z">2024-09-18</time></p><p class="title"><a href="/2024/09/18/awesome-chatgpt-prompts/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-18T06:59:04.582Z">2024-09-18</time></p><p class="title"><a href="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-18T06:58:24.805Z">2024-09-18</time></p><p class="title"><a href="/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-21T11:54:21.947Z">2024-02-21</time></p><p class="title"><a href="/2024/02/21/010editor%20%E7%A0%B4%E8%A7%A3%E8%AE%B0%E5%BD%95/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-07T11:25:11.851Z">2024-02-07</time></p><p class="title"><a href="/2024/02/07/L3HCTF%202024/"> </a></p></div></article></div></div><!--!--><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2024/09/"><span class="level-start"><span class="level-item">September 2024</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2024/02/"><span class="level-start"><span class="level-item">February 2024</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2024/01/"><span class="level-start"><span class="level-item">January 2024</span></span><span class="level-end"><span class="level-item tag">15</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2023/08/"><span class="level-start"><span class="level-item">August 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2023/07/"><span class="level-start"><span class="level-item">July 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><a class="level is-mobile is-marginless" href="/archives/"><span class="level-start"><span class="level-item">查看全部&gt;&gt;</span></span></a></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/CTF/"><span class="tag">CTF</span><span class="tag is-grey-lightest">15</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"><span class="tag">汇编语言</span><span class="tag is-grey-lightest">12</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Crypto/"><span class="tag">Crypto</span><span class="tag is-grey-lightest">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ctf/"><span class="tag">ctf</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pwn/"><span class="tag">pwn</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CopperSmith/"><span class="tag">CopperSmith</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/DES/"><span class="tag">DES</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/HWS/"><span class="tag">HWS</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/NTRU/"><span class="tag">NTRU</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/RE/"><span class="tag">RE</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Reverse/"><span class="tag">Reverse</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/angr/"><span class="tag">angr</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/"><span class="tag">加密与解密</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"><span class="tag">论文阅读</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/"><span class="tag">预备知识</span><span class="tag is-grey-lightest">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><!--!--><div class="column-right-shadow is-hidden-widescreen"></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/logo.png?raw=true" alt="Curator-Kim的小站" height="28"></a><p class="size-small"><span>&copy; 2024 Curator-Kim</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> &amp; <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span>© <a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备88888888号-8（测试）</a><br></span><span>© 版权说明：[本网站所有内容均收集于互联网或自己创作,<br />&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="/message" target="_blank">留言</a>，立即处理]<br /></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "❤️Site from <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> has existed <strong>" + dnum + "</strong> d <strong>" + hnum + "</strong> h <strong>" + mnum + "</strong> m <strong>" + snum + "</strong> s！❤️";
+        }var now = new Date();setInterval("createTime('2022/1/21 00:00:00')", 250,"");</script><br></span><div class="size-small"><span>❤️Thx <strong><span id="busuanzi_value_site_uv">99+</span></strong> users <strong><span id="busuanzi_value_site_pv">99+</span></strong> visited！❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a></p></div><div class="sideMusic"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="/js/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script><meting-js style="width: auto;height: 2000px;" server="netease" type="playlist" id="137510737" theme="#2980b9" loop="all" autoplay="false" order="list" storageName="aplayer-setting" lrctype="0" list-max-height="400px" fixed="true"></meting-js></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><script src="/js/main.js" defer></script><script>$.getScript('/js/comment-issue-data.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','Curator-Kim','blog_comment',false);})</script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
+
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
+
+        function loadMathJax() { //加载mathjax
+            $.getScript("//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", function () {
+                MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\(', '\)']] } });
+                var math = document.getElementsByClassName("entry-content")[0];
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);
+            });
+        };
+
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
+        
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(false){
+                $.getScript('/js/comment-issue-data.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','Curator-Kim','blog_comment',false);});
+            }
+            if(false){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script></body></html>

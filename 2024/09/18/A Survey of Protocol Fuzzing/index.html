@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Curator-Kim的小站</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Curator-Kim的小站"><meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Curator-Kim的小站"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="A Survey of Protocol Fuzzing详细总结了协议模糊测试的具体挑战，并对现有研究工作进行了系统分类和概述。此外，还探索并讨论了协议模糊的潜在未来研究方向。"><meta property="og:type" content="blog"><meta property="og:title" content="Curator-Kim"><meta property="og:url" content="https://curator-kim.github.io/"><meta property="og:site_name" content="Curator-Kim"><meta property="og:description" content="A Survey of Protocol Fuzzing详细总结了协议模糊测试的具体挑战，并对现有研究工作进行了系统分类和概述。此外，还探索并讨论了协议模糊的潜在未来研究方向。"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://curator-kim.github.io/img/icon.jpg"><meta property="article:published_time" content="2024-09-18T06:58:24.805Z"><meta property="article:modified_time" content="2024-09-18T07:01:40.128Z"><meta property="article:author" content="Curator-Kim"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/icon.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://curator-kim.github.io/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/"},"headline":"Curator-Kim的小站","image":["http://curator-kim.github.io/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240821172825065.png","http://curator-kim.github.io/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240822091325025.png","http://curator-kim.github.io/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240822094436199.png","http://curator-kim.github.io/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240822101417437.png","http://curator-kim.github.io/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240822101607088.png","http://curator-kim.github.io/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240822101701669.png","http://curator-kim.github.io/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240917213307158.png","http://curator-kim.github.io/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240917221423134.png","http://curator-kim.github.io/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240917223810172.png","http://curator-kim.github.io/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240918105907722.png"],"datePublished":"2024-09-18T06:58:24.805Z","dateModified":"2024-09-18T07:01:40.128Z","author":{"@type":"Person","name":"Curator-Kim"},"description":"A Survey of Protocol Fuzzing详细总结了协议模糊测试的具体挑战，并对现有研究工作进行了系统分类和概述。此外，还探索并讨论了协议模糊的潜在未来研究方向。"}</script><link rel="canonical" href="http://curator-kim.github.io/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/"><link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="referrer" content="no-referrer-when-downgrade"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="/js/globalUtils.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><link rel="stylesheet" href="/live2d/waifu.css"><script type="text/javascript" async src="/live2d/autoload.js"></script><meta name="generator" content="Hexo 5.4.0"></head><body class="is-3-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/logo.png?raw=true" alt="Curator-Kim的小站" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a><a class="navbar-item" href="/album">Album</a><a class="navbar-item" href="/friend">Friend</a><a class="navbar-item" href="/message">Message</a><a class="navbar-item" href="/self-talking">Self-talking</a><a class="navbar-item" href="/music">Music</a><a class="navbar-item" href="/media">Media</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Join Gitter" href="https://gitter.im/hexo-theme-amazing/community"><i class="fab fa-gitter"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="/js/theme-setting.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2024-09-18  <a class="commentCountImg" href="/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/#comment-container"><span class="display-none-class">d41d8cd98f00b204e9800998ecf8427e</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="d41d8cd98f00b204e9800998ecf8427e">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>2 h  <i class="fas fa-pencil-alt"> </i>17.3 k</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>&nbsp;visits</span></div></div><h1 class="title is-3 is-size-4-mobile"> </h1><div class="content"><h1 id="A-Survey-of-Protocol-Fuzzing"><a href="#A-Survey-of-Protocol-Fuzzing" class="headerlink" title="A Survey of Protocol Fuzzing"></a>A Survey of Protocol Fuzzing</h1><p>详细总结了协议模糊测试的具体挑战，并对现有研究工作进行了系统分类和概述。此外，还探索并讨论了协议模糊的潜在未来研究方向。</p>
+<span id="more"></span>
+<h2 id="1-INTRODUCTION"><a href="#1-INTRODUCTION" class="headerlink" title="1 INTRODUCTION"></a>1 INTRODUCTION</h2><h3 id="1-1-Motivation"><a href="#1-1-Motivation" class="headerlink" title="1.1 Motivation"></a>1.1 Motivation</h3><h3 id="1-2-Research-Questions"><a href="#1-2-Research-Questions" class="headerlink" title="1.2 Research Questions"></a>1.2 Research Questions</h3><p>这篇综述旨在回答以下问题：</p>
+<ol>
+<li>传统模糊测试和基于协议的模糊测试的区别是什么</li>
+<li>已有的工作是如何解决协议模糊测试的挑战的</li>
+<li>未来的潜在方向是什么</li>
+</ol>
+<p>在第 3 节中，深入探讨了协议与传统模糊目标之间的显著差异，以回答问题 1。</p>
+<p>然后，在第 4-6 节中，详细介绍了现有协议模糊器中使用的技术，以回答问题 2。</p>
+<p>最后，第 7 节讨论了问题 3。</p>
+<h3 id="1-3-Collection-Strategy"><a href="#1-3-Collection-Strategy" class="headerlink" title="1.3 Collection Strategy"></a>1.3 Collection Strategy</h3><h2 id="2-BACKGROUND"><a href="#2-BACKGROUND" class="headerlink" title="2 BACKGROUND"></a>2 BACKGROUND</h2><h3 id="2-1-Communication-Protocols"><a href="#2-1-Communication-Protocols" class="headerlink" title="2.1 Communication Protocols"></a>2.1 Communication Protocols</h3><h3 id="2-2-Types-of-Protocols"><a href="#2-2-Types-of-Protocols" class="headerlink" title="2.2 Types of Protocols"></a>2.2 Types of Protocols</h3><img src="/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240821172825065.png" class title="image-20240821172825065">
+<h2 id="3-PROTOCOL-FUZZING-OVERVIEW"><a href="#3-PROTOCOL-FUZZING-OVERVIEW" class="headerlink" title="3 PROTOCOL FUZZING OVERVIEW"></a>3 PROTOCOL FUZZING OVERVIEW</h2><h3 id="3-1-Differences-between-protocol-fuzzing-and-traditional-fuzzing"><a href="#3-1-Differences-between-protocol-fuzzing-and-traditional-fuzzing" class="headerlink" title="3.1 Differences between protocol fuzzing and traditional fuzzing"></a>3.1 Differences between protocol fuzzing and traditional fuzzing</h3><p>在本小节中，将深入探讨文献中指出的与协议模糊相关的独特挑战</p>
+<p>表2概括了协议实现与一般模糊目标之间的两个主要区别。这些区别不仅凸显了协议模糊测试的特殊性，而且还与一系列固有挑战相对应。</p>
+<img src="/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240822091325025.png" class title="image-20240822091325025">
+<h4 id="3-1-1-High-communication-complexity"><a href="#3-1-1-High-communication-complexity" class="headerlink" title="3.1.1 High communication complexity."></a>3.1.1 High communication complexity.</h4><p>可归纳为以下两部分</p>
+<p><strong>语义限制</strong></p>
+<p>语义约束主要有两种形式：信息内约束和信息间约束。</p>
+<p>消息内约束涉及单个消息的结构和内容，确保数据字段在该消息的上下文中语法正确、语义清晰。以 TCP 为例，在一个 TCP 网段中，有几个关键字段，如源端口、目的端口、序列号、确认号、数据偏移量和控制标志（如 SYN、ACK）[96]。每个字段都必须遵守特定的格式和规则。</p>
+<p>另一方面，报文间限制约束了多条报文的关系和顺序，要求它们遵守既定的协议顺序和上下文，以便对话取得进展 。例如，TCP 连接的建立涉及一个 “三方握手 ”过程：客户端首先发送 SYN 消息，然后服务器响应 SYN-ACK 消息，最后客户端发送 ACK 消息以完成连接。在通信过程中，违反任一类型的约束都会导致模糊测试无法进行</p>
+<p><strong>测试交流过程的不同特性</strong></p>
+<p>除了基本的信息交换功能外，协议还需要保证一系列额外的功能，以形成更可靠的通信，如定时要求、身份验证、保密性和并发性。</p>
+<p>要在实现过程中有效测试这些属性，需要一种更复杂的测试形式，它超越了典型的应用程序模糊测试，后者主要通过改变结构化输入来发现问题。每种属性都可能需要对模糊框架进行重大修改甚至重新设计，包括开发专门的输入生成器、反馈机制和工具，以促进有效测试。例如，在制作旨在检测协议实现中流量放大攻击的模糊器时，需要一个oracle来识别不成比例的请求与响应数据量比率，这表明存在放大现象。</p>
+<p>同时，需要对输入生成器进行巧妙的重新设计，以生成协议信息的特定变化，从而最大限度地提高潜在的放大系数。此外，放大系数可用作反馈，以进一步提高模糊搜索的性能。</p>
+<h4 id="3-1-2-Constrained-Testing-Environment"><a href="#3-1-2-Constrained-Testing-Environment" class="headerlink" title="3.1.2 Constrained Testing Environment"></a>3.1.2 Constrained Testing Environment</h4><p>由于协议与硬件之间的紧密耦合，协议模糊测试通常面临着一个受限的测试环境。</p>
+<p>首先，许多协议要么是为低层物理设备之间的通信而设计的，要么是为专门领域的通信而设计的，如位于 OSI 参考模型低层（即物理层和数据链路层）的协议，或者是为汽车、工业控制系统（ICS）、电网和航空系统等特定领域设计的协议。在这些情况下，测试吞吐量将受到硬件依赖性的限制，如缺乏自动化、可扩展模糊测试的瓶颈等。</p>
+<p>此外，这些物理依赖性也限制了高级模糊技术的应用。这是因为许多高级模糊技术需要测试目标提供灰盒或白盒测试信息，而由于缺乏针对这些特定硬件的程序分析框架，这些信息无法得到满足。</p>
+<h3 id="3-2-Summary-of-Existing-Protocol-Fuzzers"><a href="#3-2-Summary-of-Existing-Protocol-Fuzzers" class="headerlink" title="3.2 Summary of Existing Protocol Fuzzers"></a>3.2 Summary of Existing Protocol Fuzzers</h3><p>对现有的协议模糊测试进行概括，如图4所示。</p>
+<p>现有的协议模糊测试遵从一般模糊测试的方法，但就这些子组件提出了具体的改进建议</p>
+<img src="/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240822094436199.png" class title="image-20240822094436199">
+<p>一般模糊器由三个基本组件组成，即输入生成器、执行器和错误收集器。在一次模糊迭代中，输入生成器首先为执行器生成测试输入。然后，执行器用给定的输入执行 PUT，并为其他两个组件收集运行时信息。最后，错误收集器检查运行时信息，以确定输入是否触发了错误。</p>
+<ul>
+<li>输入生成器：输入生成器。理想情况下，该组件负责生成输入，以尽可能有效地暴露 PUT 内部的漏洞。为实现这一目标，协议模糊器通常通过三个主要子阶段实现输入生成器，包括通信模型构建、调度和测试用例构建。通信模型构建阶段负责学习协议的语义约束，为其他阶段提供知识。利用协议领域的特定知识，调度阶段决定下一次迭代输入生成时使用的所有调度配置，目的是暴露更多的错误。测试用例构建阶段负责根据调度程序的指令生成测试用例。</li>
+<li>执行器：为了追求用于协议模糊测试的理想执行器，当代研究主要集中在两个关键方面： 高效执行和运行时信息提取。前者探索开发高效、自动化和可扩展的测试环境，提高协议测试的执行效率。后者侧重于创建一个分析环境，以提取重要的运行时信息，从而为输入生成和错误检测过程提供信息并加以改进。</li>
+<li><strong>错误收集器：</strong>漏洞收集器组件的主要目的是提高检测到的漏洞类型的多样性和检测的准确性。该组件经过精心调整，能细致地识别各种漏洞，从缓冲区溢出等内存安全漏洞到逻辑错误和违反规范等更微妙的非内存安全漏洞。</li>
+</ul>
+<h2 id="4-INPUT-GENERATOR"><a href="#4-INPUT-GENERATOR" class="headerlink" title="4 INPUT GENERATOR"></a>4 INPUT GENERATOR</h2><p>介绍现有方法如何改进输入生成器。如表 3 所示，总结了现有作品在设计输入生成器的三个关键阶段时所使用的技术。</p>
+<img src="/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240822101417437.png" class title="image-20240822101417437">
+<img src="/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240822101607088.png" class title="image-20240822101607088">
+<img src="/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240822101701669.png" class title="image-20240822101701669">
+<p>除了上述三个阶段的统计信息外，表格还列出了它们的反馈信息。根据图 4，反馈信息可以由执行者或错误收集者提供。这里仅讨论输入生成器如何使用反馈信息，而将与反馈收集相关的细节留待后面章节讨论。</p>
+<h3 id="4-1-Communication-Model-Construction"><a href="#4-1-Communication-Model-Construction" class="headerlink" title="4.1 Communication Model Construction"></a>4.1 Communication Model Construction</h3><p>为使传统模糊器具备语义约束知识，大多数现有研究都将通信建模为状态机或其变体，以指导模糊测试。</p>
+<h3 id="4-1-1-自上而下的方法。"><a href="#4-1-1-自上而下的方法。" class="headerlink" title="4.1.1 自上而下的方法。"></a>4.1.1 自上而下的方法。</h3><p>自顶向下方法通过学习协议的文本描述（如规范或文档）来构建协议的通信模型。自顶向下方法需要协议规范作为输入，因此多用于开放式协议。得益于规范中的全局协议知识以及精确定义的状态和转换，自顶向下方法构建的通信模型相对完整和准确。</p>
+<p>值得注意的是，构建的通信模型仍可能与实现的通信模型不同。这是因为开发人员可能会根据实际情况定制或扩展规范中描述的设计。这种差异可能会影响最终的模糊测试性能。在方法上，从协议文档中构建通信模型有手动和自动两种方法。</p>
+<p><strong>手动构建</strong></p>
+<p>大多数现有作品都是通过大量领域专业知识手动构建通信模型</p>
+<blockquote>
+<p>例如，Garbelini等人和GREYHOUND通过参考协议规范的核心设计，构建了蓝牙低功耗（BLE）和Wi-Fi的整体状态机，以指导模糊测试。</p>
+</blockquote>
+<p>虽然手动构建状态机是一项容易出错且耗费人力的工作，但这样做的好处是，人类专家可以灵活定制（定制或扩展）状态机，以最大限度地发挥其作用，实现工作目标。</p>
+<blockquote>
+<p>例如，为了检测不同协议模式（如不同的协议版本、扩展、认证模式或密钥交换方法）之间不正确的复用所导致的状态机错误，Beurdouche 等人[18]手动构建了一个复合状态机，其中包括跨协议模式的所有有效状态转换。</p>
+<p>同样，FuzzBD [76]经过精心设计，以适应 USB Power Delivery（USBPD）协议固有的独特双角色特性，即每个设备同时充当电源和电源槽。通过整合这两种角色的状态机，FuzzBD 能够在模糊过程中支持电源角色的无缝即时切换。</p>
+</blockquote>
+<p>与上述工作不同的是，有些工作选择学习状态机的部分信息作为指导。</p>
+<blockquote>
+<p>Zou 等人提出的 TCP-Fuzz 是一种从 RFC 文档中手动提取 15 条依赖规则的新方法。这些规则包含各种依赖关系，包括数据包到数据包、系统调用到数据包以及系统调用到系统调用的交互。利用这些规则，TCP-Fuzz 通过同时生成相互依赖的数据包和系统调用，巧妙地生成测试用例。</p>
+<p>另一个范例是 L2Fuzz [113]。作者构建了一个映射，划定了与协议中确定的 19 种状态中的每一种状态相关的有效命令。这种映射有助于生成专门用于生成当前状态下可接受的命令的测试用例，从而提高测试过程的相关性和有效性。</p>
+</blockquote>
+<p>此外，还有一些工作解决了规范与实施之间的通信模型不完全相同的问题。</p>
+<blockquote>
+<p>以异构单点登录（SSO）平台为例，MoSSOT [138] 首先构建了常规 SSO 流程的状态机，然后分析了不同 SSO 平台的实际 SSO 网络流量，了解了每个动作中的关键参数等实现细节。这些实现细节完善了不同 SSO 平台状态机中的状态转换条件。</p>
+</blockquote>
+<p><strong>自动构建</strong></p>
+<p>一些工作从协议规范中自动提取语义约束</p>
+<blockquote>
+<p>例如，RESTler [13] 根据 Swagger 规范中的返回类型学习消息依赖关系，Swagger 是一种描述 RESTful API 端点、方法、参数和返回类型的结构规范格式。Pacheco 等人建议使用自然语言处理（NLP）从协议规范中提取有限状态机（FSM）[111]。请注意，表 3 中没有列出这两篇论文，因为这些工作并不是构建有状态协议模糊器。另一项使用自动状态机构建的工作是 CHATAFL [100]，它利用新兴技术的大型语言模型来推断目标的当前状态，并生成合适的状态传输包。</p>
+</blockquote>
+<h3 id="4-1-2-Bottom-Up-Approaches"><a href="#4-1-2-Bottom-Up-Approaches" class="headerlink" title="4.1.2 Bottom-Up Approaches"></a>4.1.2 Bottom-Up Approaches</h3><p>这些方法利用协议实施的可观测信息来重建通信模型。由于这些方法不依赖文本文档或规范，因此适用于专有协议。自上而下的方法在文档中对协议状态有明确的定义，而自下而上的方法与之不同，其状态定义是针对特定目的的，在不同的用例、方法和实现中可能会有所不同。</p>
+<blockquote>
+<p>例如，AFLNET [116] 根据 PUT 响应的状态代码确定协议状态</p>
+<p>另一个例子是 StateAFL [106]，它将长寿命内存的内存布局聚类为不同的状态。从学习源的角度来看，这些方法可分为两类，即基于流量分析的方法和程序分析辅助方法</p>
+</blockquote>
+<p>从学习源的角度，这些方法可被分为两类，基于流量分析的方法和基于程序分析的方法</p>
+<p><strong>基于流量分析的方法：</strong> 基于流量分析的方法主要是通过观测到的网络流量轨迹重建协议通信模型。这种方法易于操作，在无法追踪程序执行（如无法获得包含目标程序的固件）的情况下也很有效。基于流量分析的通信模型构建方法可以是被动的，也可以是主动的。</p>
+<ul>
+<li><p>被动学习（在表 3 第 4 列中标注为 “TAPL”）方法主要依靠预先收集的 PUT 与其他实体的网络痕迹来推断通信模型。现有研究提出的学习算法可分为两类：<strong>基于统计的算法和基于神经网络的算法</strong>。</p>
+<blockquote>
+<p>对于前者，Pulsar通过计算网络跟踪语料中相邻消息的出现概率建立了一个二阶马尔可夫模型，然后将该马尔可夫模型最小化为一个 DFA。收到信息后，Pulsar 会将其与推断出的 DFA 中的一个状态进行匹配，从而选择一个有效的响应模板，用于构建新的测试用例。</p>
+<p>对于后一类协议，Fan 等人和 SeqFuzzer使用 LSTM 学习有状态协议的语法和时间特征。具体来说，他们使用 LSTM 作为序列到序列（seq2seq）模型的编码器和解码器。Seq2seq 模型是一种编码器-解码器模型结构，可以处理不同长度的输入和输出序列。编码器 LSTM 模型通过捕获的网络跟踪学习协议特征，而解码器 LSTM 模型则用于生成模糊输入。基于被动网络跟踪的状态机学习方法操作简单，运行速度快。但是，构建的状态机的质量取决于捕获流量的覆盖范围。在实践中，很难捕捉到全面的信息类型和序列，导致构建的通信模型缺少部分未捕捉到的状态或状态转换</p>
+</blockquote>
+</li>
+<li><p>主动学习（在表 3 第 4 列中标记为 “TAAL”）方法涉及在模糊过程中学习通信模型。</p>
+<p>这些方法可以根据全局状态集是否预先定义来分类。</p>
+<p>第一类不预先定义全局状态集，即不预先确定状态机中可能状态的数量和性质。这种方法采用自动机主动学习算法来识别目标的状态机。学习算法依赖于用户定义的输入/输出字母以及字母与具体信息之间的映射器。这些算法从一个空的状态机开始，通过与目标协议实现的交互，反复提出并完善模型，只有在没有发现与所学状态机的反例时才停止。这一类的大多数作品都采用了 Angluin 的 𝐿 ∗ 算法，根据协议规范定义输入字母，并使用消息模板将其转化为实际消息。</p>
+<p>相反，第二类方法预先定义了完整的状态集，以规避自动机学习算法的复杂性。通常，这种方法通过基于规则的方法定义状态集，通过改变已知信息来学习状态之间的转换。实质上，状态机的潜在状态（节点）是预先确定的，重点在于发现和纳入状态转换（边）。</p>
+<blockquote>
+<p>例如，AFLNET使用响应消息状态代码来确定当前的协议状态，通过改变真实的消息序列来揭示转换。</p>
+<p>Bleem利用 Scapy 库解析消息，并通过保留枚举类型的所有字段将其抽象为各种消息类型。这一策略基于 Scapy 支持的 50 多个协议的经验观察，其中不同的枚举字段值通常代表不同的数据包或帧类型。然后，Bleem 利用这些抽象化的消息轨迹来构建用于模糊处理的指导图。</p>
+<p>另一个例子是 Braktooth，它定义了八条规则，根据消息特征将消息映射到状态。它在 PUT 和标准协议栈之间充当代理，改变通信以探索更多的状态转换。</p>
+<p>同样，Garbelini 等人建立了映射规则来识别状态，并利用捕获跟踪（即 pcap 文件）学习状态机。</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>基于程序分析的方法</strong></p>
+<p>与基于流量分析的方法相比，程序分析辅助方法会额外使用内部执行信息来构建通信模型。一般来说，内部执行信息包括静态和动态程序分析的结果，这不仅需要访问程序，还需要使用分析框架（如程序插桩工具）。</p>
+<p>根据所使用的内部执行信息的类型，现有工作可分为基于执行轨迹的方法和基于状态变量的方法。</p>
+<p>基于执行轨迹的方法根据目标的执行轨迹识别不同的内部执行状态。例如，ICS3Fuzzer[46] 通过对目标监控软件进行动态插桩来收集跟踪信息。通过比较执行轨迹的特性，ICS3Fuzzer 可以区分 PUT 是否处于不同状态。</p>
+<p>基于状态变量的方法通过跟踪输入处理时状态变量的改变来检测协议状态转换。这些方法基于一个简单的观察，即大多数协议实现都使用某些变量来存储当前状态。因此，它们将这些变量识别为状态变量，并使用其值来区分不同的状态。这种方法基于对大多数协议实现使用枚举类型状态变量的调查。</p>
+<blockquote>
+<p>例如，StateAFL [106] 通过识别内存快照中的长寿命数据结构来确定可能的状态变量。</p>
+<p>同样，STATEINSPECTOR [148] 通过定位堆内存中在每个信息序列执行过程中保持相同值的内存区域来识别状态变量。</p>
+<p>不同的是，SGFuzz [15] 通过正则表达式自动提取至少赋值一次的所有枚举类型变量，从而识别状态变量。</p>
+</blockquote>
+<h3 id="4-2-Task-Scheduling"><a href="#4-2-Task-Scheduling" class="headerlink" title="4.2 Task Scheduling"></a>4.2 Task Scheduling</h3><p>根据处理状态相关复杂性所采用的方法，对调度阶段进行了明确的分类。这种分类主要分为两类： <strong>分层方法</strong>和<strong>单一方法</strong>。分层方法将调度过程分解为两个不连续的阶段：状态内调度和状态间调度，前者侧重于单个状态内的测试，后者管理状态间的转换。这两个阶段分别实施，从而实现了对模糊处理过程的细微控制。相比之下，单一方法采用单一、统一的调度阶段，将状态相关信息作为系数整合到调度算法中。除了与状态相关的信息，许多研究还利用其他类别的信息进行调度。不过，基于这些信息类别的调度算法一般都是通用的</p>
+<p><strong>分层方法</strong>。在这种模式中，调度器采用两步算法： (1) 使用状态调度算法选择一个状态进行模糊处理，然后 (2) 应用一般调度算法优化该状态内的模糊处理。调度过程使用的启发式算法主要分为三类，即稀有性优先（SRHS，见表 3 第 5 列），表现优先（SPHS），复杂度优先（SCHS）</p>
+<img src="/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240917213307158.png" class title="image-20240917213307158">
+<p><strong>稀有度优先</strong>将资源更多放在较少达到的状态，假设这些状态蕴藏着更多未被发现的相邻状态或代码逻辑</p>
+<p><strong>表现优先</strong>将能达到更高代码覆盖率或漏洞发现率的状态放在优先</p>
+<p><strong>复杂度优先</strong>偏向于达到更多的状态或更深的状态</p>
+<blockquote>
+<p>ICS3Fuzzer 倾向于选择更深层次的状态和使用更多基本模块的状态。作为一种基于生成的模糊器，Pulsar 计算从当前状态可到达的所有状态的权重，然后选择权重最大的状态进行下一步测试。具体来说，一个状态的权重是按固定数量的转换中所有可变字段的总和计算的</p>
+</blockquote>
+<p><strong>单一方法</strong>。在单一方式中，与状态相关的信息是作为种子调度中使用的原始调度算法的系数来计算的。例如，SGFuzz 根据测试次数将状态分为稀有状态和正常状态。在为种子分配能量时，它会计算每个种子行使的测试次数比例，并在原始功率调度算法的基础上将该比例作为参数之一加入。类似地，SGFuzz 会为包含与预期协议行为相对应的状态转换的种子分配更多能量。这是因为 SGFuzz 预计这些有效的状态转换更容易突变为其他无效的状态转换，从而产生错误处理逻辑。同样，LTL-Fuzzer也会对整个种子进行调度。在执行过程中，它优先处理更接近目标代码位置的种子。</p>
+<h3 id="4-3-Testcase-Construction"><a href="#4-3-Testcase-Construction" class="headerlink" title="4.3 Testcase Construction"></a>4.3 Testcase Construction</h3><h4 id="4-3-1-Packet-Level-Construction-Strategy"><a href="#4-3-1-Packet-Level-Construction-Strategy" class="headerlink" title="4.3.1 Packet-Level Construction Strategy"></a>4.3.1 Packet-Level Construction Strategy</h4><p>协议模糊器的数据包级构建策略基本上继承了一般模糊器的策略，如位翻转、置零等。</p>
+<p>在本段中，我们将更多地考虑利用协议的特性来减少输入空间或提高触发错误效率的构建策略。</p>
+<p>对于前一个目的（减少输入空间），SPIDER利用了特定领域的洞察力，即大多数 Openflow 消息都会触发现有 SDN 控制器中的新系统事件，从而影响状态计算和资源占用。基于这种洞察力，SPIDER 可以直接生成事件序列，而不是生成 Openflow 消息，从而大大缩小了输入空间。</p>
+<p>L2Fuzz 还将 L2CAP 数据包格式划分为可变异字段，并保持其他字段不变，以生成不太可能被拒绝的测试用例。IPSpex 结合网络流量和网络数据包构建的执行跟踪来提取 ICS 协议消息字段语义。</p>
+<p>针对后一个目的（即提高触发错误的效率）的策略大多是从实践中总结出来的启发式方法。</p>
+<blockquote>
+<p>例如，EmNetTest 系统地生成了带有无效报文头字段或截断报文头的有效构造数据包。这一策略背后的洞察力来自于对嵌入式网络协议栈（ENS）中 61 个已报告漏洞的全面研究。许多行业会议著作中也提到了类似的策略。BadMesher采用了几种针对特定领域的策略，如将长度字段设置为边际值、随机删除某些字段等，以提高触发 Wi-Fi 网状设备漏洞的有效性。Yen 等人发现，将 ID 字段变为不存在的 ID、将端口号或长度字段变为边界值（如 0xFF/0x00）以及将 IP 变为一些随机地址等策略，对模糊数据分发服务（DDS）协议相当有效。同样，BrokenMesh在模糊蓝牙网格协议时也采用了一些策略，如改变数据包计数或长度字段。</p>
+</blockquote>
+<h4 id="4-3-2-Sequence-Level-Construction-Strategy"><a href="#4-3-2-Sequence-Level-Construction-Strategy" class="headerlink" title="4.3.2 Sequence-Level Construction Strategy"></a>4.3.2 Sequence-Level Construction Strategy</h4><p>协议模糊器可能会采用一些序列级构造策略。这些策略会主动构建偏离常规协议状态机的报文序列，期望触发更多 PUT 的非内存安全漏洞。基于生成的模糊器和基于突变的模糊器在序列级构造中的操作方式不同。</p>
+<p><strong>基于生成的Fuzzer：</strong>这些模糊器利用既定的协议知识（如标准状态机和消息间的依赖关系）构建消息序列。它们通过在标准状态机的有效序列上添加或删除随机协议消息等策略，生成异常消息轨迹。</p>
+<blockquote>
+<p>Sweyntooth [56]、Greyhound [55] 和 Braktooth [53]等项目根据状态机模型，仔细监控 PUT 的状态转换，并在不正确的状态下有策略地注入有效数据包，以诱发异常。</p>
+<p>Fiterau-Brostean 等人[50] 的最新研究提出了一种检测状态机漏洞的新方法，即输入能显示某些类型状态机漏洞的有限自动机目录以及 PUT 的模型。然后，它可以分析模型并生成暴露错误的测试用例。</p>
+</blockquote>
+<p><strong>基于变异的Fuzzer：</strong>主要采用简单而有效的策略来改变种子的信息序列，包括数据包洗牌、随机插入或删除等技术</p>
+<blockquote>
+<p>例如，AFLNET通过维护来自网络跟踪的信息池来构建信息序列，这些信息可以集成到现有种子中或替换现有种子。AFLNET 还混合使用了字节级和序列级操作符，包括信息的替换、插入、复制和删除，以构建信息序列。</p>
+<p>DYFuzzing 突变了种子并应用了 Dolev-Yao (DY) 攻击者策略。</p>
+<p>Frankenstein对已知信息序列进行重组，以提高代码覆盖率。</p>
+<p>He 等人为 5G 非接入层（NAS）协议提出了一种独特的模糊器，它能将数据包从捕获中提取到结构化的消息表中。然后，该模糊器对不同的关键字段采用不同的突变策略，从而大大提高了信息突变过程的智能性和精确性。</p>
+</blockquote>
+<p>值得注意的是，基于突变的模糊器必须明智地管理消息序列中特定字段的相关性，如会话号、计数器或时间戳。这些字段中不加区分的突变可能会使输入无效，并导致早期拒绝。为了应对这一挑战，AFLNET修改了 PUT 的代码，使用固定的会话编号，从而确保模糊处理的有效性。</p>
+<h2 id="5-EXECUTOR"><a href="#5-EXECUTOR" class="headerlink" title="5 EXECUTOR"></a>5 EXECUTOR</h2><p>本节将详细介绍协议模糊器对执行器的主要改进。如图 6 所示，协议模糊中的执行器通常包括四个关键过程。首先，执行器需要为 PUT 准备一个可执行的执行环境（①.执行环境准备），然后通过输入馈送机制向 PUT 发送输入（②.输入馈送），在输入处理过程中提取运行时信息（③.信息提取），并在当前迭代执行完成后将执行状态和环境状态重置为特定状态（④.执行重置）。</p>
+<img src="/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240917221423134.png" class title="image-20240917221423134">
+<p>表 5 总结了现有协议模糊工作在高效执行（包括①、②、④）和运行时信息提取（③）方面的关键技术和改进。表中的作品是从论文集中选取的，因为它们与执行器直接相关。</p>
+<img src="/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240917223810172.png" class title="image-20240917223810172">
+<h3 id="5-1-Efficient-Execution"><a href="#5-1-Efficient-Execution" class="headerlink" title="5.1 Efficient Execution"></a>5.1 Efficient Execution</h3><p>通过有两个方向来提升效率：</p>
+<ol>
+<li>建立允许并行化测试的执行环境</li>
+<li>最小化每轮执行的损耗</li>
+</ol>
+<h4 id="5-1-1-Scalability-Improvement"><a href="#5-1-1-Scalability-Improvement" class="headerlink" title="5.1.1 Scalability Improvement."></a>5.1.1 Scalability Improvement.</h4><p>可扩展模糊是指为并行模糊创建多个测试环境的能力。这在协议模糊测试中至关重要，因为许多模糊目标都与硬件密切相关。在协议模糊测试中，由于许多模糊目标依赖于专门的执行环境，对这些目标的并行测试只能通过购买多个物理设备来实现，这将导致高昂的经济成本和浪费。</p>
+<p>仿真是可扩展模糊测试的关键解决方案。它为 PUT 提供了虚拟执行环境，减少了对专用硬件的依赖，便于创建大量并行测试实例。这种功能大大提高了可扩展性，允许在多个环境中进行广泛的模糊操作。一些协议模糊器利用现有的仿真解决方案来扩展模糊过程</p>
+<p>在协议模糊测试中使用仿真技术有两个困难：</p>
+<ol>
+<li>固件映像并不公开</li>
+<li>仿真器只能支持其中的一小部分</li>
+</ol>
+<p>这些困难导致许多工作仍在以硬件循环方式（表 5 第 4 列中标注为 “HIL”）进行模糊测试</p>
+<p>还有一些工作根据不同设备的特点解决了这些问题（在表 5 第 4 栏中标注为 “SE”）。</p>
+<ul>
+<li>对于第一个挑战，现有研究通过拦截空中下载（OTA）固件更新或使用特定于供应商的命令或调试端口来获取目标二进制文件。例如，Frankenstein 利用 Patchram 机制（Broadcom 厂商专用命令，可用于临时修补 ROM 的断点），获取物理蓝牙芯片的内存快照，并在未修改版本的 QEMU 中进行仿真。</li>
+<li>为解决第二个问题，现有工作通常使用一种称为重托管（rehosting）的方法来部分模拟物理硬件的功能。例如，BaseSafe [93]利用流行的 CPU 仿真器 Unicorn 引擎，有选择地重新托管了信号信息的几个解析器功能。</li>
+</ul>
+<h4 id="5-1-2-Execution-Cost-Reduction"><a href="#5-1-2-Execution-Cost-Reduction" class="headerlink" title="5.1.2 Execution Cost Reduction"></a>5.1.2 Execution Cost Reduction</h4><p>提高模糊处理效率的另一个方向是优化每次迭代的中间执行步骤。下面我们将介绍现有工作在这一方向上的进展，这些工作主要集中在三个子程序上：输入（图 6 中的②）和执行重置（图 6 中的④）。</p>
+<p><strong>Input feeding. </strong></p>
+<p>根据模糊器和 PUT 之间的通信所依赖的进程间通信（IPC）机制，现有方法可大致分为四类，即基于 OTA 的方法、基于套接字的方法、基于共享内存的方法和基于文件的方法。</p>
+<p>基于 OTA 和基于套接字的方法主要用于模糊器和 PUT 无法部署在同一物理设备上的情况。当 PUT 和模糊器可以部署在同一设备上时，后两种方法可用于加快输入。</p>
+<blockquote>
+<p>OTA: Over-the-air</p>
+</blockquote>
+<ul>
+<li>基于 OTA 的输入</li>
+</ul>
+<p>一般来说，基于 OTA 的输入馈送机制多用于模糊测试的场景，这些协议通常具有封闭性并与硬件组件紧密集成，例如 Wi-Fi 、蓝牙（包括传统蓝牙和 BLE）、LTE 、4G/5G和 SMS/MMS 协议。在这种方法中，PUT 和模糊器需要部署在相邻的物理空间，并在特定频段上相互通信。因此，基于 OTA 的模糊器需要使用具有接收和发送功能的射频收发器设备，如软件定义无线电（SDR），以处理宽调谐范围内的信号。基于 OTA 的模糊测试能够测试包括物理层在内的整个协议栈。不过，在上述方法中，基于 OTA 的方法速度最慢。因此，许多无线协议模糊器尝试使用其他输入馈送机制来获得更好的性能，下文将对此进行介绍。</p>
+<ul>
+<li>基于Socket的输入机制</li>
+</ul>
+<p>在基于 TCP/IP 基础架构的协议实现中，大多使用基于套接字的输入馈送机制。在这些方法的常见情况下，模糊器和 PUT 通过 TCP 套接字和 UDP 套接字等套接字机制，通过 IP 地址相互通信。</p>
+<p>基于套接字的方法包括两种部署模式，一种是模糊器与 PUT 之间的点对点（P2P）通信。模糊器可以扮演客户端或服务器的角色，具体取决于 PUT 的角色。另一种部署模式是中间人（MiTM），即模糊器充当通信双方之间的代理，对正常通信流量进行突变或注入。基于 MiTM 的输入喂养主要用于协议涉及某些上下文信息（校验和、数据包序列等）的情况，这些信息无法通过改变静态种子来保持有效。</p>
+<p>然而，这两种模式都需要应对两个挑战。首先，<strong>套接字通信相当繁重，涉及大量上下文切换</strong>。现有研究通过避免使用这些昂贵的网络功能，提高了基于套接字的输入反馈机制的效率。例如，SnapFuzz用 UNIX domain socket取代了原来的互联网套接字，这是一种轻量级 IPC 机制，没有 IP 套接字所具有的路由、校验和计算操作。其次，模糊器很难确定 PUT 是否已经处理完上一条信息，并准备好接收下一条信息。当目标尚未准备就绪时，PUT 可能会过早地拒绝接收信息，从而导致模糊器与其状态机不同步。为了解决这个问题，Fiterau-Brostean 等人和 AFLNET设置了静态时间间隔，以等待 PUT 初始化、处理请求和发送响应。然而，<strong>静态计时器的粒度太粗，可能会浪费大量时间等待超时，从而减慢模糊处理速度。</strong></p>
+<p>SnapFuzz [9] 和 AMPFuzz [78] 开发了一种更精细的方法来检查套接字的状态。具体来说，它们使用对相关网络系统调用（如𝑟𝑒𝑐𝑣()、recvfrom() 的函数调用作为准备接收下一条信息的标志。它们通过二进制重写和编译时代码检测监控所有这些函数调用，然后通知模糊器发送下一迭代输入。</p>
+<ul>
+<li>基于文件的输入</li>
+</ul>
+<p>利用静态或动态仪器技术，以文件操作取代繁重的网络操作，从而实现性能提升。例如，Yurong 等人在目标源代码不可用的情况下，使用预加载定制库将套接字通信转换为文件操作。同样，Nyx-net向目标注入了一个库，以挂钩目标连接的网络功能，获取其相关的文件描述符，并将模糊输入注入到正确的位置。</p>
+<blockquote>
+<ol>
+<li>预加载库</li>
+<li>利用hook</li>
+</ol>
+</blockquote>
+<ul>
+<li>基于共享内存的输入</li>
+</ul>
+<p>将模糊输入写入共享内存地址，并挂钩相关函数从共享内存读取测试用例</p>
+<p>BaseSafe在目标进程的分叉副本中执行每个生成的测试用例，每次运行的输入都被复制到相应子进程的适当地址。同样，Frankenstein 创建了一个虚拟调制解调器，用于注入自定义数据包。模糊输入被写入 RAM 中的接收缓冲区，该缓冲区通过直接内存访问（DMA）映射到硬件接收缓冲区。此外，HNPFuzzer 基于共享内存模拟网络功能，以缩短模糊器与 PUT 之间的信息传输时间。</p>
+<ul>
+<li>其他</li>
+</ul>
+<p>还有一些研究依靠专门的通信通道来提供模糊输入。</p>
+<p>为了模糊远程桌面协议（RDP）的客户端，Park 等人利用 RDP 中用于传输数据的抽象层—虚拟通道，主动将模糊输入从服务器发送到客户端。Song 等人使用媒体转换器在汽车以太网和标准千兆以太网之间转换流量，并对电子控制单元（ECU）的 SOME/IP 协议栈（ECU 之间的控制通信协议）进行模糊处理。</p>
+<p><strong>执行重置</strong></p>
+<p>每次迭代执行后，都有必要将 PUT 重置到指定状态，等待下一次迭代模糊。这是因为每个测试用例都可能影响 PUT 的内部执行状态（如全局变量）或执行环境（如文件系统、数据库）。在不重置的情况下执行，会使 PUT 的行为更加不确定，从而增加重现错误的难度。例如，在模糊 FTP 服务器时，测试用例可能会导致在共享文件夹下创建文件。如果不重置共享文件夹，那么如果接下来的测试用例试图创建同名文件，FTP 服务器就会报错，这意味着相同的测试用例会导致不同的 PUT 行为。</p>
+<p>执行重置包括三个关键步骤，即<strong>重置时间选择</strong>、<strong>执行状态重置</strong>和<strong>执行环境重置</strong>。首先，执行器需要在执行重置前判断当前迭代是否结束（1. 重置时间选择）。在确认当前迭代执行结束后，执行器需要分别重置 PUT 的运行时状态（2.执行状态重置）及其对外部执行环境（如文件系统和数据库）的影响（3.执行环境重置）。下面我们将分别总结这三个关键步骤的现有工作进展。</p>
+<ol>
+<li>重置时间选择</li>
+</ol>
+<p><strong>过早重置可能导致目标仍在执行某些可能存在漏洞的任务时终止，而过晚重置则可能影响测试效率。</strong></p>
+<p>一种常见的方法是在重置执行前设置一个固定的时间间隔。例如，AFLNET [116] 允许用户手动配置重启 PUT 前的时间延迟。不过，这种方法的粒度相对较粗，很难确定合适的时间间隔。</p>
+<p>为了精确控制重置执行的时间，一些研究利用程序分析找到表明迭代执行结束的位置，并在这些代码位置终止目标程序。例如，AMPFuzz会执行静态分析，并向不包含消息发送 API 的代码分支注入终止命令。</p>
+<p>此外，为了提高性能，有些研究选择在每次模糊迭代后不执行执行重置。例如，Charon 利用程序状态推断模块来推断 PUT 完成处理数据包的时间点，从而检测特定输入的覆盖范围，并避免重复重启 PUT 以收集反馈。同样，SGFuzz也不会在每次迭代中重启 PUT。不过，它会进行后分析，以消除非确定性。具体来说，它会收集 PUT 已执行的所有输入，并将输入列表最小化为可触发错误的最小信息序列。</p>
+<ol>
+<li>执行状态重置</li>
+</ol>
+<p>执行状态复位负责将正在运行的 PUT 进程的上下文复位到指定状态，包括寄存器和内存中的数据等。现有的执行状态复位机制可分为三类，即<strong>基于消息的复位、进程重启和快照与恢复。</strong></p>
+<ul>
+<li><p>基于消息的复位通过发送特定类型的消息，迫使 PUT 终止正在进行的会话，并恢复到初始状态 。例如，在对 Wi-Fi 接入点（AP）进行模糊测试时，WiFuzz 使用去认证消息重置其状态。基于消息的重置很容易使用，但它只能支持有限的协议集，因为<strong>并非每个协议都设计有重置消息。</strong>此外，它<strong>只能重置 PUT 的显式协议状态，但测试目标的隐式状态（如全局变量和已分配但从未释放的内存）却不能用这种方法重置。</strong></p>
+</li>
+<li><p>另一种重置执行状态的常用方法是杀死目标进程并重新启动（在表 5 第 6 列中标记为 “ProcR”）[27, 46, 91]。然而，这对模糊测试来说是一个相对繁重的操作，因为<strong>程序的重启涉及多个昂贵的预处理步骤，如将程序加载到内存、动态链接等，导致效率低下。</strong></p>
+</li>
+<li><p>快照和恢复机制。这种方法是在特定的运行时状态下检查 PUT，然后在每次模糊迭代后将其重置回该检查点。这种方法可有效绕过重复执行资源密集型初始化操作，从而提高模糊处理效率。<strong>协议模糊尤其能从快照技术中获益匪浅</strong>。协议主要是有状态的，这意味着输入通常由多个前缀信息组成，在引入伪造信息之前，这些前缀信息会引导 PUT 进入指定状态。测试用例共享相同的前缀信息序列是很常见的，尤其是当特定状态需要反复探索时。在协议模糊处理过程中采用快照技术可以消除与解析这些共享数据包序列相关的冗余执行，从而显著提高模糊处理效率。当前协议模糊研究中采用的快照方法可大致分为两类：<strong>进程级快照</strong>和<strong>虚拟机级快照</strong>。</p>
+<ul>
+<li><p>进程级快照。进程级快照机制（在表 5 第 6 列中标记为 “PSR”）依靠操作系统提供的系统调用功能来实现其功能。一般来说，根据所使用的 API，现有方法可分为两类：基于 fork 和基于 ptrace。基于fork 的快照机制广泛应用于几种著名的通用模糊器，包括 AFL。具体来说，AFL 会在 PUT 程序二进制文件中插入一段 fork 服务器代码，该代码会在𝑚𝑎𝑖𝑛()函数之前执行。根据 AFL 模糊侧发出的信号，fork-server 通过fork () 函数生成一个子进程，该子进程继续执行 𝑚𝑎𝑖𝑛() 函数。由于 fork 服务器已经加载了各种资源，因此每个子进程只需执行主函数的代码，从而绕过了代价高昂的预处理步骤，提高了效率。</p>
+<p>此外，一些研究还扩展了 AFL 中原有的 forkserver 机制，允许在不同代码点进行有条件的多重初始化，使模糊器能方便地在协议的不同状态之间切换，从而提高模糊过程的效率 </p>
+<p>基于 ptrace 的快照机制，如 CRIU 和 DMTCP，利用调试 API 𝑝𝑡𝑟𝑎𝑐𝑒 () 来收集所有进程上下文信息，并将其保存为图像文件。在恢复过程中，这些快照机制会读取转储的镜像文件，并使用 𝑓𝑜𝑟𝑘 () 或 𝑐𝑙𝑜𝑛𝑒 () 等系统调用重新创建进程。与基于 fork 的快照不同，其需要在执行前预先确定快照条件（即 fork 服务器调用的位置），而基于 ptrace 的快照可以在运行时的任何状态进行检查点。</p>
+</li>
+<li><p>虚拟机级快照。利用虚拟机管理程序的功能，在特定时间点捕获整个虚拟机的快照，通常通过超级调用来实现。调用超级调用时，在虚拟机中运行的程序会退出虚拟机上下文，并将控制权转移到管理程序。虽然基于管理程序的方法对用户友好，不需要插桩，但<strong>由于其粒度较大，因此效率较低，而且更耗费空间</strong>。</p>
+<p>为了提高在协议模糊测试中使用虚拟机级快照的实用性，Nyx-net 采用了一种增量快照方法，以减少与创建和删除快照相关的开销。具体来说，Nyx-net 在原始状态下建立一个根快照，每次执行迭代都从这个根快照开始。在随后的模糊迭代中，Nyx-net 会在执行输入信息后根据根快照生成增量快照。因此，Nyx-net 在共享相同前缀信息序列的测试用例中性能大增。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><p>重置执行环境。</p>
+<p>重置执行环境主要涉及重置可能受 PUT 影响的文件系统或数据库。许多模糊器要求用户提供一个清理脚本，以还原所有更改 ，这就需要大量人工来分析 PUT 对外部环境的潜在影响。为解决这一问题，Snapfuzz 利用自定义内存文件系统，在模糊迭代完成后自动丢弃修改。此外，还有基于管理程序的快照机制。此外，基于管理程序的快照机制（表 5 第 7 列中的 VMSR）可以捕捉整个虚拟机的状态，同时重置执行状态和环境。</p>
+</li>
+</ol>
+<h3 id="5-2-Runtime-Information-Extraction"><a href="#5-2-Runtime-Information-Extraction" class="headerlink" title="5.2 Runtime Information Extraction"></a>5.2 Runtime Information Extraction</h3><p>主要可以分为三类：</p>
+<p><strong>硬件辅助方法</strong>（在表 5 第 9 列中标记为 “HA”）利用某些专用硬件设备固有的独特功能来收集运行时信息。Nyx-net就是这种方法的一个典型例子，它采用了英特尔处理器跟踪（Intel PT）技术。某些高端英特尔 CPU 独有的这一功能允许详细记录软件执行方面的信息，如控制流路径，从而全面收集深度覆盖信息。</p>
+<p><strong>基于软件的方法利用软件执行环境</strong>（如编译器、操作系统、虚拟机管理程序等）的能力来获取运行时信息。插桩是实现运行时信息提取最常用的方法，它在程序的特定代码点插入信息收集函数调用。程序插桩可以是静态的（在表 5 第 9 列中标记为 “SSI”），也可以是动态的（在表 5 第 9 列中标记为 “SDI”）。前者发生在 PUT 运行之前，可以在编译时执行或直接重写二进制。后者在 PUT 运行时进行，利用 DynamoRIO 或 Frida 等工具在特定代码点注入钩挂函数，收集运行时信息。</p>
+<p><strong>基于外部可观测行为</strong>是最通用的方法，因为它不依赖于执行环境的任何支持，可以黑箱方式使用。有多种外部可观测行为，如程序的输出（表 5 第 9 列中标为 “Resp”）以及功耗和响应时间等侧信道信息。这些基于可观察行为的方法背后的启发式原理是，这些行为的差异可以代表 PUT 处于不同的状态或经历了不同的执行路径</p>
+<blockquote>
+<p>AFLNET 和 Fieldfuzz 根据响应信息中的状态代码识别不同的协议状态。</p>
+<p>Snipuzz和 FUME 采用了一种启发式方法，即不同的响应信息意味着不同的执行路径。因此，它们将可能导致不同响应的输入作为种子，用于随后的突变测试，以期望提高覆盖率。</p>
+<p>Aafer 等人利用 Android 系统的执行日志作为反馈来完善输入生成语法，因为开发人员通常会添加日志语句来说明输入验证的详细信息。</p>
+<p>Flowfuzz 通过观察系统状态、功耗和响应时间等侧信道信息，确定硬件开关是否经过了不同的执行路径。</p>
+</blockquote>
+<h2 id="6-BUG-COLLECTOR"><a href="#6-BUG-COLLECTOR" class="headerlink" title="6 BUG COLLECTOR"></a>6 BUG COLLECTOR</h2><p>根据不同的信息源分为<strong>memory-safety bug oracles and non-memory-safety bug oracles</strong></p>
+<h3 id="6-1-Memory-Safety-Bug-Oracles"><a href="#6-1-Memory-Safety-Bug-Oracles" class="headerlink" title="6.1 Memory-Safety Bug Oracles"></a>6.1 Memory-Safety Bug Oracles</h3><p>内存安全漏洞包括堆栈溢出、堆溢出、自由使用（UAF）等，这些漏洞可能导致程序崩溃。现有技术大多通过不同渠道观察其运行状态，以判断是否触发了内存安全漏洞。从信息源的角度来看，常用的内存安全漏洞检测媒介有五种，即fatal signals和sanitizers、崩溃日志和调试信息、错误信号信息、超时和有效性检查以及异常物理行为。</p>
+<h4 id="6-1-1-Fatal-Signals-and-Sanitizers"><a href="#6-1-1-Fatal-Signals-and-Sanitizers" class="headerlink" title="6.1.1  Fatal Signals and Sanitizers"></a>6.1.1  Fatal Signals and Sanitizers</h4><p>Fatal Signals and Sanitizers”被广泛用作错误检测的关键机制</p>
+<p>内存安全漏洞主要表现为以无效值覆盖数据或代码指针，导致关键进程中断，如分段故障或进程终止，从而产生 SIGSEGV、SIGABRT 等致命信号。</p>
+<p>模糊器可以通过检查 PUT 进程是否因这些信号而死亡来检测故障。针对不会立即导致程序崩溃的内存安全漏洞子集，Fuzzers 使用了 sanitizers。sanitizers 是一种错误检测工具，专门用于识别和突出不安全或不理想的内存访问模式。一旦发现此类异常情况， sanitizers 就会终止 PUT，从而提示潜在漏洞的存在。sanitizers 可在编译时启用，也可在运行时动态启用。</p>
+<h4 id="6-1-2-Crash-Logs-and-Debug-Information"><a href="#6-1-2-Crash-Logs-and-Debug-Information" class="headerlink" title="6.1.2 Crash Logs and Debug Information"></a>6.1.2 Crash Logs and Debug Information</h4><p>一些研究通过分析系统日志或调试信息来确定 PUT 是否崩溃。这些系统日志和调试信息可以通过各种渠道获取。具体来说，<strong>ICS3Fuzzer 利用 Windows 事件日志服务检测 Windows 系统的崩溃事件</strong>。Swentooth 和 Braktooth 建议利用各自蓝牙开发板暴露的调试端口收集系统日志中的启动信息或崩溃信息。启动信息是程序崩溃的一个指标，因为蓝牙设备有一个看门狗程序，当发现蓝牙 SoC 无反应时会重置它。Wang 等人利用 NLP 技术处理日志，检测 PUT 的意外行为。不同的是，L2Fuzz 和 FieldFuzz 通过检查<strong>是否生成了崩溃转储来识别崩溃</strong>。</p>
+<h4 id="6-1-3-Error-Signaling-Messages"><a href="#6-1-3-Error-Signaling-Messages" class="headerlink" title="6.1.3  Error-Signaling Messages"></a>6.1.3  Error-Signaling Messages</h4><p>许多协议使用特殊响应或状态代码来指示内部错误，因此可用于漏洞检测。例如，L2Fuzz 通过检查接收到的数据包是否包含错误信号信息（如连接失败、连接中止、连接重置和连接拒绝）来检测蓝牙 L2CAP 漏洞。这些错误信息表明 PUT 可能会崩溃。在模糊 Wi-Fi 协议栈时，OWFuzz 使用 Deauth/Disassoc 帧（Wi-Fi 协议终止通信的管理帧）作为异常指标。</p>
+<h4 id="6-1-4-Abnormal-Physical-Behaviors"><a href="#6-1-4-Abnormal-Physical-Behaviors" class="headerlink" title="6.1.4 Abnormal Physical Behaviors"></a>6.1.4 Abnormal Physical Behaviors</h4><p>目标设备的异常物理行为（如启动声音）也可用作错误预兆。例如，在对蓝牙声音设备进行模糊测试时，Braktooth 将<strong>重复的启动声音事件用作错误指示器</strong> 。这是因为蓝牙设备在发生错误时会被看门狗程序重启，启动过程中会播放启动声音。不同的是，PCFuzzer 利用示波器收集输出模块的物理信号，以监控目标的状态。</p>
+<h4 id="6-1-5-Timeout-and-Liveness-Checks"><a href="#6-1-5-Timeout-and-Liveness-Checks" class="headerlink" title="6.1.5 Timeout and Liveness Checks."></a>6.1.5 Timeout and Liveness Checks.</h4><p>由于大多数内存安全漏洞都会导致进程崩溃，模糊器可以通过有效性检测来发现这些漏洞。检查目标进程有效性的常见方法是为响应设置静态超时时间。如果在超时后仍未收到来自目标的响应信息，则判定目标进程已死亡。这种方法适用于调试技术有限的环境，例如无法获取进程信号或调试日志。不过，<strong>设置固定超时是一种相对粗粒度的方法</strong>，可能会因网络波动或目标负载过大而产生误报。一些研究提出了几种主动有效性检查方法来缓解误报问题。例如，Snipuzz 会多次重新发送输入序列，以减少误报。IoTFuzzer 、OWFuzz 和 BadMesher 使用心跳消息（如 ICMP 消息）来推断 PUT 的状态。</p>
+<img src="/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/image-20240918105907722.png" class title="image-20240918105907722">
+<h3 id="6-2-Non-Memory-Safety-Bug-Oracles"><a href="#6-2-Non-Memory-Safety-Bug-Oracles" class="headerlink" title="6.2 Non-Memory-Safety Bug Oracles"></a>6.2 Non-Memory-Safety Bug Oracles</h3><p>非内存安全错误是由非内存访问原因导致的错误，它们违反了某些预期属性，如逻辑错误、违反 RFC 或影响性能的错误。</p>
+<p>由于非内存安全漏洞没有统一的可观察行为，因此很难识别。检测非内存安全漏洞通常需要用户根据目标破坏的属性来定义oracle。根据所检查的属性，这些oracle 可大致分为四类，即<strong>不正确的消息内容</strong>和<strong>状态转换</strong>、<strong>传输中的不一致性</strong>、<strong>异常的性能指标</strong>和<strong>执行中的差异</strong>。</p>
+<p>虽然有多种方法可以识别可能存在的非内存安全漏洞，但这些方法大多只能报告 PUT 的可疑行为，仍需要专家手动验证以确定其影响和可利用性。</p>
+<h4 id="6-2-1-Incorrect-Message-Content-amp-State-Transitions"><a href="#6-2-1-Incorrect-Message-Content-amp-State-Transitions" class="headerlink" title="6.2.1  Incorrect Message Content &amp; State Transitions"></a>6.2.1  Incorrect Message Content &amp; State Transitions</h4><p><strong>不正确的信息内容会检查响应的内容是否违反了某些语义限制。不正确的状态转换验证状态转换是否有效或允许。</strong></p>
+<p>在大多数情况下，这些规则是从协议规范中提取的，或者是利用专家知识设计的。这些规则有多种形式，如典型状态机、线性时态属性、响应信息约束等。例如，Beurdouche 等人根据规范手动构建了一个标准状态机，然后使用该状态机作为基本事实来识别 PUT 的异常行为。</p>
+<blockquote>
+<p>利用这种方法，在 TLS 实现 JSSE中发现了一个逻辑错误。这一漏洞允许攻击者绕过所有与密钥交换和身份验证有关的信息，从而启动未加密的通信。</p>
+<p>LTL-Fuzzer 给定了协议实现需要满足的线性时间时间逻辑属性，利用定向灰盒模糊（greybox fuzzing）将模糊引向可能影响该属性的特定位置，并在每次执行迭代中检查该属性是否成立。</p>
+<p>此外，Sweyntooth 和 Greyhound  检查收到的响应数据包是否符合当前协议状态的预期类型集。任何不匹配的信息类型都会被标记为异常。</p>
+<p>Loki从 PBFT 共识协议论文中提取规则，用作检测区块链实现中的非内存安全漏洞的谕令。例如，Loki 发现了 Hyperledger Fabric 中的一个漏洞，该漏洞可用于确认非法交易。</p>
+</blockquote>
+<h4 id="6-2-2-Message-Inconsistency-in-Transmission"><a href="#6-2-2-Message-Inconsistency-in-Transmission" class="headerlink" title="6.2.2 Message Inconsistency in Transmission."></a>6.2.2 Message Inconsistency in Transmission.</h4><p>有些工作会检查是否存在会导致协议完整性破坏的非内存安全漏洞。具体来说，由于正确的数据传输是 TCP 协议的基本属性之一，TCP-Fuzz 在发送方和接收方都设计了一个数据检查器来检查是否违反了这一属性。每当发送或接收信息时，数据检查器都会检查发送的信息和接收的信息是否相同。</p>
+<h4 id="6-2-3-Abnormal-Performance-Indicators"><a href="#6-2-3-Abnormal-Performance-Indicators" class="headerlink" title="6.2.3 Abnormal Performance Indicators."></a>6.2.3 Abnormal Performance Indicators.</h4><p>有些工作旨在找到能影响 PUT 性能的网络攻击策略，这些作品通过监测 PUT 的某些性能指标是否超出正常范围来判断攻击策略的有效性。</p>
+<blockquote>
+<p>例如，为了找到 UDP 服务中的放大 DDoS 攻击策略，AMPFuzz使用每个请求和响应对的带宽放大系数（BAF）（即所有响应报文长度之和与攻击请求长度之比）作为指标，以找到能最大限度消耗吞吐量的报文。</p>
+<p>TCPWN和ABBrate旨在通过模型引导的方法，找到针对TCP拥塞控制实现的攻击策略，从而增加或减少拥塞窗口。为了检测输入是否确实影响了拥塞控制机制，TCPWN 从系统日志中获取窗口大小，并将其与预期基线进行比较。</p>
+</blockquote>
+<h4 id="6-2-4-Differences-in-Execution"><a href="#6-2-4-Differences-in-Execution" class="headerlink" title="6.2.4 Differences in Execution"></a>6.2.4 Differences in Execution</h4><p><strong>差异测试包括比较同一协议的不同实现的执行行为，以调查潜在的安全影响。</strong>这种方法独立于代码检测，因此具有可扩展性。</p>
+<blockquote>
+<p>TCP-Fuzz 通过对比多个 TCP 实现的输出来识别差异。</p>
+<p>Yang等人利用差异测试发现了以太坊中可能导致分叉攻击的共识漏洞。他们生成一系列交易作为输入，并观察两个以太坊客户端的响应，这两个客户端分别用 Golang 和 Rust 实现。然而，该领域的一个重大挑战是确定哪种实现偏离了协议的预期行为，以及确定观察到的行为差异是否源于协议 RFC 中的错误或规范不足。因此，大多数采用差异测试的工作都整合了后续的人工检查阶段，以区分实际漏洞和无害差异。</p>
+</blockquote>
+<p>为了提高错误查找效率，一些研究将 PUT 与已经过良好测试或正式验证的实现（称为 “参考堆栈”）进行比较。例如，TCP-Fuzz 采用经典的、经过广泛测试的内核级 TCP 栈（如 Linux TCP 或 FreeBSD TCP）作为测试较新 TCP 栈的参考。在这种情况下，如果报告出现不一致，则强烈暗示较新的协议实现中存在错误。这种方法不仅能识别差异，还能为评估各种协议实现的正确性提供一个框架。</p>
+<h4 id="6-2-5-Timeout-and-Liveness-Checks"><a href="#6-2-5-Timeout-and-Liveness-Checks" class="headerlink" title="6.2.5 Timeout and Liveness Checks."></a>6.2.5 Timeout and Liveness Checks.</h4><p>与6.1.5类似</p>
+<h2 id="7-DIRECTIONS-OF-FUTURE-RESEARCH"><a href="#7-DIRECTIONS-OF-FUTURE-RESEARCH" class="headerlink" title="7 DIRECTIONS OF FUTURE RESEARCH"></a>7 DIRECTIONS OF FUTURE RESEARCH</h2><h3 id="7-1-Towards-Perfect-Communication-Model-Construction"><a href="#7-1-Towards-Perfect-Communication-Model-Construction" class="headerlink" title="7.1 Towards Perfect Communication Model Construction"></a>7.1 Towards Perfect Communication Model Construction</h3><p>目前构建传播模型的方法远非完美，往往会导致知识获取不完整或不准确，或者需要大量的人工操作。具体来说，如第 4 节所述，构建通信模型的现有方法可大致分为自上而下和自下而上两种方法。自下而上的方法是为了学习特定协议实现的通信模型[15, 39, 46, 48, 90, 106, 116, 120, 148, 162, 181]，而不是协议本身的典型通信模型。然而，就自上而下的方法而言，大多数现有研究仍严重依赖人工从协议规范中构建状态机[18, 55, 56, 63, 69, 70, 77, 113, 115, 128, 130, 138, 142, 187]。这种人工构建不仅耗费大量人力，而且容易出错。</p>
+<p>现有研究[71, 111]已开始探索使用 NLP 技术从协议规范中自动提取部分 FSM。这一探索初步验证了自动提取协议通信模型的可行性。然而，由于协议规范中存在含糊不清和未指定的行为，这种方法目前还无法从协议规范中提取典型的通信模型，因此无法在文本和通信模型之间实现完全的一一对应转换。</p>
+<p>为了解决这个问题，可以探索基于机器学习模型的方法来更好地构建模型。考虑到 LLM（大型语言模型）[29] 最近取得的显著进展，一个有前途的方向是开发基于 LLM 的解决方案，以更精确地构建模型。另一个可能的方向是结合其他信息源（如协议实现的代码、开发过程中的代码提交或注释信息、程序分析结果等）来帮助更好地理解规范内容。</p>
+<h3 id="7-2-Towards-Multi-Dimension-Testing-Perspectives"><a href="#7-2-Towards-Multi-Dimension-Testing-Perspectives" class="headerlink" title="7.2 Towards Multi-Dimension Testing Perspectives"></a>7.2 Towards Multi-Dimension Testing Perspectives</h3><p>现有研究更多地侧重于改变数据包的内容或数据包序列的顺序。这种方法虽然在一定程度上有效，但却忽视了协议具有多维测试视角的事实，例如第 3.1 节中强调的消息延迟[68]、缓存状态[73]、配置[37, 180]和并发水平[75]等变量。这些属性对决定目标系统的行为起着至关重要的作用。为了在协议实现中有效地测试这些属性，有必要创建能准确表示每个属性的详细模型，包括消息延迟、缓存状态、配置参数和并发水平。此外，还可以设计特定的通告和突变器，以评估协议行为在包含这些多维方面的各种情况下的正确性。这个方向非常有趣，有助于对协议的弹性和鲁棒性进行更全面的评估。</p>
+<h3 id="7-3-Fuzzing-Characterized-Protocol-Targets"><a href="#7-3-Fuzzing-Characterized-Protocol-Targets" class="headerlink" title="7.3 Fuzzing Characterized Protocol Targets"></a>7.3 Fuzzing Characterized Protocol Targets</h3><p>未来的一个重要且探索不足的研究方向是对特征协议目标进行模糊处理。目前的研究还没有全面覆盖各种协议，特别是那些具有明显特征和重要性的协议。以下三个领域尤其值得注意：</p>
+<ol>
+<li><strong>Domain-Specific Protocols</strong>. 专有领域协议，如卫星通信 [153]、无人驾驶飞行器 (UAV) 通信 [61] 和机器人操作系统 (ROS) [108] 中使用的协议，通常具有较高的知识门槛和相对封闭的性质。这些协议在许多基础设施中发挥着重要作用，因此其安全性研究至关重要。目前，针对这些协议的模糊研究相对较少，这为学术界通过开发新的模糊技术和工具来提高测试效率和安全性提供了机会。</li>
+<li>硬件实现的协议。另一个方向是硬件协议，即设计模糊器来测试在 FPGA 等硬件上实现的协议。与软件层面相比，这些硬件实现往往表现出不同的错误特征，因此有必要开发新的方法，以便更有效地识别和利用潜在漏洞。</li>
+<li>多方协议。协议模糊的另一个可能方向是支持多方协议。一般来说，协议有多种通信模式，如点对点模式[69, 115, 159]、服务器-客户端（主从）模式[27, 46, 158]和多方模式[149]。现有的协议模糊器更侧重于前两种模式，即作为客户端/服务器测试另一种模式 [27, 46, 158]，或作为对等节点测试 PUT [69, 115, 159]。多方协议尚未研究。例如，在区块链网络中，节点可以扮演计算节点、共识节点或管理节点的角色 [10]，每个节点负责不同的任务。智能合约协议的正确执行需要这些角色的合作。如何高效地测试这些多方协议是一个有趣但具有挑战性的问题。</li>
+</ol>
+<h3 id="7-4-Combining-with-Other-Vulnerability-Finding-Techniques"><a href="#7-4-Combining-with-Other-Vulnerability-Finding-Techniques" class="headerlink" title="7.4 Combining with Other Vulnerability-Finding Techniques"></a>7.4 Combining with Other Vulnerability-Finding Techniques</h3><p>除了模糊测试，还有大量漏洞查找技术，如符号执行 [11, 26, 132, 144, 150, 151] 和模型检查 [25, 59, 65, 74, 104]。虽然这些技术与模糊技术的结合已在一般情况下进行了探索 [147, 173]，但它们在协议模糊中的应用仍相对欠缺 [144]。这为未来的研究指明了方向，特别是考虑到这种组合方法仍然面临着协议中定义的复杂通信的独特测试挑战。直观地说，未来的研究可以改进现有的漏洞查找技术，以更好地应对协议特有的挑战。此外，许多协议都有高质量的学习资源，如详细的规范。未来的研究可以探索有效利用这些宝贵资源的方法，为综合方法提供信息并加以改进。</p>
+<h3 id="7-5-Shift-Left-Protocol-Fuzzing"><a href="#7-5-Shift-Left-Protocol-Fuzzing" class="headerlink" title="7.5 Shift-Left Protocol Fuzzing"></a>7.5 Shift-Left Protocol Fuzzing</h3><p>尽管有一些研究工作侧重于将通用模糊技术整合到开发周期中，例如libFuzzer、OSS-Fuzz等工具，以及在CI/CD集成测试中进行模糊测试的研究[123]，但很少有研究专门致力于弥合协议模糊测试与开发流程之间的差距。协议模糊有别于一般的软件模糊；<strong>它需要严格测试允许不同软件系统和组件之间进行通信和数据交换的各种协议</strong>。与一般软件相比，协议目标的开发工作流程通常更为复杂。这种复杂性源于它们需要精确地遵循既定的标准和规范，以确保不同系统之间的互操作性，从而给集成和测试带来独特的挑战。要应对这些挑战，就必须采用量身定制的模糊测试方法，以了解和适应协议开发的复杂性。因此，我们需要一种左移式的协议模糊测试方法，在软件开发生命周期的早期阶段整合特定协议的模糊测试技术。这可能涉及从开发人员的角度探索设计技术，必要时还可以考虑 HCI（人机交互）[23] 技术。这样做可以在更早的阶段发现漏洞和问题，从而更容易、更经济高效地解决这些问题，确保为协议实施提供更稳健、更安全的软件生态系统。</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p><a href="http://curator-kim.github.io/2024/09/18/A Survey of Protocol Fuzzing/">http://curator-kim.github.io/2024/09/18/A Survey of Protocol Fuzzing/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><a href="http://Curator-Kim.github.io"><p>Curator-Kim</p></a></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2024-09-18</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2024-09-18</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="recommend-area"><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># Related Post</span><br><span>  1.<a class="is-size-6" href="/2024/09/18/awesome-chatgpt-prompts/" target="_blank"> </a><br></span><span>  2.<a class="is-size-6" href="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/" target="_blank"> </a><br></span><span>  3.<a class="is-size-6" href="/2024/02/21/010editor%20%E7%A0%B4%E8%A7%A3%E8%AE%B0%E5%BD%95/" target="_blank"> </a><br></span><span>  4.<a class="is-size-6" href="/2024/02/07/L3HCTF%202024/" target="_blank"> </a><br></span><span>  5.<a class="is-size-6" href="/2024/01/21/%E9%99%87%E5%89%91%E6%9D%AF%202023%20Writeup/" target="_blank"> </a><br></span><span>  6.<a class="is-size-6" href="/2024/01/21/%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95%E6%8A%80%E6%9C%AF%E7%BB%BC%E8%BF%B0/" target="_blank"> </a><br></span><span>  7.<a class="is-size-6" href="/2024/01/21/Universal%20Fuzzing%20via%20Large%20Language%20Models/" target="_blank"> </a><br></span><span>  8.<a class="is-size-6" href="/2024/01/21/Skyfire%20Data-Driven%20Seed%20Generation%20for%20Fuzzing/" target="_blank"> </a><br></span></div></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/css/share.min.css"><div class="social-share"></div><script src="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">Like this article? Support the author with</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>Alipay</span><span class="qrcode"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/alipay.png?raw=true" alt="Alipay"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>Wechat</span><span class="qrcode"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/wechat.png?raw=true" alt="Wechat"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/"><i class="level-item fas fa-chevron-left"></i><span class="level-item"> </span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/02/21/010editor%20%E7%A0%B4%E8%A7%A3%E8%AE%B0%E5%BD%95/"><span class="level-item"> </span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--><div class="card"><div class="card-content"><div class="title is-5">Comments</div><div id="comment-container"></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/gitalk/1.6.0/gitalk.css"><script> $.getScript('/js/gitalk.min.js', function () { 
+            var gitalk = new Gitalk({
+            language:'zh-CN',
+            id: 'd41d8cd98f00b204e9800998ecf8427e',
+            repo: 'blog_comment',
+            owner: 'Curator-Kim',
+            clientID: '46a9f3481b46ea0129d8',
+            clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+            admin: ["Curator-Kim"],
+            createIssueManually: true,
+            distractionFreeMode: false,
+            perPage: 10,
+            pagerDirection: 'last',
+            proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
+            
+            enableHotKey: true,
+            isLocked: false
+        })
+        gitalk.render('comment-container')});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><!--!--><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/22a41709ffc26f62191d72a87ffbb342d46bfce3/img/icon.jpg?raw=true" alt="Curator-Kim"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Curator-Kim</p><p class="is-size-6 is-block">寻几处好景破星光</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>火星</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">57</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">15</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/curator-kim"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="/804242129@qq.com"><i class="fa fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div><div><hr><p id="hitokoto">:D 一言句子获取中...</p><script type="text/javascript" defer>function getYiyan(){
+                                $.getJSON("https://v1.hitokoto.cn/", function (data) {
+                                if(data){
+                                    $('#hitokoto').html("");
+                                    $('#hitokoto').append("<strong style='color: #3273dc;'>"+data.hitokoto+"</strong>"+
+                                    "<p>"+"From《"+data.from+"》</p><p>Provider-"+data.creator+"</p>");
+                                }});}
+                                $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});</script></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><!--!--><div class="card widget"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-18T07:01:03.174Z">2024-09-18</time></p><p class="title"><a href="/2024/09/18/awesome-chatgpt-prompts/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-18T06:59:04.582Z">2024-09-18</time></p><p class="title"><a href="/2024/09/18/SoK%20Security%20of%20Programmable%20Logic%20Controllers/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-18T06:58:24.805Z">2024-09-18</time></p><p class="title"><a href="/2024/09/18/A%20Survey%20of%20Protocol%20Fuzzing/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-21T11:54:21.947Z">2024-02-21</time></p><p class="title"><a href="/2024/02/21/010editor%20%E7%A0%B4%E8%A7%A3%E8%AE%B0%E5%BD%95/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-02-07T11:25:11.851Z">2024-02-07</time></p><p class="title"><a href="/2024/02/07/L3HCTF%202024/"> </a></p></div></article></div></div><!--!--><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2024/09/"><span class="level-start"><span class="level-item">September 2024</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2024/02/"><span class="level-start"><span class="level-item">February 2024</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2024/01/"><span class="level-start"><span class="level-item">January 2024</span></span><span class="level-end"><span class="level-item tag">15</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2023/08/"><span class="level-start"><span class="level-item">August 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2023/07/"><span class="level-start"><span class="level-item">July 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><a class="level is-mobile is-marginless" href="/archives/"><span class="level-start"><span class="level-item">查看全部&gt;&gt;</span></span></a></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/CTF/"><span class="tag">CTF</span><span class="tag is-grey-lightest">15</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"><span class="tag">汇编语言</span><span class="tag is-grey-lightest">12</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Crypto/"><span class="tag">Crypto</span><span class="tag is-grey-lightest">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ctf/"><span class="tag">ctf</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/pwn/"><span class="tag">pwn</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CopperSmith/"><span class="tag">CopperSmith</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/DES/"><span class="tag">DES</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/HWS/"><span class="tag">HWS</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/NTRU/"><span class="tag">NTRU</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/RE/"><span class="tag">RE</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Reverse/"><span class="tag">Reverse</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/angr/"><span class="tag">angr</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86/"><span class="tag">加密与解密</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"><span class="tag">论文阅读</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/"><span class="tag">预备知识</span><span class="tag is-grey-lightest">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><!--!--><div class="column-right-shadow is-hidden-widescreen"></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://github.com/Curator-Kim/Curator-Kim.github.io/blob/master/img/logo.png?raw=true" alt="Curator-Kim的小站" height="28"></a><p class="size-small"><span>&copy; 2024 Curator-Kim</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> &amp; <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span>© <a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备88888888号-8（测试）</a><br></span><span>© 版权说明：[本网站所有内容均收集于互联网或自己创作,<br />&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="/message" target="_blank">留言</a>，立即处理]<br /></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "❤️Site from <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> has existed <strong>" + dnum + "</strong> d <strong>" + hnum + "</strong> h <strong>" + mnum + "</strong> m <strong>" + snum + "</strong> s！❤️";
+        }var now = new Date();setInterval("createTime('2022/1/21 00:00:00')", 250,"");</script><br></span><div class="size-small"><span>❤️Thx <strong><span id="busuanzi_value_site_uv">99+</span></strong> users <strong><span id="busuanzi_value_site_pv">99+</span></strong> visited！❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a></p></div><div class="sideMusic"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="/js/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script><meting-js style="width: auto;height: 2000px;" server="netease" type="playlist" id="137510737" theme="#2980b9" loop="all" autoplay="false" order="list" storageName="aplayer-setting" lrctype="0" list-max-height="400px" fixed="true"></meting-js></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><script src="/js/main.js" defer></script><script>$.getScript('/js/comment-issue-data.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','Curator-Kim','blog_comment',false);})</script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
+
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
+
+        function loadMathJax() { //加载mathjax
+            $.getScript("//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", function () {
+                MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\(', '\)']] } });
+                var math = document.getElementsByClassName("entry-content")[0];
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);
+            });
+        };
+
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
+        
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(false){
+                $.getScript('/js/comment-issue-data.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','Curator-Kim','blog_comment',false);});
+            }
+            if(false){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script></body></html>
